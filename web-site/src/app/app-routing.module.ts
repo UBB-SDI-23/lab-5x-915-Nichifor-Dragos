@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes, PreloadAllModules } from "@angular/router";
 
+import { MainPageComponent } from "./components/main-page/main-page.component";
 import { RaceComponent } from "./components/race/race.component";
 import { PilotComponent } from "./components/pilot/pilot.component";
 import { CarComponent } from "./components/car/car.component";
@@ -9,6 +10,10 @@ const routes: Routes = [
 {
   path: '',
   children: [
+    {
+      path:'',
+      component: MainPageComponent
+    },
     {
         path: 'race-component',
         component: RaceComponent,
