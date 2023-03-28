@@ -8,38 +8,39 @@ import { CarComponent } from "./components/car/car.component";
 const routes: Routes = [
 {
   path: '',
-        children: [
-            {
-                path: 'race-component',
-                component: RaceComponent,
-                data: {
-                    title: "Check out our races",
-                    breadcrumb: "Check out our races"
-                }
-            },
-      {
-          path: 'pilot-component',
-          component: PilotComponent,
+  children: [
+    {
+        path: 'race-component',
+        component: RaceComponent,
         data: {
-            title: "Check out our pilots",
-            breadcrumb: "Check out our pilots"
+            title: "Check out our races",
+            breadcrumb: "Check out our races"
         }
-      },
-      {
-          path: 'car-component',
-          component: CarComponent,
-        data: { 
-            title: "Check out our pilots",
-            breadcrumb: "Check out our cars"
-        }
+    },
+    {
+        path: 'pilot-component',
+        component: PilotComponent,
+        data: {
+         	title: "Check out our pilots",
+          	breadcrumb: "Check out our pilots"
       }
+    },
+    {
+        path: 'car-component',
+        component: CarComponent,
+        data: { 
+          	title: "Check out our pilots",
+          	breadcrumb: "Check out our cars"
+      }
+    }
     ]
 }
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
