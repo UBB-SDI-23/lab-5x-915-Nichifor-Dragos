@@ -9,6 +9,10 @@ import { RaceComponent } from './components/race/race.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { RaceService } from './core/service/race.service';
+import { CarService } from './core/service/car.service';
+import { PilotService } from './core/service/pilot.service';
 
 @NgModule({
   declarations: [
@@ -22,9 +26,14 @@ import { FooterComponent } from './shared/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    RaceService,
+    CarService,
+    PilotService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
