@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
+
+  constructor(
+    private router: Router
+) {}
+
+getHeaderStyle() {
+  if (this.router.url == '/')
+    return 'main-page-footer';
+  else
+    return 'bg-dark';
+}
 
 }
