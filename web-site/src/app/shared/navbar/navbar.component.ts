@@ -8,15 +8,29 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-constructor(
-    private router: Router
-) {}
+  constructor(
+      private router: Router
+  ) {}
 
-getHeaderStyle() {
-  if (this.router.url == '/')
-    return 'main-page-nav';
-  else
-    return 'bg-dark';
-}
+  getHeaderStyle() {
+    if (this.router.url == '/')
+      return 'main-page-nav';
+    else
+      return 'bg-dark';
+  }
+
+  getLinkStyle() {
+    if (this.router.url == '/')
+      return 'main-page-link';
+    else
+      return '';
+  }
+
+  getDropdownStyle() {
+    if (this.router.url == '/')
+      return 'main-dropdown-menu';
+    else
+      return '';
+  }
 
 }
