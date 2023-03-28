@@ -23,6 +23,10 @@ export class RaceComponent {
       this.listRaces();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+}
+
   listRaces(): void {
     this.subscriptions.push(this.raceService.listRaces().subscribe(races => {
       this.races = races;

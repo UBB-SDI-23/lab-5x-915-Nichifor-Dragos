@@ -24,6 +24,10 @@ export class CarComponent {
       this.listCars();
     }
 
+    ngOnDestroy(): void {
+      this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
     listCars() {
       this.subscriptions.push(this.carService.listRaces().subscribe(cars => {
         this.cars = cars

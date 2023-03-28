@@ -24,6 +24,10 @@ export class PilotComponent {
     this.listPilots();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+}
+
   listPilots() : void {
     this.subscriptions.push(this.pilotService.listRaces().subscribe(pilots => {
       this.pilots = pilots;
