@@ -1,5 +1,7 @@
-<p>pilot works!</p>
 
-<div *ngFor="let pilot of pilots">
-    {{ pilot.firstName }} {{ pilot.lastName }}
+<div class="container p-5 m-2">
+    <h1 class="mb-4">All pilots</h1>
+    <div class="card" *ngFor="let pilot of pilots">
+        <div class="card-body">{{ pilot.firstName }} {{ pilot.lastName }}</div>
+    </div>
 </div>

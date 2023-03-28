@@ -1,5 +1,6 @@
-<p>race works!</p>
-
-<div *ngFor="let race of races" >
-    <p> {{ race.name }} </p>
+<div class="container p-5 m-2">
+    <h1 class="mb-4">All races</h1>
+    <div class="card" *ngFor="let race of races" >
+        <div class="card-body"> {{ race.name }} </div>
+    </div>
 </div>
