@@ -1,0 +1,15 @@
+
+  .wrapper:after {
+    content: "";
+    display: block;
+  }
+  .footer, .wrapper:after {
+    height: 142px; 
+  }
+  
+  .wrapper {
+    overflow: scroll;
+    height: 100%;
+    min-height: 100%;
+    margin-bottom: -142px; 
+  }
