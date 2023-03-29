@@ -13,6 +13,8 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { RaceService } from './core/service/race.service';
 import { CarService } from './core/service/car.service';
 import { PilotService } from './core/service/pilot.service';
+import { RaceUpdateComponent } from './components/race/race-update/race-update.component';
+import { RaceAddComponent } from './components/race/race-add/race-add.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { PilotService } from './core/service/pilot.service';
     MainPageComponent,
     NavbarComponent,
     FooterComponent,
+    RaceUpdateComponent,
+    RaceAddComponent,
   ],
   imports: [
     BrowserModule,
