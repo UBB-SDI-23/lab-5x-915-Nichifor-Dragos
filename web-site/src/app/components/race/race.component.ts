@@ -32,4 +32,13 @@ export class RaceComponent {
       this.races = races;
     }, error => console.log('Something went wrong ' + error)))
   }
+
+  onUpdateRace(id: number) {
+    console.log("update")
+  }
+
+  onDeleteRace(id: number) {
+    console.log("delete")
+  }
+
 }

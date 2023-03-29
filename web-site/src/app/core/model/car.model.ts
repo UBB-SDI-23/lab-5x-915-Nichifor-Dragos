@@ -3,6 +3,7 @@ export interface Car {
     brand: string;
     motorization: string;
     gearBox: string;
-    cylingdricalCapacity: number;
+    cylindricalCapacity: number;
     horsePower: number;
+    pilotID: number;
 }

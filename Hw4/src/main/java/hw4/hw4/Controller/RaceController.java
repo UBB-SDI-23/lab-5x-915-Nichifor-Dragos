@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "", allowedHeaders = "")
+@CrossOrigin
 @RestController
 // indicates that the data returned by each method will be written straight into the response body instead of rendering a template.
 @RequestMapping("/api")

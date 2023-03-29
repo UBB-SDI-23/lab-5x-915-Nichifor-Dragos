@@ -1,3 +1,18 @@
-.navbar-black {
-    background-color: black;
+.dropdown-button-with-svg {
+    background-color: transparent;
+    border: 0;
+}
+
+.dropdown-button-with-svg:hover {
+    background-color: transparent;
+    border: 0;
+}
+
+.settings-svg {
+    height: 1rem;
+    width: 1rem;
+}
+
+.card-separator{
+    color: white
 }

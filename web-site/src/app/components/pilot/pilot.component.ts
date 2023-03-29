@@ -34,4 +34,12 @@ export class PilotComponent {
     }, error => console.log("Something went wrong " + error)))
   }
 
+  onUpdatePilot(id: number) {
+    console.log("update")
+  }
+
+  onDeletePilot(id: number) {
+    console.log("delete")
+  }
+
 }

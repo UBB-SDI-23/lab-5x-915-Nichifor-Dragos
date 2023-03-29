@@ -33,4 +33,12 @@ export class CarComponent {
         this.cars = cars
       }, error => console.log("Something went wrong " + error)))
     }
+
+    onUpdateCar(id: number) {
+      console.log("update")
+    }
+
+    onDeleteCar(id: number) {
+      console.log("delete")
+    }
 }
