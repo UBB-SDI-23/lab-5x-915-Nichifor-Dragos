@@ -42,4 +42,8 @@ export class RaceComponent implements OnInit, OnDestroy{
     this.listRaces();
   }
 
+  onAddRace() {
+    this.router.navigateByUrl("race-add-component")
+  }
+
 }
