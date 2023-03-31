@@ -11,7 +11,7 @@ import { RaceService } from 'src/app/core/service/race.service';
 export class RaceAddComponent {
 
   submitted = false;
-
+  
   constructor(
     private raceService: RaceService,
     private router: Router
