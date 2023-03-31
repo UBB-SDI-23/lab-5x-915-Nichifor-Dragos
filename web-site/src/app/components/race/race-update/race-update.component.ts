@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RaceAddUpdate, RaceOne } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
 
@@ -18,7 +18,8 @@ export class RaceUpdateComponent implements OnInit {
 
   constructor(
     private raceService: RaceService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,8 +31,6 @@ export class RaceUpdateComponent implements OnInit {
     });
   }
 
-  resetForm() {}
-
   onSubmit() { 
     this.submitted = true; 
     if (this.race)
@@ -39,6 +38,10 @@ export class RaceUpdateComponent implements OnInit {
       this.raceUpdateDTO = new RaceAddUpdate(this.race.name, this.race.country, this.race.numberOfLaps, this.race.lapLength, this.race.date)
       this.raceService.updateRace(this.raceUpdateDTO, this.race.id)
     }
+  }
+
+  onBackToRacePage() {
+    this.router.navigateByUrl("race-component")
   }
 
 }

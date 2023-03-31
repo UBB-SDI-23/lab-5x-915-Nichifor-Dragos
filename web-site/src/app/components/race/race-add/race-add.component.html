@@ -1,6 +1,6 @@
 <div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center">
     <div [hidden]="submitted">
-      <h1 class="mt-5 mb-3">Add a new race</h1>     
+      <h1 class="mt-5 mb-5">Add a new race</h1>     
       <form (ngSubmit)="onSubmit()" #raceForm="ngForm">
 
         <div class="form-group">
@@ -63,8 +63,9 @@
             </div>
         </div>
   
-        <button type="submit" class="btn btn-success mt-4" [disabled]="!raceForm.form.valid">Submit</button>
-        <button type="button" class="btn btn-secondary mt-4 mx-3 " (click)="resetForm(); raceForm.reset()">Reset form</button>
+        <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!raceForm.form.valid">Add</button>
+        <button type="button" class="btn btn-secondary mt-2 d-flex flex-column" (click)="resetForm(); raceForm.reset()">Reset form</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onBackToRacePage()">Back to main page</button>
 
       </form>
     </div>
