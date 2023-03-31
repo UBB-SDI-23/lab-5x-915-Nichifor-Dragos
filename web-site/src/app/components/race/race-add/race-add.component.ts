@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RaceAddUpdate } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
@@ -8,7 +8,7 @@ import { RaceService } from 'src/app/core/service/race.service';
   templateUrl: './race-add.component.html',
   styleUrls: ['./race-add.component.css']
 })
-export class RaceAddComponent {
+export class RaceAddComponent implements OnInit{
 
   submitted = false;
   
@@ -17,10 +17,15 @@ export class RaceAddComponent {
     private router: Router
   ) {}
 
-  model = new RaceAddUpdate('', '', 0, 0, new Date(2023,10,14));
+  model = new RaceAddUpdate('', '', 0, 0, '');
+
+  ngOnInit() {
+    console.log(this.model)
+  }
+
 
   resetForm() {
-    this.model = new RaceAddUpdate('', '' , 0, 0, new Date(2023,10,14))
+    this.model = new RaceAddUpdate('', '' , 0, 0, '')
   }
 
   onSubmit() { 

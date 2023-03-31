@@ -6,7 +6,7 @@ export interface Race {
     country: string
     numberOfLaps: number;
     lapLength: number;
-    date: Date
+    date: string
 }
 
 export class RaceAddUpdate {
@@ -15,7 +15,7 @@ export class RaceAddUpdate {
         public country: string,
         public numberOfLaps: number,
         public lapLength: number,
-        public date: Date
+        public date: string
     ) {}
 }
 
@@ -26,7 +26,7 @@ export class RaceOne {
         public country: string,
         public numberOfLaps: number,
         public lapLength: number,
-        public date: Date,
+        public date: string,
         public pilots: PilotRaceDTO[]
     ) {}
 }
