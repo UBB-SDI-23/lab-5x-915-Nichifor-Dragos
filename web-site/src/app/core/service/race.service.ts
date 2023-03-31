@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { Race } from "../model/race.model";
+import { Race, RaceAdd } from "../model/race.model";
 
 @Injectable()
 export class RaceService {
@@ -14,12 +14,12 @@ export class RaceService {
         return this.httpClient.get<Race[]>(this.baseUrl + '/race');
     }
 
-    // saveRace(raceInput: raceInput): Observable<ValidationError[]> {
-    //     return this.httpClient.post<ValidationError[]>(this.baseUrl + '/race', raceInput);
-    // }
-
-    // deleteRace(articleID: string): Observable<void> {
-    //     return this.httpClient.delete<void>(this.baseUrl + /race + `articleID`, null);
-    // }
-
+    getRace(raceId: string): Observable<Race>
+    {
+      return this.httpClient.get(this.baseUrl + "/race" + raceId) as Observable<Race>;
+    }
+  
+    addRace(race: RaceAdd): Observable<Race> {
+      return this.httpClient.post(this.baseUrl + "/race", race) as Observable<Race>
+    }
 }

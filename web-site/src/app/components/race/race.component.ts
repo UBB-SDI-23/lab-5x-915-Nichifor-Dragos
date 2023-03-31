@@ -34,6 +34,7 @@ export class RaceComponent {
   }
 
   onUpdateRace(id: number) {
+    this.router.navigateByUrl(`race-update-component/${id}`)
     console.log("update")
   }
 

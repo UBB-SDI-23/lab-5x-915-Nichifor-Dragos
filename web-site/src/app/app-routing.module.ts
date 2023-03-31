@@ -25,7 +25,7 @@ const routes: Routes = [
         }
     },
     {
-      path: 'race-component/race-update-component',
+      path: 'race-component/race-update-component:id',
       component: RaceUpdateComponent,
       data: { 
           title: "Update a car",

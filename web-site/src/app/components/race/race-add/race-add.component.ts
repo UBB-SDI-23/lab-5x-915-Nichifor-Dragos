@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Race, RaceAdd } from 'src/app/core/model/race.model';
+import { RaceService } from 'src/app/core/service/race.service';
 
 @Component({
   selector: 'app-race-add',
@@ -7,6 +8,10 @@ import { Race, RaceAdd } from 'src/app/core/model/race.model';
   styleUrls: ['./race-add.component.css']
 })
 export class RaceAddComponent {
+
+  constructor(
+    private raceService: RaceService
+  ) {}
 
   submitted = false;
 
@@ -16,6 +21,6 @@ export class RaceAddComponent {
 
   onSubmit() { 
     this.submitted = true; 
-    console.log("Abs")
+    this.raceService.addRace(this.model);
   }
 }
