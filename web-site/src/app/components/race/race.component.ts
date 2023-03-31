@@ -33,13 +33,14 @@ export class RaceComponent {
     }, error => console.log('Something went wrong ' + error)))
   }
 
-  onUpdateRace(id: number) {
+  onUpdateRace(id: string) {
     this.router.navigateByUrl(`race-update-component/${id}`)
     console.log("update")
   }
 
-  onDeleteRace(id: number) {
-    console.log("delete")
+  onDeleteRace(id: string) {
+    this.raceService.deleteRace(id);
+    this.listRaces();
   }
 
 }

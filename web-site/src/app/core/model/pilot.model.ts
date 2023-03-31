@@ -6,3 +6,11 @@ export interface Pilot {
     date: Date;
     drivingExperience: number;
 }
+
+export class PilotRaceDTO {
+    constructor(
+        public pilotId: number,
+        public startPosition: number,
+        public needAccommodation: boolean
+    ){}
+}

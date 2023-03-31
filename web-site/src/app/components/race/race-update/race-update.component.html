@@ -1,13 +1,13 @@
-<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center">
+<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center" *ngIf="race">
     <div [hidden]="submitted">
-      <h1 class="mt-5 mb-3">Add a new race</h1>     
+      <h1 class="mt-5 mb-3">Update the race</h1>     
       <form (ngSubmit)="onSubmit()" #raceForm="ngForm">
 
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name"
                  required
-                 [(ngModel)]="model.name" name="name"
+                 [(ngModel)]="race.name" name="name"
                  #name="ngModel">
           <div [hidden]="name.valid || name.pristine"
                class="alert alert-danger">
@@ -19,7 +19,7 @@
             <label for="country">Country</label>
             <input type="text" class="form-control" id="country"
                    required
-                   [(ngModel)]="model.country" name="country"
+                   [(ngModel)]="race.country" name="country"
                    #country="ngModel">
             <div [hidden]="country.valid || country.pristine"
                  class="alert alert-danger">
@@ -31,7 +31,7 @@
             <label for="noLaps">Number Of Laps</label>
             <input type="number" class="form-control" id="noLaps"
                    required
-                   [(ngModel)]="model.numberOfLaps" name="noLaps"
+                   [(ngModel)]="race.numberOfLaps" name="noLaps"
                    #noLaps="ngModel">
             <div [hidden]="noLaps.valid || noLaps.pristine"
                  class="alert alert-danger">
@@ -43,7 +43,7 @@
             <label for="lapLength">Lap length</label>
             <input type="number" class="form-control" id="lapLength"
                    required
-                   [(ngModel)]="model.lapLength" name="lapLength"
+                   [(ngModel)]="race.lapLength" name="lapLength"
                    #lapLength="ngModel">
             <div [hidden]="lapLength.valid || lapLength.pristine"
                  class="alert alert-danger">
@@ -55,7 +55,7 @@
             <label for="date">Date</label>
             <input type="date" class="form-control" id="date"
                    required
-                   [(ngModel)]="model.date" name="date"
+                   [(ngModel)]="race.date" name="date"
                    #date="ngModel">
             <div [hidden]="date.valid || date.pristine"
                  class="alert alert-danger">
@@ -63,7 +63,7 @@
             </div>
         </div>
   
-        <button type="submit" class="btn btn-success mt-4" [disabled]="!raceForm.form.valid">Submit</button>
+        <button type="submit" class="btn btn-success mt-4" [disabled]="!raceForm.form.valid">Update</button>
         <button type="button" class="btn btn-secondary mt-4 mx-3 " (click)="resetForm(); raceForm.reset()">Reset form</button>
 
       </form>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Race, RaceAdd } from 'src/app/core/model/race.model';
+import { RaceAddUpdate } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
 
 @Component({
@@ -15,9 +15,9 @@ export class RaceAddComponent {
 
   submitted = false;
 
-  model = new RaceAdd('', '', 0, 0, new Date(2023,10,14));
+  model = new RaceAddUpdate('', '', 0, 0, new Date(2023,10,14));
 
-  resetForm() {this.model = new RaceAdd('', '' , 0, 0, new Date(2023,10,14))}
+  resetForm() {this.model = new RaceAddUpdate('', '' , 0, 0, new Date(2023,10,14))}
 
   onSubmit() { 
     this.submitted = true; 
