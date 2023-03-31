@@ -2,19 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RaceAddUpdate, RaceOne } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
-
 @Component({
-  selector: 'app-race-update',
-  templateUrl: './race-update.component.html',
-  styleUrls: ['./race-update.component.css']
+  selector: 'app-race-details',
+  templateUrl: './race-details.component.html',
+  styleUrls: ['./race-details.component.css']
 })
-export class RaceUpdateComponent implements OnInit {
+export class RaceDetailsComponent implements OnInit{
 
   race?: RaceOne
   raceId?: string
-  raceUpdateDTO?: RaceAddUpdate
-
-  submitted = false;
 
   constructor(
     private raceService: RaceService,
@@ -28,17 +24,6 @@ export class RaceUpdateComponent implements OnInit {
         this.race = race;
       })
     });
-  }
-
-  resetForm() {}
-
-  onSubmit() { 
-    this.submitted = true; 
-    if (this.race)
-    {
-      this.raceUpdateDTO = new RaceAddUpdate(this.race.name, this.race.country, this.race.numberOfLaps, this.race.lapLength, this.race.date)
-      this.raceService.updateRace(this.raceUpdateDTO, this.race.id)
-    }
   }
 
 }
