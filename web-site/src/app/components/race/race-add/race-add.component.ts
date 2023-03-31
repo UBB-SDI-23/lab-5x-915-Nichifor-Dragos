@@ -9,15 +9,17 @@ import { RaceService } from 'src/app/core/service/race.service';
 })
 export class RaceAddComponent {
 
+  submitted = false;
+
   constructor(
     private raceService: RaceService
   ) {}
 
-  submitted = false;
-
   model = new RaceAddUpdate('', '', 0, 0, new Date(2023,10,14));
 
-  resetForm() {this.model = new RaceAddUpdate('', '' , 0, 0, new Date(2023,10,14))}
+  resetForm() {
+    this.model = new RaceAddUpdate('', '' , 0, 0, new Date(2023,10,14))
+  }
 
   onSubmit() { 
     this.submitted = true; 

@@ -8,11 +8,13 @@ import { RaceService } from 'src/app/core/service/race.service';
   templateUrl: './race-update.component.html',
   styleUrls: ['./race-update.component.css']
 })
-export class RaceUpdateComponent implements OnInit, OnDestroy {
+export class RaceUpdateComponent implements OnInit {
 
   race?: RaceOne
   raceId?: string
-  raceDTO?: RaceAddUpdate
+  raceUpdateDTO?: RaceAddUpdate
+
+  submitted = false;
 
   constructor(
     private raceService: RaceService,
@@ -28,20 +30,14 @@ export class RaceUpdateComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    
-  }
-
-  submitted = false;
-  
   resetForm() {}
 
   onSubmit() { 
     this.submitted = true; 
     if (this.race)
     {
-      this.raceDTO = new RaceAddUpdate(this.race.name, this.race.country, this.race.numberOfLaps, this.race.lapLength, this.race.date)
-      this.raceService.updateRace(this.raceDTO, this.race.id)
+      this.raceUpdateDTO = new RaceAddUpdate(this.race.name, this.race.country, this.race.numberOfLaps, this.race.lapLength, this.race.date)
+      this.raceService.updateRace(this.raceUpdateDTO, this.race.id)
     }
   }
 

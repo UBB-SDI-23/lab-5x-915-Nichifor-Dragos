@@ -10,7 +10,7 @@ export class CarService {
     
     constructor(private httpClient: HttpClient) { }
 
-    listRaces(): Observable<Car[]> {
+    listCars(): Observable<Car[]> {
         return this.httpClient.get<Car[]>(this.baseUrl + '/car');
     }
 

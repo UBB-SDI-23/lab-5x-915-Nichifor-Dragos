@@ -29,7 +29,7 @@ export class CarComponent {
   }
 
     listCars() {
-      this.subscriptions.push(this.carService.listRaces().subscribe(cars => {
+      this.subscriptions.push(this.carService.listCars().subscribe(cars => {
         this.cars = cars
       }, error => console.log("Something went wrong " + error)))
     }

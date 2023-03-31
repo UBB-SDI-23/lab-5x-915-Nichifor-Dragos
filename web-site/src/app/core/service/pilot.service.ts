@@ -10,7 +10,7 @@ export class PilotService {
     
     constructor(private httpClient: HttpClient) { }
 
-    listRaces(): Observable<Pilot[]> {
+    listPilots(): Observable<Pilot[]> {
         return this.httpClient.get<Pilot[]>(this.baseUrl + '/pilot');
     }
 }

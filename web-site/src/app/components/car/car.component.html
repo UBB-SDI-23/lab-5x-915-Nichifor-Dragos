@@ -1,24 +1,25 @@
-
-<div class="row p-5">
-    <h1 class="p-4">All cars</h1>
-    <div class="col-sm-3" *ngFor="let car of cars">
-        <div class="card bg-dark text-white m-4">
-            <!-- <img src="..." class="card-img-top" alt="..."> -->
-            <div class="card-body">
-                <h4 class="card-title">{{ car.brand }}</h4>
-                <hr class ="card-separator">
-                <p class="card-text"> Motorization: {{ car.motorization }}, <br>
-                                      Gear box: {{ car.gearBox }}, <br>
-                                      Cylindrical capacity: {{ car.cylindricalCapacity }}, <br>
-                                      Horse power: {{ car.horsePower }}
-                <div class=”dropdown”>
-                    <div class="btn-group float-end">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="settings-svg" src="assets/settings.png">
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" (click)="onUpdateCar(car.id)" >Update</a>
-                            <a class="dropdown-item" (click)="onDeleteCar(car.id)" > Delete</a>
+<div class="container">
+    <div class="row p-5">
+        <h1 class="p-4 text-center mb-5">All cars</h1>
+        <div class="col-sm-3" *ngFor="let car of cars">
+            <div class="card bg-dark text-white m-4">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                    <h4 class="card-title">{{ car.brand }}</h4>
+                    <hr class ="card-separator">
+                    <p class="card-text"> Motorization: {{ car.motorization }}, <br>
+                                        Gear box: {{ car.gearBox }}, <br>
+                                        Cylindrical capacity: {{ car.cylindricalCapacity }}, <br>
+                                        Horse power: {{ car.horsePower }}
+                    <div class=”dropdown”>
+                        <div class="btn-group float-end">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="settings-svg" src="assets/settings.png">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" (click)="onUpdateCar(car.id)" >Update</a>
+                                <a class="dropdown-item" (click)="onDeleteCar(car.id)" > Delete</a>
+                            </div>
                         </div>
                     </div>
                 </div>

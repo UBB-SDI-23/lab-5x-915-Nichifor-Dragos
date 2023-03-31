@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PilotService } from 'src/app/core/service/pilot.service';
 
@@ -10,7 +10,7 @@ import { Pilot } from 'src/app/core/model/pilot.model';
   templateUrl: './pilot.component.html',
   styleUrls: ['./pilot.component.css']
 })
-export class PilotComponent {
+export class PilotComponent implements OnInit, OnDestroy{
 
   subscriptions: Subscription[] = [];
   pilots: Pilot[] = [];
@@ -29,7 +29,7 @@ export class PilotComponent {
 }
 
   listPilots() : void {
-    this.subscriptions.push(this.pilotService.listRaces().subscribe(pilots => {
+    this.subscriptions.push(this.pilotService.listPilots().subscribe(pilots => {
       this.pilots = pilots;
     }, error => console.log("Something went wrong " + error)))
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Race } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './race.component.html',
   styleUrls: ['./race.component.css']
 })
-export class RaceComponent {
+export class RaceComponent implements OnInit, OnDestroy{
 
   subscriptions: Subscription[] = [];
   races: Race[] = [];
