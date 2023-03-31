@@ -1,6 +1,6 @@
-<div class="container-fluid p-5 m-5 d-flex align-items-center justify-content-center">
+<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center">
     <div [hidden]="submitted">
-      <h1>Add a new race</h1>     
+      <h1 class="mt-5 mb-3">Add a new race</h1>     
       <form (ngSubmit)="onSubmit()" #raceForm="ngForm">
 
         <div class="form-group">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="form-group">
-            <label for="country">Number Of Laps</label>
+            <label for="noLaps">Number Of Laps</label>
             <input type="number" class="form-control" id="noLaps"
                    required
                    [(ngModel)]="model.numberOfLaps" name="noLaps"
@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group">
-            <label for="country">Lap length</label>
+            <label for="lapLength">Lap length</label>
             <input type="number" class="form-control" id="lapLength"
                    required
                    [(ngModel)]="model.lapLength" name="lapLength"
@@ -50,10 +50,21 @@
               The lap length is required
             </div>
         </div>
-  
 
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date"
+                   required
+                   [(ngModel)]="model.date" name="date"
+                   #date="ngModel">
+            <div [hidden]="date.valid || date.pristine"
+                 class="alert alert-danger">
+              The date is required
+            </div>
+        </div>
+  
         <button type="submit" class="btn btn-success mt-4" [disabled]="!raceForm.form.valid">Submit</button>
-        <button type="button" class="btn btn-secondary mt-4 mx-3 " (click)="resetForm(); raceForm.reset()">New Hero</button>
+        <button type="button" class="btn btn-secondary mt-4 mx-3 " (click)="resetForm(); raceForm.reset()">Reset form</button>
 
       </form>
     </div>
@@ -75,6 +86,10 @@
       <div class="row">
         <div class="col-xs-3">Lap length</div>
         <div class="col-xs-9">{{ model.lapLength }}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Date</div>
+        <div class="col-xs-9">{{ model.date |  date: "MMM. dd. yyyy" }}</div>
       </div>
       <br>
       <button type="button" class="btn btn-primary" routerLink="">Go to main page</button>
