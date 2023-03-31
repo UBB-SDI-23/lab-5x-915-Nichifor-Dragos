@@ -1,7 +1,7 @@
 <div class="container text-center mb-3 p-5 mt-5 d-flex flex-column align-items-center justify-content-center" *ngIf="race">
     
     <div class="row p-3" *ngIf="race.pilots.length != 0" >
-        <h2 class="p-4 text-center mb-5">All the pilots that will attend to the race</h2>
+        <h2 class="text-white p-4 text-center mb-5">All the pilots that will attend to the race</h2>
         <div class="col-sm-3" *ngFor="let pilot of race.pilots">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
@@ -15,7 +15,7 @@
     </div>
 
     <div class="row p-3" *ngIf="race.pilots.length == 0" >
-        <h2 class="p-4 text-center mb-5">No pilots will currently attend to the race.</h2>
+        <h2 class="text-white p-4 text-center mb-5">No pilots will currently attend to the race.</h2>
     </div>
 
     <div class="card p-5">
