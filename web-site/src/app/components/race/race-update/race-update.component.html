@@ -70,26 +70,26 @@
     </div>
   
     <div [hidden]="!submitted">
-      <h2>You added a race with the following characteristics:</h2>
+      <h2>You have updated the race</h2>
       <div class="row">
         <div class="col-xs-3">Name</div>
-        <div class="col-xs-9">{{ model.name }}</div>
+        <div class="col-xs-9">{{ race.name }}</div>
       </div>
       <div class="row">
         <div class="col-xs-3">Country</div>
-        <div class="col-xs-9">{{ model.country }}</div>
+        <div class="col-xs-9">{{ race.country }}</div>
       </div>
       <div class="row">
         <div class="col-xs-3">Number of laps</div>
-        <div class="col-xs-9">{{ model.numberOfLaps }}</div>
+        <div class="col-xs-9">{{ race.numberOfLaps }}</div>
       </div>
       <div class="row">
         <div class="col-xs-3">Lap length</div>
-        <div class="col-xs-9">{{ model.lapLength }}</div>
+        <div class="col-xs-9">{{ race.lapLength }}</div>
       </div>
       <div class="row">
         <div class="col-xs-3">Date</div>
-        <div class="col-xs-9">{{ model.date |  date: "MMM. dd. yyyy" }}</div>
+        <div class="col-xs-9">{{ race.date |  date: "MMM. dd. yyyy" }}</div>
       </div>
       <br>
       <button type="button" class="btn btn-primary" routerLink="">Go to main page</button>

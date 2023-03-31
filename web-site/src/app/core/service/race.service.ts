@@ -20,17 +20,17 @@ export class RaceService {
     }
   
     addRace(race: RaceAddUpdate): Observable<Race> { // make it work
-      console.log(race)
+      console.log("add " + this.baseUrl + "race", race)
       return this.httpClient.post(this.baseUrl + "race", race) as Observable<Race>
     }
 
     updateRace(race: RaceAddUpdate, id: string) {
-      console.log(race, id)
+      console.log("update " + this.baseUrl + "race/" + id)
+      return this.httpClient.put(this.baseUrl + "race/" + id, race)
     }
 
     deleteRace(id: string) {
-      console.log("delete" + id)
-      console.log(this.baseUrl + "race/" + id)
+      console.log("detele " + this.baseUrl + "race/" + id)
       return this.httpClient.delete(this.baseUrl + "race/" + id)
     }
 

@@ -35,7 +35,6 @@ export class RaceComponent {
 
   onUpdateRace(id: string) {
     this.router.navigateByUrl(`race-update-component/${id}`)
-    console.log("update")
   }
 
   onDeleteRace(id: string) {

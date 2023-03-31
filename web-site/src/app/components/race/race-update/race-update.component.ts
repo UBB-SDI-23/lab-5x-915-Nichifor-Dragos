@@ -33,9 +33,7 @@ export class RaceUpdateComponent implements OnInit, OnDestroy {
   }
 
   submitted = false;
-
-  model = new RaceAddUpdate('', '', 0, 0 , new Date(2023, 10, 14));
-
+  
   resetForm() {}
 
   onSubmit() { 
