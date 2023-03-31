@@ -15,6 +15,7 @@ import { CarService } from './core/service/car.service';
 import { PilotService } from './core/service/pilot.service';
 import { RaceUpdateComponent } from './components/race/race-update/race-update.component';
 import { RaceAddComponent } from './components/race/race-add/race-add.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RaceAddComponent } from './components/race/race-add/race-add.component'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [
     RaceService,

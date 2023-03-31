@@ -6,3 +6,13 @@ export interface Race {
     lapLength: number;
     date: Date
 }
+
+export class RaceAdd {
+    constructor(
+        public name: string,
+        public country: string,
+        public numberOfLaps: number,
+        public lapLength: number,
+        public date: Date
+    ) {}
+}
