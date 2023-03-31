@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RaceAddUpdate, RaceOne } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
 @Component({
@@ -14,7 +14,8 @@ export class RaceDetailsComponent implements OnInit{
 
   constructor(
     private raceService: RaceService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +25,10 @@ export class RaceDetailsComponent implements OnInit{
         this.race = race;
       })
     });
+  }
+
+  onBackToRacePage() {
+    this.router.navigateByUrl("race-component")
   }
 
 }
