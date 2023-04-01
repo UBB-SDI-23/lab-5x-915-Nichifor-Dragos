@@ -12,8 +12,11 @@ import { CarService } from 'src/app/core/service/car.service';
 })
 export class CarComponent {
 
+  searchTerm: string = '';
+
   subscriptions: Subscription[] = [];
   cars: Car[] = []
+  carsFiltered: Car[] = []
 
   constructor(
     private carService: CarService,
@@ -40,5 +43,11 @@ export class CarComponent {
 
     onDeleteCar(id: number) {
       console.log("delete")
+    }
+
+    onSearch() {
+      this.subscriptions.push(this.carService.listCarsWithCP(this.searchTerm).subscribe(cars => {
+        this.carsFiltered = cars
+      }, error => console.log("Something went wrong " + error)))
     }
 }

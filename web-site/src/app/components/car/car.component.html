@@ -1,11 +1,39 @@
 <div class="container">
-    <div class="container">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    <div class="row p-5">
+    <div class="container px-5 pt-5">
+        <div class="my-2 my-lg-0 p-5">
+          <input class="form-control mr-sm-2" type="number" step="500" placeholder="Search by cylindrical capacity" aria-label="Search" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" >
+        </div>
+    </div>
+
+    <div class="row px-5 pb-4" *ngIf="searchTerm != null && searchTerm != ''">
+        <h1 class="p-4 text-center mb-5">All cars with cylindrical capacity greater than: {{ this.searchTerm }} </h1>
+        <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let car of carsFiltered">
+            <div class="card bg-dark text-white m-4">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                    <h4 class="card-title">{{ car.brand }}</h4>
+                    <hr class ="card-separator">
+                    <p class="card-text"> Motorization: {{ car.motorization }}, <br>
+                                        Gear box: {{ car.gearBox }}, <br>
+                                        Cylindrical capacity: {{ car.cylindricalCapacity }}, <br>
+                                        Horse power: {{ car.horsePower }}
+                    <div class=”dropdown”>
+                        <div class="btn-group float-end">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="settings-svg" src="assets/settings.png">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" (click)="onUpdateCar(car.id)" >Update</a>
+                                <a class="dropdown-item" (click)="onDeleteCar(car.id)" > Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row px-5 pb-4" *ngIf="searchTerm == null || searchTerm == ''">
         <h1 class="p-4 text-center mb-5">All cars</h1>
         <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let car of cars">
             <div class="card bg-dark text-white m-4">
@@ -32,4 +60,5 @@
             </div>
         </div>
     </div>
+
 </div>

@@ -14,4 +14,8 @@ export class CarService {
         return this.httpClient.get<Car[]>(this.baseUrl + '/car');
     }
 
+    listCarsWithCP(cylindricalCapacity: string): Observable<Car[]> {
+        return this.httpClient.get<Car[]>(this.baseUrl + '/car?capacity=' + cylindricalCapacity);
+    }
+
 }
