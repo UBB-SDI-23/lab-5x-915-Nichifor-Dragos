@@ -36,7 +36,13 @@ export class RaceUpdateComponent implements OnInit {
     if (this.race)
     {
       this.raceUpdateDTO = new RaceAddUpdate(this.race.name, this.race.country, this.race.numberOfLaps, this.race.lapLength, this.race.date)
-      this.raceService.updateRace(this.raceUpdateDTO, this.race.id)
+      this.raceService.updateRace(this.raceUpdateDTO, this.race.id).subscribe(
+        response => {
+          console.log('Race updated successfully');
+        },
+        error => {
+          console.error('Error updating race:', error);
+        });
     }
   }
 

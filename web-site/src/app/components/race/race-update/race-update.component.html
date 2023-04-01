@@ -65,7 +65,7 @@
   
         <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!raceForm.form.valid">Update</button>
         <button type="button" class="btn btn-secondary mt-2 d-flex flex-column" (click)="raceForm.reset()">Reset form</button>
-        <button type="button" class="btn btn-primary mt-2" (click)="onBackToRacePage()">Back to main page</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onBackToRacePage()">Back to race page</button>
 
       </form>
     </div>
@@ -93,6 +93,6 @@
         <div class="col-xs-9">{{ race.date |  date: "MMM. dd. yyyy" }}</div>
       </div>
       <br>
-      <button type="button" class="btn btn-primary" routerLink="">Go to main page</button>
+      <button type="button" class="btn btn-primary" (click)="onBackToRacePage()">Back to race page</button>
     </div>
   </div>

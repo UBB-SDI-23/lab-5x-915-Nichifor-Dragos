@@ -30,7 +30,13 @@ export class RaceAddComponent implements OnInit{
 
   onSubmit() { 
     this.submitted = true; 
-    this.raceService.addRace(this.model);
+    this.raceService.addRace(this.model).subscribe(
+      response => {
+        console.log('Race added successfully');
+      },
+      error => {
+        console.error('Error adding race:', error);
+      });;
   }
 
   onBackToRacePage() {

@@ -41,7 +41,7 @@
 
         <div class="form-group">
             <label for="lapLength">Lap length</label>
-            <input type="number" class="form-control" id="lapLength"
+            <input type="number" class="form-control" id="lapLength" step="10"
                    required
                    [(ngModel)]="model.lapLength" name="lapLength"
                    #lapLength="ngModel">
@@ -65,7 +65,7 @@
   
         <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!raceForm.form.valid">Add</button>
         <button type="button" class="btn btn-secondary mt-2 d-flex flex-column" (click)="resetForm(); raceForm.reset()">Reset form</button>
-        <button type="button" class="btn btn-primary mt-2" (click)="onBackToRacePage()">Back to main page</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onBackToRacePage()">Back to race page</button>
 
       </form>
     </div>
@@ -88,6 +88,6 @@
         <div class="col-xs-2">Date: <b>{{ model.date |  date: "MMM. dd. yyyy" }}</b></div>
       </div>
       <br>
-      <button type="button" class="btn btn-primary" routerLink="/race-component">Go to race page</button>
+      <button type="button" class="btn btn-primary" (click)="onBackToRacePage()">Back to race page</button>
     </div>
   </div>

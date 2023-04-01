@@ -38,8 +38,14 @@ export class RaceComponent implements OnInit, OnDestroy{
   }
 
   onDeleteRace(id: string) {
-    this.raceService.deleteRace(id);
-    this.listRaces();
+    this.raceService.deleteRace(id).subscribe(
+      response => {
+        console.log('Race deleted successfully');
+        this.listRaces();
+      },
+      error => {
+        console.error('Error deleting race:', error);
+      });
   }
 
   onAddRace() {
