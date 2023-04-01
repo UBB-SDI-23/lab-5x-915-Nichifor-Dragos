@@ -6,16 +6,16 @@ import { Car } from "../model/car.model";
 
 @Injectable()
 export class CarService {
-    private baseUrl = "http://localhost/api";
+    private baseUrl = "/api/";
     
     constructor(private httpClient: HttpClient) { }
 
     listCars(): Observable<Car[]> {
-        return this.httpClient.get<Car[]>(this.baseUrl + '/car');
+        return this.httpClient.get<Car[]>(this.baseUrl + 'car');
     }
 
     listCarsWithCP(cylindricalCapacity: string): Observable<Car[]> {
-        return this.httpClient.get<Car[]>(this.baseUrl + '/car?capacity=' + cylindricalCapacity);
+        return this.httpClient.get<Car[]>(this.baseUrl + 'car?capacity=' + cylindricalCapacity);
     }
 
 }

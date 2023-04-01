@@ -6,11 +6,11 @@ import { Pilot } from "../model/pilot.model";
 
 @Injectable()
 export class PilotService {
-    private baseUrl = "http://localhost/api";
+    private baseUrl = "/api/";
     
     constructor(private httpClient: HttpClient) { }
 
     listPilots(): Observable<Pilot[]> {
-        return this.httpClient.get<Pilot[]>(this.baseUrl + '/pilot');
+        return this.httpClient.get<Pilot[]>(this.baseUrl + 'pilot');
     }
 }
