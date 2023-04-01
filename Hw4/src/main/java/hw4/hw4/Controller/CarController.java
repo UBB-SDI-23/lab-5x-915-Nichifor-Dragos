@@ -26,7 +26,7 @@ public class CarController {
     public CarController(CarService carService) {this.carService = carService;}
 
     @GetMapping("/car") // get all the cars, or filter by cylindrical capacity if there is a parameter specified
-    List<CarDTO> allCars(@RequestParam(required = false) Integer capacity) {
+    List<CarDTO_All> allCars(@RequestParam(required = false) Integer capacity) {
         if (capacity == null) {
             return this.carService.getAllCars().stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
         }
@@ -34,7 +34,7 @@ public class CarController {
     }
 
     @GetMapping("/car/{id}") // get a car by its id
-    CarDTO oneCar(@PathVariable Long id) {
+    CarDTO_One oneCar(@PathVariable Long id) {
         return this.convertToCarDTO_One(this.carService.getOneCar(id));
     }
 
@@ -58,13 +58,13 @@ public class CarController {
         carService.deleteCar(id);
     }
 
-    private CarDTO convertToCarDTO_All(Car car) {
+    private CarDTO_All convertToCarDTO_All(Car car) {
         CarDTO_All carDTO = this.modelMapper.map(car, CarDTO_All.class);
         carDTO.setPilotID(car.getPilot().getId());
         return carDTO;
     }
 
-    private CarDTO convertToCarDTO_One(Car car) {
+    private CarDTO_One convertToCarDTO_One(Car car) {
         return this.modelMapper.map(car, CarDTO_One.class);
     }
 

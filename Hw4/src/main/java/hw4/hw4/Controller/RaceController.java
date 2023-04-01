@@ -29,17 +29,17 @@ public class RaceController {
     RaceController(RaceService raceService) {this.raceService = raceService;}
 
     @GetMapping("/race") // get all the races
-    List<RaceDTO> allRaces() {
+    List<RaceDTO_All> allRaces() {
         return raceService.getAllRaces().stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());
     }
 
     @GetMapping("/race/{id}") // get a race by its id
-    RaceDTO oneRace(@PathVariable Long id) {
+    RaceDTO_One oneRace(@PathVariable Long id) {
         return this.convertToRaceDTO_One(raceService.getOneRace(id));
     }
 
     @GetMapping("/race/{id}/pilot") // get all the pilots which will attend to the race
-    List<PilotDTO> oneRacePilots(@PathVariable Long id) {return raceService.getAllPilotsFromRace(id).stream().map(this::convertToPilotDTO_All).collect(Collectors.toList());}
+    List<PilotDTO_All> oneRacePilots(@PathVariable Long id) {return raceService.getAllPilotsFromRace(id).stream().map(this::convertToPilotDTO_All).collect(Collectors.toList());}
 
     @GetMapping("/race/pilots-statistic")
     List<RaceDTO_PilotStatistic> getRacesWithNumberOfPilotsDesc() {

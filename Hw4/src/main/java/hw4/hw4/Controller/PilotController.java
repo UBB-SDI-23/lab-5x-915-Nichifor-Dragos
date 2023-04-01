@@ -34,22 +34,22 @@ public class PilotController {
     PilotController(PilotService pilotService) {this.pilotService = pilotService;}
 
     @GetMapping("/pilot") // get all the pilots
-    List<PilotDTO> allPilots() {
+    List<PilotDTO_All> allPilots() {
         return pilotService.getAllPilots().stream().map(this::convertToPilotDTO_All).collect(Collectors.toList());
     }
 
     @GetMapping("/pilot/{id}") // get a pilot by its id
-    PilotDTO onePilot(@PathVariable Long id) {
+    PilotDTO_One onePilot(@PathVariable Long id) {
         return convertToPilotDTO_One(pilotService.getOnePilot(id));
     }
 
     @GetMapping("/pilot/{id}/car") // get all the cars from a pilot given the id
-    List<CarDTO>  onePilotCars(@PathVariable Long id) {
+    List<CarDTO_All>  onePilotCars(@PathVariable Long id) {
         return pilotService.getAllCarsFromPilot(id).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
     }
 
     @GetMapping("/pilot/{id}/race") // get all the races that the pilot will attend to
-    List<RaceDTO> onePilotRaces(@PathVariable Long id){return pilotService.getAllRacesFromPilot(id).stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());}
+    List<RaceDTO_All> onePilotRaces(@PathVariable Long id){return pilotService.getAllRacesFromPilot(id).stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());}
 
     @GetMapping("/pilot/car-statistic")
     List<PilotDTO_CarStatistic> getPilotsWithNumberOfCarsAsc() {
@@ -79,7 +79,7 @@ public class PilotController {
         return this.modelMapper.map(pilot, PilotDTO_One.class);
     }
 
-    private CarDTO convertToCarDTO_All(Car car) {
+    private CarDTO_All convertToCarDTO_All(Car car) {
         CarDTO_All carDTO = this.modelMapper.map(car, CarDTO_All.class);
         carDTO.setPilotID(car.getPilot().getId());
         return carDTO;
