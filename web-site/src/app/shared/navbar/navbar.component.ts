@@ -13,21 +13,21 @@ export class NavbarComponent {
   ) {}
 
   getHeaderStyle() {
-    if (this.router.url == '/')
+    if (this.router.url == '/home-page')
       return 'main-page-nav';
     else
       return 'bg-dark';
   }
 
   getLinkStyle() {
-    if (this.router.url == '/')
+    if (this.router.url == '/home-page')
       return 'main-page-link';
     else
       return '';
   }
 
   getDropdownStyle() {
-    if (this.router.url == '/')
+    if (this.router.url == '/home-page')
       return 'main-dropdown-menu';
     else
       return '';
