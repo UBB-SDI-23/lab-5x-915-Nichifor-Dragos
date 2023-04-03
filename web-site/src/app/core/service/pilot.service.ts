@@ -7,6 +7,7 @@ import { Pilot } from "../model/pilot.model";
 @Injectable()
 export class PilotService {
     private baseUrl = "/api/";
+    // private baseUrl = "http://localhost/api/";
     
     constructor(private httpClient: HttpClient) { }
 

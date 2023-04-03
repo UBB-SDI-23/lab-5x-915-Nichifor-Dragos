@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class RaceComponent implements OnInit, OnDestroy{
 
+  sortedByName = false;
+
   subscriptions: Subscription[] = [];
   races: Race[] = [];
 
@@ -28,6 +30,7 @@ export class RaceComponent implements OnInit, OnDestroy{
 }
 
   listRaces(): void {
+    this.sortedByName = false;
     this.subscriptions.push(this.raceService.listRaces().subscribe(races => {
       this.races = races;
     }, error => console.log('Something went wrong ' + error)))
@@ -50,6 +53,11 @@ export class RaceComponent implements OnInit, OnDestroy{
 
   onAddRace() {
     this.router.navigateByUrl("race-add-component")
+  }
+
+  onSortName() {
+    this.sortedByName = true;
+    this.races.sort((a: Race, b: Race) => {return a.name.localeCompare(b.name)})
   }
 
 }

@@ -7,6 +7,7 @@ import { Car } from "../model/car.model";
 @Injectable()
 export class CarService {
     private baseUrl = "/api/";
+    // private baseUrl = "http://localhost/api/"
     
     constructor(private httpClient: HttpClient) { }
 
