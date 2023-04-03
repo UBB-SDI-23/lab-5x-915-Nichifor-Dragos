@@ -13,7 +13,7 @@ export class FooterComponent {
 ) {}
 
 getHeaderStyle() {
-  if (this.router.url == '/')
+  if (this.router.url == '/home-page')
     return 'main-page-footer';
   else
     return 'bg-dark';
