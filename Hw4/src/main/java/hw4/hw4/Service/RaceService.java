@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class RaceService {
@@ -27,7 +28,7 @@ public class RaceService {
     }
 
     public List<Race> getAllRaces() {
-        return raceRepository.findAll();
+        return raceRepository.findAll().stream().limit(100).collect(Collectors.toList());
     }
 
     public Race getOneRace(Long id) {
@@ -46,11 +47,11 @@ public class RaceService {
     }
 
     public List<RaceDTO_PilotStatistic> getRacesWithNumberOfPilotsDesc() {
-        return this.raceRepository.getRacesWithNumberOfPilotsDesc();
+        return this.raceRepository.getRacesWithNumberOfPilotsDesc().stream().limit(100).collect(Collectors.toList());
     }
 
     public List<RaceDTO_PilotStatistic_CountryUSA> getRacesFromUSAWithNumberOfPilotsDesc() {
-        return this.raceRepository.getRacesFromUSAWithNumberOfPilotsDesc();
+        return this.raceRepository.getRacesFromUSAWithNumberOfPilotsDesc().stream().limit(100).collect(Collectors.toList());
     }
 
     public Race addRace(Race newRace) {

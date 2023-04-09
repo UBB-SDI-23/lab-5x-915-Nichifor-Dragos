@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -26,7 +27,7 @@ public class CarService {
     }
 
     public List<Car> getAllCars() {
-        return this.carRepository.findAll();
+        return this.carRepository.findAll().stream().limit(100).collect(Collectors.toList());
     }
 
     public Car getOneCar(Long id) {
@@ -35,7 +36,7 @@ public class CarService {
     }
 
     public List<Car> getAllCarsWithCapacityGreaterThan(Integer capacity) {
-        return this.carRepository.findByCylindricalCapacityGreaterThan(capacity);
+        return this.carRepository.findByCylindricalCapacityGreaterThan(capacity).stream().limit(100).collect(Collectors.toList());
 
     }
 

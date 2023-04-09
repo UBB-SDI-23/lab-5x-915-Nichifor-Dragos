@@ -11,6 +11,7 @@ import hw4.hw4.Repository.RacesPilotsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RacesPilotsService {
@@ -27,7 +28,7 @@ public class RacesPilotsService {
     }
 
     public List<RacesPilots> getAllRacesPilots() {
-        return racesPilotsRepository.findAll();
+        return racesPilotsRepository.findAll().stream().limit(100).collect(Collectors.toList());
     }
 
     public RacesPilots addRacesPilots(RacesPilots newRacesPilots, Long idRace, Long idPilot) {

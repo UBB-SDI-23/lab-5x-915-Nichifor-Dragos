@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class PilotService {
@@ -31,7 +32,7 @@ public class PilotService {
     }
 
     public List<Pilot> getAllPilots() {
-        return pilotRepository.findAll();
+        return pilotRepository.findAll().stream().limit(100).collect(Collectors.toList());
     }
 
     public Pilot getOnePilot(Long id) {
@@ -40,7 +41,7 @@ public class PilotService {
     }
 
     public List<Car> getAllCarsFromPilot(Long id){
-        return this.carRepository.findByPilotId(id);
+        return this.carRepository.findByPilotId(id).stream().limit(100).collect(Collectors.toList());
     }
 
     public List<Race> getAllRacesFromPilot(Long pilotId) {
