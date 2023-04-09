@@ -40,8 +40,10 @@ public class CarService {
                 .orElseThrow(() -> new CarNotFoundException(id));
     }
 
-    public List<Car> getAllCarsWithCapacityGreaterThan(Integer capacity) {
-        return this.carRepository.findByCylindricalCapacityGreaterThan(capacity);
+    public List<Car> getAllCarsWithCapacityGreaterThan(Integer pageNo, Integer pageSize, Integer capacity) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
+
+        return this.carRepository.findByCylindricalCapacityGreaterThan(pageable, capacity).getContent();
 
     }
 

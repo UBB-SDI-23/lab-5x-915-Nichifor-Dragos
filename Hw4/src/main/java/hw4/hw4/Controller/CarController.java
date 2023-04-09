@@ -33,7 +33,7 @@ public class CarController {
         if (capacity == null) {
             return this.carService.getAllCars(pageNo, pageSize).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
         }
-        return this.carService.getAllCarsWithCapacityGreaterThan(capacity).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
+        return this.carService.getAllCarsWithCapacityGreaterThan(pageNo, pageSize, capacity).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
     }
 
     @GetMapping("/car/{id}")
