@@ -9,6 +9,9 @@ import hw4.hw4.Exception.PilotNotFoundException;
 import hw4.hw4.Repository.CarRepository;
 import hw4.hw4.Repository.PilotRepository;
 import hw4.hw4.Repository.RacesPilotsRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,8 +34,10 @@ public class PilotService {
         this.racesPilotsRepository = racesPilotsRepository;
     }
 
-    public List<Pilot> getAllPilots() {
-        return pilotRepository.findAll().stream().limit(100).collect(Collectors.toList());
+    public List<Pilot> getAllPilots(Integer pageNo, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
+
+        return pilotRepository.findAll(pageable).getContent();
     }
 
     public Pilot getOnePilot(Long id) {
@@ -41,7 +46,7 @@ public class PilotService {
     }
 
     public List<Car> getAllCarsFromPilot(Long id){
-        return this.carRepository.findByPilotId(id).stream().limit(100).collect(Collectors.toList());
+        return this.carRepository.findByPilotId(id);
     }
 
     public List<Race> getAllRacesFromPilot(Long pilotId) {

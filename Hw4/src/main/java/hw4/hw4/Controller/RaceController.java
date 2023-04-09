@@ -29,8 +29,8 @@ public class RaceController {
     RaceController(RaceService raceService) {this.raceService = raceService;}
 
     @GetMapping("/race") // get all the races
-    List<RaceDTO_All> allRaces() {
-        return raceService.getAllRaces().stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());
+    List<RaceDTO_All> allRaces(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize) {
+        return raceService.getAllRaces(pageNo, pageSize).stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());
     }
 
     @GetMapping("/race/{id}") // get a race by its id

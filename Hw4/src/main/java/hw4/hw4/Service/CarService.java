@@ -7,6 +7,9 @@ import hw4.hw4.Exception.PilotNotFoundException;
 import hw4.hw4.Repository.CarRepository;
 import hw4.hw4.Repository.PilotRepository;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +29,10 @@ public class CarService {
         this.pilotRepository = pilotRepository;
     }
 
-    public List<Car> getAllCars() {
-        return this.carRepository.findAll().stream().limit(100).collect(Collectors.toList());
+    public List<Car> getAllCars(Integer pageNo, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
+
+        return this.carRepository.findAll(pageable).getContent();
     }
 
     public Car getOneCar(Long id) {
@@ -36,7 +41,7 @@ public class CarService {
     }
 
     public List<Car> getAllCarsWithCapacityGreaterThan(Integer capacity) {
-        return this.carRepository.findByCylindricalCapacityGreaterThan(capacity).stream().limit(100).collect(Collectors.toList());
+        return this.carRepository.findByCylindricalCapacityGreaterThan(capacity);
 
     }
 

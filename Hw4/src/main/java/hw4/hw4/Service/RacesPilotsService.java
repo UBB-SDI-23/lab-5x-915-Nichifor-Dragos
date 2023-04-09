@@ -28,7 +28,7 @@ public class RacesPilotsService {
     }
 
     public List<RacesPilots> getAllRacesPilots() {
-        return racesPilotsRepository.findAll().stream().limit(100).collect(Collectors.toList());
+        return racesPilotsRepository.findAll();
     }
 
     public RacesPilots addRacesPilots(RacesPilots newRacesPilots, Long idRace, Long idPilot) {

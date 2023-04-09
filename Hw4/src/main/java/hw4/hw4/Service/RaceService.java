@@ -8,6 +8,9 @@ import hw4.hw4.Entity.RacePilot.RacesPilots;
 import hw4.hw4.Exception.RaceNotFoundException;
 import hw4.hw4.Repository.RaceRepository;
 import hw4.hw4.Repository.RacesPilotsRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,8 +30,10 @@ public class RaceService {
         this.racesPilotsRepository = racesPilotsRepository;
     }
 
-    public List<Race> getAllRaces() {
-        return raceRepository.findAll().stream().limit(100).collect(Collectors.toList());
+    public List<Race> getAllRaces(Integer pageNo, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
+
+        return raceRepository.findAll(pageable).getContent();
     }
 
     public Race getOneRace(Long id) {

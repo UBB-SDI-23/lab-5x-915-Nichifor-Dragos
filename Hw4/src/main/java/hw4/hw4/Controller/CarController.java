@@ -23,37 +23,45 @@ public class CarController {
     private ModelMapper modelMapper;
     private final CarService carService;
 
-    public CarController(CarService carService) {this.carService = carService;}
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
 
-    @GetMapping("/car") // get all the cars, or filter by cylindrical capacity if there is a parameter specified
-    List<CarDTO_All> allCars(@RequestParam(required = false) Integer capacity) {
+    @GetMapping("/car")
+        // get all the cars, or filter by cylindrical capacity if there is a parameter specified
+    List<CarDTO_All> allCars(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize, @RequestParam(required = false) Integer capacity) {
         if (capacity == null) {
-            return this.carService.getAllCars().stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
+            return this.carService.getAllCars(pageNo, pageSize).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
         }
         return this.carService.getAllCarsWithCapacityGreaterThan(capacity).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
     }
 
-    @GetMapping("/car/{id}") // get a car by its id
+    @GetMapping("/car/{id}")
+        // get a car by its id
     CarDTO_One oneCar(@PathVariable Long id) {
         return this.convertToCarDTO_One(this.carService.getOneCar(id));
     }
 
-    @PostMapping("/pilot/{id}/car") // add a new car to an existing pilot
+    @PostMapping("/pilot/{id}/car")
+        // add a new car to an existing pilot
     Car newCar(@Valid @RequestBody Car newCar, @PathVariable Long id) {
         return carService.addCar(newCar, id);
     }
 
-    @PostMapping("/pilot/{id}/cars") // add a new car to an existing pilot
+    @PostMapping("/pilot/{id}/cars")
+        // add a new car to an existing pilot
     List<Car> newCars(@Valid @RequestBody List<Car> newCars, @PathVariable Long id) {
         return carService.addCars(newCars, id);
     }
 
-    @PutMapping("/car/{id}") // update a car given the id
+    @PutMapping("/car/{id}")
+        // update a car given the id
     Car replaceCar(@Valid @RequestBody Car newCar, @PathVariable Long id) {
         return carService.updateCar(newCar, id);
     }
 
-    @DeleteMapping("/car/{id}") // delete a car given its id
+    @DeleteMapping("/car/{id}")
+        // delete a car given its id
     void deleteCar(@PathVariable Long id) {
         carService.deleteCar(id);
     }
