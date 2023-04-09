@@ -29,10 +29,10 @@ public class CarServiceTest {
     @BeforeEach
     void setUp()
     {
-        when(carRepository.findByCylindricalCapacityGreaterThan(4000)).thenReturn(Arrays.asList(
-                new Car(1L, "Porsche", "benzine", "automatic", 4500, 450, new Pilot()),
-                new Car(2L, "Ferrari", "benzine", "automatic", 5500, 590, new Pilot())
-        ));
+//        when(carRepository.findByCylindricalCapacityGreaterThan(4000)).thenReturn(Arrays.asList(
+//                new Car(1L, "Porsche", "benzine", "automatic", 4500, 450, new Pilot()),
+//                new Car(2L, "Ferrari", "benzine", "automatic", 5500, 590, new Pilot())
+//        ));
     }
 
     @Test
