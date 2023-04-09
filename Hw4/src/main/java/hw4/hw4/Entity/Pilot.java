@@ -23,7 +23,7 @@ import java.util.Set;
 public class Pilot {
 
     private @Id
-    @GeneratedValue Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide
 
     @NotEmpty
     private String firstName;

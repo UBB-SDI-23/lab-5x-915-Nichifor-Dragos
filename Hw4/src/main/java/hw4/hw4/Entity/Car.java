@@ -17,7 +17,7 @@ import java.util.Objects;
 @Table(name = "Cars")
 public class Car {
 
-    private @Id @GeneratedValue Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide\
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide\
 
     @NotEmpty
     private String brand;
