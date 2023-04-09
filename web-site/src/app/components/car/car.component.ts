@@ -33,7 +33,7 @@ export class CarComponent {
 
     listCars() {
       this.subscriptions.push(this.carService.listCars().subscribe(cars => {
-        this.cars = cars
+        this.cars = cars.slice(0, 100)
       }, error => console.log("Something went wrong " + error)))
     }
 

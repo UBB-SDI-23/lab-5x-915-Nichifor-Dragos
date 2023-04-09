@@ -30,7 +30,7 @@ export class PilotComponent implements OnInit, OnDestroy{
 
   listPilots() : void {
     this.subscriptions.push(this.pilotService.listPilots().subscribe(pilots => {
-      this.pilots = pilots;
+      this.pilots = pilots.slice(0, 100);
     }, error => console.log("Something went wrong " + error)))
   }
 
