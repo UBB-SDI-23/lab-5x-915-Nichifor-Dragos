@@ -32,7 +32,7 @@ export class RaceComponent implements OnInit, OnDestroy{
   listRaces(): void {
     this.sortedByName = false;
     this.subscriptions.push(this.raceService.listRaces().subscribe(races => {
-      this.races = races.slice(0, 100);
+      this.races = races
     }, error => console.log('Something went wrong ' + error)))
   }
 
