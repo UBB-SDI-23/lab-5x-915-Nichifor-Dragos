@@ -5,5 +5,6 @@ export interface Car {
     gearBox: string;
     cylindricalCapacity: number;
     horsePower: number;
+    description: string;
     pilotID: number;
 }
