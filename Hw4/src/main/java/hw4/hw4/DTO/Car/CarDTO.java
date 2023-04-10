@@ -15,5 +15,6 @@ public abstract class CarDTO {
     private String gearBox;
     private Integer cylindricalCapacity;
     private Integer horsePower;
+    private String description;
 
 }
