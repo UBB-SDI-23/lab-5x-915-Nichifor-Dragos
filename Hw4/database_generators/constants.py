@@ -5,3 +5,4 @@ USER = 'postgres'
 PASSWORD = 'patopolc12'
 
 SPECIAL_CHARS = [".", " ", ",", "'"]
+SPECIAL_CHARS_DESCRIPTION = ["'"]

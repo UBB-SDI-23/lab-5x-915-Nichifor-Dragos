@@ -26,10 +26,10 @@ def insert_participations():
 
 def insert():
     print("===== Insert script is running! =====")
-    insert_races()
-    insert_pilots()
+    #insert_races()
+    #insert_pilots()
     insert_cars()
-    insert_participations()
+    #insert_participations()
 
 
 if __name__ == '__main__':

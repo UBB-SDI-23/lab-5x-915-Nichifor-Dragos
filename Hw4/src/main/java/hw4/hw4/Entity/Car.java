@@ -20,21 +20,30 @@ public class Car {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide\
 
     @NotEmpty
+    @Column
     private String brand;
 
     @NotEmpty
+    @Column
     private String motorization;
 
     @NotEmpty
+    @Column
     private String gearBox;
 
     @Min(2000)
     @Max(8000)
+    @Column
     private Integer cylindricalCapacity;
 
     @Min(150)
     @Max(800)
+    @Column
     private Integer horsePower;
+
+    @NotEmpty
+    @Column(length = 2000)
+    private String description;
 
     @ManyToOne
     @JsonIgnore
