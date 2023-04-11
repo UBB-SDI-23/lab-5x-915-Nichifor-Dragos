@@ -2,8 +2,10 @@ import random
 import psycopg2
 from constants import HOST, PORT, DATABASE, USER, PASSWORD, SPECIAL_CHARS
 
+positions = {}
 
-def insert_data_participations():
+
+def insert_data_participation():
     conn = psycopg2.connect(
         host=HOST,
         port=PORT,
@@ -29,10 +31,19 @@ def insert_data_participations():
                         pilot_id = random.choice(pilot_ids)
                         race_id = random.choice(race_ids)
                     pairs.add((pilot_id, race_id))
-                    need_accommodation_list = ["yes", "no"]
+
+                    need_accommodation_list = [False, True]
                     need_accommodation = random.choice(need_accommodation_list)
-                    start_position = random.randint(0, 11)
+
+                    if race_id not in positions.keys():
+                        positions[race_id] = 1
+                        start_position = 1
+                    else:
+                        start_position = positions[race_id] + 1
+                        positions[race_id] = positions[race_id] + 1
+
                     values.append(f"({race_id}, {pilot_id}, '{start_position}', '{need_accommodation}')")
+
                     if len(values) == 1000:
                         f.write(insert_query + ", ".join(values) + ";\n")
                         values = []

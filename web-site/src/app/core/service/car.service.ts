@@ -6,8 +6,11 @@ import { Car } from "../model/car.model";
 
 @Injectable()
 export class CarService {
-    private baseUrl = "/api/";
-    // private baseUrl = "http://localhost/api/"
+    // /api/* http://54.82.120.234/api/:splat 200!
+    // /* /index.html 200`
+
+    // private baseUrl = "/api/";
+    private baseUrl = "http://localhost/api/"
     
     constructor(private httpClient: HttpClient) { }
 

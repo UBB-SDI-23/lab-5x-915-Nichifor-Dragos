@@ -6,8 +6,8 @@ import { Race, RaceAddUpdate, RaceOne } from "../model/race.model";
 
 @Injectable()
 export class RaceService {
-    private baseUrl = "/api/";
-    // private baseUrl = "http://localhost/api/";
+    // private baseUrl = "/api/";
+    private baseUrl = "http://localhost/api/";
     
     constructor(private httpClient: HttpClient) { }
 

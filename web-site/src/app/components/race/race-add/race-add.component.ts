@@ -23,7 +23,6 @@ export class RaceAddComponent implements OnInit{
     console.log(this.model)
   }
 
-
   resetForm() {
     this.model = new RaceAddUpdate('', '' , 0, 0, '')
   }

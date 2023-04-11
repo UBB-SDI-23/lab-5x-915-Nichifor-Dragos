@@ -12,6 +12,7 @@
     color: #fff;
     font-size: 1.2rem;
     font-weight: 500;
+    border-radius: 2px;
 }
 
 .navbar.scrolled {
@@ -29,7 +30,7 @@
 }
 
 .navbar-nav .main-page-link:hover {
-    animation: shine 0.5s forwards;
+    animation: shine 1s forwards;
 }
 
 .main-page-nav {
@@ -42,11 +43,10 @@
 }
 
 .main-dropdown-menu-item {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
     color: white;
 }
 
 .main-dropdown-menu-item:hover {
-    animation: shine 0.5s forwards;
+    animation: shine 1s forwards;
 }

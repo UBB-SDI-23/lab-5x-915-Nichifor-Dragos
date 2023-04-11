@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg p-3" [ngClass]="getHeaderStyle()">
+<nav class="navbar navbar-expand-lg p-3 px-5" [ngClass]="getHeaderStyle()">
     <div class="container-fluid">
       <a class="navbar-brand" routerLink="">Race Masters</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,28 +6,42 @@
       </button>
     
       <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto ">
-          <li class="nav-item">
+        <ul class="navbar-nav ms-auto">
+
+          <li class="nav-item px-1">
             <a class="nav-link mx-2 active" aria-current="page" routerLink="" [ngClass]="getLinkStyle()">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" routerLink="race-component" [ngClass]="getLinkStyle()">Races</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" routerLink="pilot-component" [ngClass]="getLinkStyle()">Pilots</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" routerLink="car-component" [ngClass]="getLinkStyle()">Cars</a>
-          </li>
-          <li class="nav-item dropdown">
+
+          <li class="nav-item dropdown px-1">
             <a class="nav-link mx-2 dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="getLinkStyle()">
-              Company
+              Races
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
-              <li><a class="dropdown-item" href="" [ngClass]="getDropdownStyle() + '-item'" >About Us</a></li>
-              <li><a class="dropdown-item" href="" [ngClass]="getDropdownStyle() + '-item'" >Contact us</a></li>
+              <li><a class="dropdown-item" routerLink="race-component" [ngClass]="getDropdownStyle() + '-item'">Show all races</a></li>
+              <li><a class="dropdown-item" routerLink="race-add-component" [ngClass]="getDropdownStyle() + '-item'">Add a race</a></li>
             </ul>
           </li>
+
+          <li class="nav-item dropdown px-1">
+            <a class="nav-link mx-2 dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="getLinkStyle()">
+              Pilots
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
+              <li><a class="dropdown-item" routerLink="pilot-component" [ngClass]="getDropdownStyle() + '-item'">Show all pilots</a></li>
+              <li><a class="dropdown-item" routerLink="pilot-add-component" [ngClass]="getDropdownStyle() + '-item'">Add a pilot</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown px-1" style="margin-right: 160px">
+            <a class="nav-link mx-2 dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="getLinkStyle()">
+              Cars
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
+              <li><a class="dropdown-item" routerLink="car-component" [ngClass]="getDropdownStyle() + '-item'">Show all cars</a></li>
+              <li><a class="dropdown-item" routerLink="car-add-component" [ngClass]="getDropdownStyle() + '-item'">Add a car</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>
