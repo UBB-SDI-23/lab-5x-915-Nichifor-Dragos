@@ -1,17 +1,19 @@
 <div class="container text-center mb-3 p-5 mt-5 d-flex flex-column align-items-center justify-content-center" *ngIf="race">
     
     <div class="row p-3" *ngIf="race.pilots.length != 0" >
+
         <h2 class="p-4 text-center mb-5">All the pilots that will attend to the race</h2>
+
         <div class="col-sm-3" *ngFor="let pilot of race.pilots">
             <div class="card bg-dark m-4 text-white">
-                <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
                     <h4 class="card-title"> Pilot id: {{ pilot.pilotId }}</h4>
                     <p class="card-text"> Starting position: {{ pilot.startPosition }}, </p>
-                    <p class="card-text"> Need Accomodation: {{ pilot.needAccommodation }}, </p>
+                    <p class="card-text"> Need accomodation: {{ pilot.needAccommodation }}, </p>
                 </div>
             </div>
         </div>
+        
     </div>
 
     <div class="row p-3" *ngIf="race.pilots.length == 0" >
@@ -19,9 +21,11 @@
     </div>
 
     <div class="card p-5">
+
         <div class="card-header">
             <h1>Race details</h1>
         </div>
+
         <ul class="list-group list-group-flush">
             <li class="list-group-item"> Name: <b> {{ race.name }} </b></li>
             <li class="list-group-item"> Country: <b> {{ race.country }} </b></li>
@@ -29,6 +33,7 @@
             <li class="list-group-item"> Lap length: <b> {{ race.lapLength }} </b></li>
             <li class="list-group-item"> Date: <b> {{ race.date | date: "MMM. dd. yyyy" }} </b></li>
         </ul>
+
     </div>
 
     <button class="btn btn-primary m-5" (click)="onBackToRacePage()" > Back to the race page </button>
