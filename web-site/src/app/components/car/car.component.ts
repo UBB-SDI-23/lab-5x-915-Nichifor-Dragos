@@ -37,12 +37,15 @@ export class CarComponent {
       }, error => console.log("Something went wrong " + error)))
     }
 
-    onUpdateCar(id: number) {
-      console.log("update")
-    }
-
-    onDeleteCar(id: number) {
-      console.log("delete")
+    onDeleteCar(id: string) {
+      this.carService.deleteCar(id).subscribe(
+        response => {
+          console.log('Car deleted successfully');
+          this.listCars();
+        },
+        error => {
+          console.error('Error deleting car:', error);
+        });
     }
 
     onSearch() {

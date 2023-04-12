@@ -16,16 +16,16 @@
                     <p class="card-text"> Motorization: {{ car.motorization }}, <br>
                                         Gear box: {{ car.gearBox }}, <br>
                                         Cylindrical capacity: {{ car.cylindricalCapacity }}, <br>
-                                        Horse power: {{ car.horsePower }}, <br>
-                                        Description : {{ car.description }}
+                                        Horse power: {{ car.horsePower }}
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="settings-svg" src="assets/settings.png">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" (click)="onUpdateCar(car.id)" >Update</a>
-                                <a class="dropdown-item" (click)="onDeleteCar(car.id)" > Delete</a>
+                                <a class="dropdown-item" [routerLink]="['/car-details-component', car.id]">Details</a>
+                                <a class="dropdown-item" [routerLink]="['/car-update-component', car.id]">Update</a>
+                                <a class="dropdown-item" (click)="onDeleteCar(car.id)"> Delete</a>
                             </div>
                         </div>
                     </div>
@@ -45,16 +45,16 @@
                     <p class="card-text"> Motorization: {{ car.motorization }}, <br>
                                         Gear box: {{ car.gearBox }}, <br>
                                         Cylindrical capacity: {{ car.cylindricalCapacity }}, <br>
-                                        Horse power: {{ car.horsePower }}, <br>
-                                        Description : {{ car.description }}
+                                        Horse power: {{ car.horsePower }}
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="settings-svg" src="assets/settings.png">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" (click)="onUpdateCar(car.id)" >Update</a>
-                                <a class="dropdown-item" (click)="onDeleteCar(car.id)" > Delete</a>
+                                <a class="dropdown-item" [routerLink]="['/car-details-component', car.id]">Details</a>
+                                <a class="dropdown-item" [routerLink]="['/car-update-component', car.id]">Update</a>
+                                <a class="dropdown-item" (click)="onDeleteCar(car.id)"> Delete</a>
                             </div>
                         </div>
                     </div>

@@ -1,1 +1,44 @@
-<p>car-details works!</p>
+<div class="container text-center mb-3 p-5 mt-5 d-flex flex-column align-items-center justify-content-center" *ngIf="car">
+    
+    <div class="row p-3" *ngIf="car.pilot" >
+
+        <h2 class="p-4 text-center mb-5">This car's pilot</h2>
+
+        <div class="col-sm-12">
+            <div class="card bg-dark m-4 text-white">
+                <div class="card-body">
+                    <h4 class="card-title"> Pilot id: {{ car.pilot.id }}</h4>
+                    <p class="card-text"> Name: {{ car.pilot.firstName }} {{ car.pilot.lastName }}, </p>
+                    <p class="card-text"> Nationality: {{ car.pilot.nationality }}, </p>
+                    <p class="card-text"> Driving experience: {{ car.pilot.drivingExperience }}, </p>
+                    <p class="card-text"> Birth date: {{ car.pilot.date }}, </p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row p-3" *ngIf="! car.pilot" >
+        <h2 class="p-4 text-center mb-5">This car does not currently have a pilot</h2>
+    </div>
+
+    <div class="card p-5">
+
+        <div class="card-header">
+            <h1>Car details</h1>
+        </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"> Brand: <b> {{ car.brand }} </b></li>
+            <li class="list-group-item"> Motorization: <b> {{ car.motorization }} </b></li>
+            <li class="list-group-item"> Gear box: <b> {{ car.gearBox }} </b></li>
+            <li class="list-group-item"> Horse power: <b> {{ car.horsePower }} </b></li>
+            <li class="list-group-item"> Cylindrical capacity: <b> {{ car.cylindricalCapacity }} </b></li>
+            <li class="list-group-item"> Description: <b> {{ car.description }} </b></li>
+        </ul>
+
+    </div>
+
+    <button class="btn btn-primary m-5" (click)="onBackToRacePage()" > Back to the race page </button>
+
+</div>

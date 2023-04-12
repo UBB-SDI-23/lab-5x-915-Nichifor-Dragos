@@ -37,11 +37,11 @@ export class PilotComponent implements OnInit, OnDestroy{
   onDeletePilot(id: string) {
     this.pilotService.deletePilot(id).subscribe(
       response => {
-        console.log('Race deleted successfully');
+        console.log('Pilot deleted successfully');
         this.listPilots();
       },
       error => {
-        console.error('Error deleting race:', error);
+        console.error('Error deleting pilot:', error);
       });
   }
 
