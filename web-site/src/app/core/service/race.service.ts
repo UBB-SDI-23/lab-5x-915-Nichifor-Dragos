@@ -20,18 +20,16 @@ export class RaceService {
       return this.httpClient.get(this.baseUrl + "race/" + id) as Observable<RaceOne>;
     }
   
-    addRace(race: RaceAddUpdate): Observable<Race> { // make it work
-      console.log("add " + this.baseUrl + "race", race)
+    addRace(race: RaceAddUpdate): Observable<Race> {
       return this.httpClient.post(this.baseUrl + "race", race) as Observable<Race>
     }
 
-    updateRace(race: RaceAddUpdate, id: string) { // make it work
-      console.log("update " + this.baseUrl + "race/" + id)
+    updateRace(race: RaceAddUpdate, id: string) {
       return this.httpClient.put(this.baseUrl + "race/" + id, race)
     }
 
-    deleteRace(id: string) { // make it work
-      console.log("delete " + this.baseUrl + "race/" + id)
+    deleteRace(id: string) {
+      // SET UP CASCADE -> THIS DOES NOT WORK
       return this.httpClient.delete(this.baseUrl + "race/" + id)
     }
 

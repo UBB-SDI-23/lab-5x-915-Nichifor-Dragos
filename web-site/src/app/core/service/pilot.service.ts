@@ -29,6 +29,7 @@ export class PilotService {
     }
 
     deletePilot(id: string) {
+      // SET UP CASCADE -> THIS DOES NOT WORK
       return this.httpClient.delete(this.baseUrl + "pilot/" + id)
     }
 

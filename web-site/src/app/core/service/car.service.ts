@@ -36,6 +36,7 @@ export class CarService {
     }
 
     deleteCar(id: string) {
+      // SET UP CASCADE -> THIS DOES NOT WORK
       return this.httpClient.delete(this.baseUrl + "car/" + id)
     }
 
