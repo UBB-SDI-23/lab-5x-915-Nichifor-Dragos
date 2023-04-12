@@ -16,7 +16,7 @@ export class PilotOne {
         public firstName: string,
         public lastName: string,
         public nationality: string,
-        public date: Date,
+        public date: string,
         public drivingExperience: number,
         public cars: Car[],
         public races: RacePilotDTO[]

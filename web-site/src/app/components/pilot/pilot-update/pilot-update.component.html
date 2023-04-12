@@ -1,1 +1,48 @@
-<p>pilot-update works!</p>
+<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center" *ngIf="pilot">
+    <div [hidden]="submitted">
+      <h1 class="mt-5 mb-5"><b>Update the pilot</b></h1>     
+
+      <form (ngSubmit)="onSubmit()" #pilotForm="ngForm">
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <input type="text" class="form-control" id="firstName"
+                 required
+                 [(ngModel)]="this.pilot.firstName" name="firstName">
+        </div>
+  
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text" class="form-control" id="lastName"
+                   required
+                   [(ngModel)]="this.pilot.lastName" name="lastName">       
+        </div>
+
+        <div class="form-group">
+            <label for="nationality">Nationality</label>
+            <input type="text" class="form-control" id="nationality"
+                   required
+                   [(ngModel)]="this.pilot.nationality" name="nationality"
+                   #noLaps="ngModel">
+        </div>
+
+        <div class="form-group">
+            <label for="date">Birth date</label>
+            <input type="date" class="form-control" id="date"
+                   required
+                   [(ngModel)]="this.pilot.date" name="date">
+        </div>
+
+        <div class="form-group">
+            <label for="drivingExperience">Driving experience</label>
+            <input type="number" class="form-control" id="drivingExperience" step="10"
+                   required
+                   [(ngModel)]="this.pilot.drivingExperience" name="drivingExperience">
+        </div>
+  
+        <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!pilotForm.form.valid">Update</button>
+        <button type="button" class="btn btn-secondary mt-2 d-flex flex-column" (click)="pilotForm.reset()">Reset form</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onBackToRacePage()">Back to race page</button>
+      </form>
+
+    </div>
+  </div>
