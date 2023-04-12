@@ -30,3 +30,11 @@ export class RaceOne {
         public pilots: PilotRaceDTO[]
     ) {}
 }
+
+export class RacePilotDTO {
+    constructor(
+        public raceId: string,
+        public startPosition: number,
+        public needAccommodation: boolean
+    ){}
+}

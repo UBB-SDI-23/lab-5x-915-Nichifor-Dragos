@@ -36,10 +36,6 @@ export class RaceComponent implements OnInit, OnDestroy{
     }, error => console.log('Something went wrong ' + error)))
   }
 
-  onUpdateRace(id: string) {
-    this.router.navigateByUrl(`race-update-component/${id}`)
-  }
-
   onDeleteRace(id: string) {
     this.raceService.deleteRace(id).subscribe(
       response => {
@@ -49,10 +45,6 @@ export class RaceComponent implements OnInit, OnDestroy{
       error => {
         console.error('Error deleting race:', error);
       });
-  }
-
-  onAddRace() {
-    this.router.navigateByUrl("race-add-component")
   }
 
   onSortName() {
