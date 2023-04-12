@@ -1,22 +1,22 @@
-<div class="container">
+<div class="container-fluid container-padding">
     <div class="container px-5 pt-5">
         <div class="my-2 my-lg-0 p-5">
           <input class="form-control mr-sm-2" type="number" step="500" placeholder="Search by cylindrical capacity" aria-label="Search" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" >
         </div>
     </div>
 
-    <div class="row pt-5 pb-5" *ngIf="searchTerm != null && searchTerm != ''">
-        <h1 class="p-4 text-center mb-5">All cars with cylindrical capacity greater than: {{ this.searchTerm }} </h1>
+    <div class="row pt-5 pb-5 m-0" *ngIf="searchTerm != null && searchTerm != ''">
+        <h1 class="p-4 text-center mb-5"><b>All cars with cylindrical capacity greater than: {{ this.searchTerm }}</b></h1>
         <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let car of carsFiltered">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
-                    <h4 class="card-title">{{ car.brand }}</h4>
+                    <h4 class="card-title"><b>{{ car.brand }}</b></h4>
                     <hr class ="card-separator">
-                    <p class="card-text"> Motorization: {{ car.motorization }}, <br>
-                                        Gear box: {{ car.gearBox }}, <br>
-                                        Cylindrical capacity: {{ car.cylindricalCapacity }}, <br>
-                                        Horse power: {{ car.horsePower }} </p>
+                    <p class="card-text"> Motorization: <b>{{ car.motorization }}</b></p>
+                    <p class="card-text"> Gear box: <b>{{ car.gearBox }}</b></p>
+                    <p class="card-text"> Cylindrical capacity: <b>{{ car.cylindricalCapacity }}</b></p>
+                    <p class="card-text"> Horse power: <b>{{ car.horsePower }}</b></p>
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,18 +34,18 @@
         </div>
     </div>
 
-    <div class="row pt-5 pb-5" *ngIf="searchTerm == null || searchTerm == ''">
-        <h1 class="p-4 text-center mb-5">All cars</h1>
+    <div class="row pt-5 pb-5 m-0" *ngIf="searchTerm == null || searchTerm == ''">
+        <h1 class="p-4 text-center mb-5"><b>All cars</b></h1>
         <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let car of cars">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
-                    <h4 class="card-title">{{ car.brand }}</h4>
+                    <h4 class="card-title"><b>{{ car.brand }}</b></h4>
                     <hr class ="card-separator">
-                    <p class="card-text"> Motorization: {{ car.motorization }}, <br>
-                                        Gear box: {{ car.gearBox }}, <br>
-                                        Cylindrical capacity: {{ car.cylindricalCapacity }}, <br>
-                                        Horse power: {{ car.horsePower }} </p>
+                    <p class="card-text"> Motorization: <b>{{ car.motorization }}</b></p>
+                    <p class="card-text"> Gear box: <b>{{ car.gearBox }}</b></p>
+                    <p class="card-text"> Cylindrical capacity: <b>{{ car.cylindricalCapacity }}</b></p>
+                    <p class="card-text"> Horse power: <b>{{ car.horsePower }}</b></p>
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

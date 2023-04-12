@@ -18,5 +18,9 @@
 }
 
 .card {
-    min-height: 17rem;
+    min-height: 15rem;
+}
+
+.container-padding {
+    padding: 8rem;
 }

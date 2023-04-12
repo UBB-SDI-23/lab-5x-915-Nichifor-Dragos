@@ -1,15 +1,15 @@
-<div class="container">
-    <div class="row pt-5 pb-5">
-        <h1 class="p-4 text-center mb-5">All pilots</h1>
+<div class="container-fluid container-padding">
+    <div class="row pt-5 pb-5 m-0">
+        <h1 class="p-4 text-center mb-5"><b>All pilots</b></h1>
         <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let pilot of pilots">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
-                    <h4 class="card-title">{{ pilot.lastName }} {{ pilot.firstName }} </h4>
+                    <h4 class="card-title text"><b>{{ pilot.lastName }} {{ pilot.firstName }}</b></h4>
                     <hr class ="card-separator">
-                    <p class="card-text"> Nationality: {{ pilot.nationality }}, <br>
-                                        Birth date: {{ pilot.date | date: "MMM. dd. yyyy" }}, <br>
-                                        Driving experience: {{ pilot.drivingExperience }}, </p>
+                    <p class="card-text"> Nationality: <b>{{ pilot.nationality }}</b></p>
+                    <p class="card-text"> Birth date: <b>{{ pilot.date | date: "MMM. dd. yyyy" }}</b></p>                    
+                    <p class="card-text"> Driving experience: <b>{{ pilot.drivingExperience }}</b></p>
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

@@ -2,14 +2,15 @@
     
     <div class="row p-3" *ngIf="race.pilots.length != 0" >
 
-        <h2 class="p-4 text-center mb-5">All the pilots that will attend to the race</h2>
+        <h2 class="p-4 text-center mb-5"><b>All the pilots that will attend to the race</b></h2>
 
         <div class="col-sm-3" *ngFor="let pilot of race.pilots">
             <div class="card bg-dark m-4 text-white">
                 <div class="card-body">
-                    <h4 class="card-title"> Pilot id: {{ pilot.pilotId }}</h4>
-                    <p class="card-text"> Starting position: {{ pilot.startPosition }}, </p>
-                    <p class="card-text"> Need accomodation: {{ pilot.needAccommodation }}, </p>
+                    <h4 class="card-title">Pilot id: {{ pilot.pilotId }}</h4>
+                    <hr class="card-separator">
+                    <p class="card-text"> Starting position: <b>{{ pilot.startPosition }}</b></p>
+                    <p class="card-text"> Need accomodation: <b>{{ pilot.needAccommodation }}</b></p>
                 </div>
             </div>
         </div>
@@ -17,13 +18,13 @@
     </div>
 
     <div class="row p-3" *ngIf="race.pilots.length == 0" >
-        <h2 class="p-4 text-center mb-5">No pilots will currently attend to the race.</h2>
+        <h2 class="p-4 text-center mb-5"><b>No pilots will currently attend to the race</b></h2>
     </div>
 
     <div class="card p-5">
 
         <div class="card-header">
-            <h1>Race details</h1>
+            <h1><b>Race details</b></h1>
         </div>
 
         <ul class="list-group list-group-flush">

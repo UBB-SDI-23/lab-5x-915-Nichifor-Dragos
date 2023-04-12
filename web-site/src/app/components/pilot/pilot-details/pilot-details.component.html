@@ -1,45 +1,48 @@
 <div class="container text-center mb-3 p-5 mt-5 d-flex flex-column align-items-center justify-content-center" *ngIf="pilot">
     
     <div class="row p-3" *ngIf="pilot.races.length != 0" >
-        <h2 class="p-4 text-center mb-5">All the races that the pilot will attend to</h2>
+        <h2 class="p-4 text-center mb-5"><b>All the races that the pilot will attend to</b></h2>
         <div class="col-sm-3" *ngFor="let races of pilot.races">
             <div class="card bg-dark m-4 text-white">
                 <div class="card-body">
                     <h4 class="card-title"> Race id: {{ races.raceId }}</h4>
-                    <p class="card-text"> Starting position: {{ races.startPosition }}, </p>
-                    <p class="card-text"> Need accomodation: {{ races.needAccommodation }}, </p>
+                    <hr class="card-separator">
+                    <p class="card-text"> Starting position: <b>{{ races.startPosition }}</b></p>
+                    <p class="card-text"> Need accomodation: <b>{{ races.needAccommodation }}</b></p>
                 </div>
             </div>
         </div>    
     </div>
     <div class="row p-3" *ngIf="pilot.races.length == 0" >
-        <h2 class="p-4 text-center mb-5">The pilot does not currently attend to any race</h2>
+        <h2 class="p-4 text-center mb-5"><b>The pilot does not currently attend to any race</b></h2>
     </div>
 
 
     <div class="row p-3" *ngIf="pilot.cars.length != 0" >
-        <h2 class="p-4 text-center mb-5">All the cars that the pilot can drive</h2>
-        <div class="col-sm-3" *ngFor="let car of pilot.cars">
+        <h2 class="p-4 text-center mb-5"><b>All the cars that the pilot can drive</b></h2>
+        <div class="col-sm-4" *ngFor="let car of pilot.cars">
             <div class="card bg-dark m-4 text-white">
                 <div class="card-body">
-                    <h4 class="card-title"> Brand: {{ car.brand }}</h4>
-                    <p class="card-text"> Motorization: {{ car.motorization }}, </p>
-                    <p class="card-text"> Gear box type: {{ car.gearBox }}, </p>
-                    <p class="card-text"> Horse power: {{ car.horsePower }}, </p>
-                    <p class="card-text"> Cylindrical capacity: {{ car.cylindricalCapacity }}, </p>
+                    <h4 class="card-title"> Car id: {{ car.id }}</h4>
+                    <hr class="card-separator">
+                    <p class="card-text"> Brand: <b>{{ car.brand }}</b></p>
+                    <p class="card-text"> Motorization: <b>{{ car.motorization }}</b></p>
+                    <p class="card-text"> Gear box type: <b>{{ car.gearBox }}</b></p>
+                    <p class="card-text"> Horse power: <b>{{ car.horsePower }}</b></p>
+                    <p class="card-text"> Cylindrical capacity: <b>{{ car.cylindricalCapacity }}</b></p>
                 </div>
             </div>
         </div>     
     </div>
     <div class="row p-3" *ngIf="pilot.cars.length == 0" >
-        <h2 class="p-4 text-center mb-5">The pilot does not currently drive any car</h2>
+        <h2 class="p-4 text-center mb-5"><b>The pilot does not currently drive any car</b></h2>
     </div>
 
 
     <div class="card p-5">
 
         <div class="card-header">
-            <h1>Pilot details</h1>
+            <h1><b>Pilot details</b></h1>
         </div>
 
         <ul class="list-group list-group-flush">

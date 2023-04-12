@@ -1,7 +1,7 @@
-<div class="container">
-    <div class="row pt-5 pb-5" *ngIf="!sortedByName">
+<div class="container-fluid container-padding ">
+    <div class="row pt-5 pb-5 m-0" *ngIf="!sortedByName">
 
-        <h1 class="p-4 text-center mb-5">All races</h1>
+        <h1 class="p-4 text-center mb-5"><b>All races</b></h1>
 
         <div class="container px-5 pb-4 d-flex flex-column align-items-center">
             <button class="btn btn-primary mt-4" (click)="onSortName()" > Sort by race name</button>
@@ -11,12 +11,12 @@
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
-                    <h4 class="card-title">{{ race.name }}</h4>
+                    <h4 class="card-title"><b>{{ race.name }}</b></h4>
                     <hr class ="card-separator">
-                    <p class="card-text"> Country: {{ race.country }}, <br>
-                                        Number of laps: {{ race.numberOfLaps }}, <br>
-                                        Lap length: {{ race.lapLength }}, <br>
-                                        Date: {{ race.date | date: "MMM. dd. yyyy" }} </p>
+                    <p class="card-text"> Country: <b>{{ race.country }}</b></p>
+                    <p class="card-text"> Number of laps: <b>{{ race.numberOfLaps }}</b></p>
+                    <p class="card-text"> Lap length: <b>{{ race.lapLength }}</b></p>
+                    <p class="card-text"> Date: <b>{{ race.date | date: "MMM. dd. yyyy" }}</b></p>
                     <div class="dropdown">
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,9 +35,9 @@
 
     </div>
 
-    <div class="row pt-5 pb-5" *ngIf="sortedByName">
+    <div class="row pt-5 pb-5 m-0" *ngIf="sortedByName">
 
-        <h1 class="p-4 text-center mb-5">Races sorted by name</h1>
+        <h1 class="p-4 text-center mb-5"><b>Races sorted by name</b></h1>
 
         <div class="container px-5 pb-4 d-flex flex-column align-items-center">
             <button class="btn btn-primary mt-4" (click)="listRaces()" > Unsort </button>
@@ -47,12 +47,12 @@
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
-                    <h4 class="card-title">{{ race.name }}</h4>
+                    <h4 class="card-title"><b>{{ race.name }}</b></h4>
                     <hr class ="card-separator">
-                    <p class="card-text"> Country: {{ race.country }}, <br>
-                                        Number of laps: {{ race.numberOfLaps }}, <br>
-                                        Lap length: {{ race.lapLength }}, <br>
-                                        Date: {{ race.date | date: "MMM. dd. yyyy" }} </p>
+                    <p class="card-text"> Country: <b>{{ race.country }}</b></p>
+                    <p class="card-text"> Number of laps: <b>{{ race.numberOfLaps }}</b></p> 
+                    <p class="card-text"> Lap length: <b>{{ race.lapLength }}</b></p>
+                    <p class="card-text"> Date: <b>{{ race.date | date: "MMM. dd. yyyy" }}</b></p>
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

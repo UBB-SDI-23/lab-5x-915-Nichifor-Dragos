@@ -2,16 +2,17 @@
     
     <div class="row p-3" *ngIf="car.pilot" >
 
-        <h2 class="p-4 text-center mb-5">This car's pilot</h2>
+        <h2 class="p-4 text-center mb-5"><b>Car's pilot</b></h2>
 
         <div class="col-sm-12">
             <div class="card bg-dark m-4 text-white">
                 <div class="card-body">
                     <h4 class="card-title"> Pilot id: {{ car.pilot.id }}</h4>
-                    <p class="card-text"> Name: {{ car.pilot.firstName }} {{ car.pilot.lastName }}, </p>
-                    <p class="card-text"> Nationality: {{ car.pilot.nationality }}, </p>
-                    <p class="card-text"> Driving experience: {{ car.pilot.drivingExperience }}, </p>
-                    <p class="card-text"> Birth date: {{ car.pilot.date }}, </p>
+                    <hr class="card-separator">
+                    <p class="card-text"> Name: <b>{{ car.pilot.firstName }} {{ car.pilot.lastName }}</b></p>
+                    <p class="card-text"> Nationality: <b>{{ car.pilot.nationality }}</b></p>
+                    <p class="card-text"> Driving experience: <b>{{ car.pilot.drivingExperience }}</b></p>
+                    <p class="card-text"> Birth date: <b>{{ car.pilot.date | date: "MMM. dd. yyyy"  }}</b></p>
                 </div>
             </div>
         </div>
@@ -19,13 +20,13 @@
     </div>
 
     <div class="row p-3" *ngIf="! car.pilot" >
-        <h2 class="p-4 text-center mb-5">This car does not currently have a pilot</h2>
+        <h2 class="p-4 text-center mb-5"><b>This car does not currently have a pilot</b></h2>
     </div>
 
     <div class="card p-5">
 
         <div class="card-header">
-            <h1>Car details</h1>
+            <h1><b>Car details</b></h1>
         </div>
 
         <ul class="list-group list-group-flush">
