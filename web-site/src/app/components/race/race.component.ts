@@ -4,6 +4,7 @@ import { Race } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-race',
@@ -19,7 +20,9 @@ export class RaceComponent implements OnInit, OnDestroy{
 
   public constructor(
     private raceService: RaceService,
-    private router: Router) {}
+    private router: Router,
+    private toastrService: ToastrService
+    ) {}
 
   ngOnInit() {
       this.listRaces();
@@ -33,17 +36,17 @@ export class RaceComponent implements OnInit, OnDestroy{
     this.sortedByName = false;
     this.subscriptions.push(this.raceService.listRaces().subscribe(races => {
       this.races = races
-    }, error => console.log('Something went wrong ' + error)))
+    }, (error) => this.toastrService.error("Something went wrong", '', { progressBar: true })))
   }
 
   onDeleteRace(id: string) {
     this.raceService.deleteRace(id).subscribe(
-      response => {
-        console.log('Race deleted successfully');
+      (response) => {
+        this.toastrService.success("Race deleted successfully", '', { progressBar: true })
         this.listRaces();
       },
-      error => {
-        console.error('Error deleting race:', error);
+      (error) => {
+        this.toastrService.error("Could not delete race", '', { progressBar: true })
       });
   }
 

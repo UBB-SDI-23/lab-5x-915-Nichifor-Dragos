@@ -25,6 +25,8 @@ import { PilotUpdateComponent } from './components/pilot/pilot-update/pilot-upda
 import { CarAddComponent } from './components/car/car-add/car-add.component';
 import { CarUpdateComponent } from './components/car/car-update/car-update.component';
 import { CarDetailsComponent } from './components/car/car-details/car-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,10 @@ import { CarDetailsComponent } from './components/car/car-details/car-details.co
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-center'
+    })
   ],
   providers: [
     RaceService,

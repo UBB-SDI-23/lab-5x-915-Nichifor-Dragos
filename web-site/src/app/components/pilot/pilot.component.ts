@@ -4,6 +4,7 @@ import { PilotService } from 'src/app/core/service/pilot.service';
 
 import { Subscription } from 'rxjs';
 import { Pilot } from 'src/app/core/model/pilot.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pilot',
@@ -17,7 +18,8 @@ export class PilotComponent implements OnInit, OnDestroy{
 
   public constructor (
     private pilotService: PilotService,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -31,17 +33,16 @@ export class PilotComponent implements OnInit, OnDestroy{
   listPilots() : void {
     this.subscriptions.push(this.pilotService.listPilots().subscribe(pilots => {
       this.pilots = pilots
-    }, error => console.log("Something went wrong " + error)))
+    }, (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }) ))
   }
 
   onDeletePilot(id: string) {
     this.pilotService.deletePilot(id).subscribe(
-      response => {
-        console.log('Pilot deleted successfully');
+      (response) => {
+        this.toastrService.success("Pilot deleted successfully", '', { progressBar: true })
         this.listPilots();
-      },
-      error => {
-        console.error('Error deleting pilot:', error);
+      }, (error) => {
+        this.toastrService.error("Could not delete pilot", '', { progressBar: true })
       });
   }
 

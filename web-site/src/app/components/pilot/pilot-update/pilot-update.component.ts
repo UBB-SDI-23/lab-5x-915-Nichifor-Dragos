@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { PilotAddUpdate, PilotOne } from 'src/app/core/model/pilot.model';
 import { PilotService } from 'src/app/core/service/pilot.service';
 
@@ -19,7 +20,8 @@ export class PilotUpdateComponent {
   constructor(
     private pilotService: PilotService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -33,18 +35,13 @@ export class PilotUpdateComponent {
 
   onSubmit() { 
     this.submitted = true; 
-    if (this.pilot)
-    {
+    if (this.pilot) {
       this.pilotUpdateDTO = new PilotAddUpdate(this.pilot.firstName, this.pilot.lastName, this.pilot.nationality, this.pilot.date, this.pilot.drivingExperience)
       this.pilotService.updatePilot(this.pilotUpdateDTO, this.pilot.id).subscribe(
-        response => {
-          console.log('Race updated successfully');
-        },
-        error => {
-          console.error('Error updating race:', error);
-        });
+        (response) => { this.toastrService.success("Pilot updated successfully", '', { progressBar: true }) },
+        (error) => { this.toastrService.error("Could not update pilot", '', { progressBar: true }) });
     }
-    this.router.navigateByUrl("pilot-component")
+    this.onBackToRacePage()
   }
 
   onBackToRacePage() {

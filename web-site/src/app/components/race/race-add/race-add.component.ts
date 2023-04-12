@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RaceAddUpdate } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-race-add',
@@ -14,7 +15,8 @@ export class RaceAddComponent implements OnInit{
   
   constructor(
     private raceService: RaceService,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   name ?: string
@@ -38,20 +40,13 @@ export class RaceAddComponent implements OnInit{
 
   onSubmit() { 
     this.submitted = true;
-    if (this.name && this.country && this.lapLength && this.numberOfLaps && this.date)
-    {
+    if (this.name && this.country && this.lapLength && this.numberOfLaps && this.date) {
       this.model = new RaceAddUpdate(this.name, this. country, this.numberOfLaps, this.lapLength, this.date)
       this.raceService.addRace(this.model).subscribe(
-        response => {
-          console.log('Race added successfully');
-        },
-        error => {
-          console.error('Error adding race:', error);
-        });;
-    }
-    else
-      console.log("Error at creating race")
-    this.router.navigateByUrl("race-component")
+        (response) => { this.toastrService.success("Race added successfully", '', { progressBar: true }) },
+        error => { this.toastrService.error("Error at adding race", '', { progressBar: true }) });;
+    } else this.toastrService.error("One of the race's fields was left empty", '', { progressBar: true })
+    this.onBackToRacePage()
   }
 
   onBackToRacePage() {

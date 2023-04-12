@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 import { Car } from 'src/app/core/model/car.model';
@@ -20,7 +21,8 @@ export class CarComponent {
 
   constructor(
     private carService: CarService,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
     ) {}
 
     ngOnInit() {
@@ -34,23 +36,23 @@ export class CarComponent {
     listCars() {
       this.subscriptions.push(this.carService.listCars().subscribe(cars => {
         this.cars = cars
-      }, error => console.log("Something went wrong " + error)))
+      }, (error) => this.toastrService.success("Something went wrong", '', { progressBar: true }) ))
     }
 
     onDeleteCar(id: string) {
       this.carService.deleteCar(id).subscribe(
-        response => {
-          console.log('Car deleted successfully');
+        (response) => {
+          this.toastrService.success("Car deleted successfully", '', { progressBar: true })
           this.listCars();
         },
-        error => {
-          console.error('Error deleting car:', error);
+        (error) => {
+          this.toastrService.error("Error at deleting car", '', { progressBar: true })
         });
     }
 
     onSearch() {
       this.subscriptions.push(this.carService.listCarsWithCP(this.searchTerm).subscribe(cars => {
         this.carsFiltered = cars
-      }, error => console.log("Something went wrong " + error)))
+      }, (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }) ))
     }
 }

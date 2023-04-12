@@ -69,30 +69,3 @@
 
       </form>
     </div>
-  
-    <div [hidden]="!submitted">
-      <h2>You have updated the race</h2>
-      <div class="row">
-        <div class="col-xs-3">Name</div>
-        <div class="col-xs-9">{{ race.name }}</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-3">Country</div>
-        <div class="col-xs-9">{{ race.country }}</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-3">Number of laps</div>
-        <div class="col-xs-9">{{ race.numberOfLaps }}</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-3">Lap length</div>
-        <div class="col-xs-9">{{ race.lapLength }}</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-3">Date</div>
-        <div class="col-xs-9">{{ race.date |  date: "MMM. dd. yyyy" }}</div>
-      </div>
-      <br>
-      <button type="button" class="btn btn-primary" (click)="onBackToRacePage()">Back to race page</button>
-    </div>
-  </div>

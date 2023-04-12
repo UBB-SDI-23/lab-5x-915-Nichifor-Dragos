@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { RaceAddUpdate, RaceOne } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
 
@@ -19,7 +20,8 @@ export class RaceUpdateComponent implements OnInit {
   constructor(
     private raceService: RaceService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -33,17 +35,13 @@ export class RaceUpdateComponent implements OnInit {
 
   onSubmit() { 
     this.submitted = true; 
-    if (this.race)
-    {
+    if (this.race) {
       this.raceUpdateDTO = new RaceAddUpdate(this.race.name, this.race.country, this.race.numberOfLaps, this.race.lapLength, this.race.date)
       this.raceService.updateRace(this.raceUpdateDTO, this.race.id).subscribe(
-        response => {
-          console.log('Race updated successfully');
-        },
-        error => {
-          console.error('Error updating race:', error);
-        });
+        (response) => { this.toastrService.success("Race updated successfully", '', { progressBar: true }) },
+        (error) => { this.toastrService.error("Could not update race", '', { progressBar: true }) });
     }
+    this.onBackToRacePage()
   }
 
   onBackToRacePage() {

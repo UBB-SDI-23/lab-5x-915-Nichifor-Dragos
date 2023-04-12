@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PilotAddUpdate } from 'src/app/core/model/pilot.model';
 import { PilotService } from 'src/app/core/service/pilot.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pilot-add',
@@ -14,7 +15,8 @@ export class PilotAddComponent {
   
   constructor(
     private pilotService: PilotService,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   firstName ?: string
@@ -38,20 +40,13 @@ export class PilotAddComponent {
 
   onSubmit() { 
     this.submitted = true;
-    if (this.firstName && this.lastName && this.nationality && this.date && this.drivingExperience)
-    {
+    if (this.firstName && this.lastName && this.nationality && this.date && this.drivingExperience) {
       this.model = new PilotAddUpdate(this.firstName, this.lastName, this.nationality, this.date, this.drivingExperience)
       this.pilotService.addPilot(this.model).subscribe(
-        response => {
-          console.log('Race added successfully');
-        },
-        error => {
-          console.error('Error adding race:', error);
-        });;
-    }
-    else
-      console.log("Error at creating race")
-    this.router.navigateByUrl("pilot-component")
+        (response) => { this.toastrService.success("Pilot added successfully", '', { progressBar: true }) },
+        (error) => { this.toastrService.error("Could not add pilot", '', { progressBar: true }) });;
+    } else { this.toastrService.error("One of the pilot's fields was left empty", '', { progressBar: true }) }
+   this.onBackToRacePage()
   }
 
   onBackToRacePage() {
