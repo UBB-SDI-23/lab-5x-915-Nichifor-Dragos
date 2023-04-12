@@ -19,6 +19,12 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { RaceUpdateComponent } from './components/race/race-update/race-update.component';
 import { RaceAddComponent } from './components/race/race-add/race-add.component';
 import { RaceDetailsComponent } from './components/race/race-details/race-details.component';
+import { PilotAddComponent } from './components/pilot/pilot-add/pilot-add.component';
+import { PilotDetailsComponent } from './components/pilot/pilot-details/pilot-details.component';
+import { PilotUpdateComponent } from './components/pilot/pilot-update/pilot-update.component';
+import { CarAddComponent } from './components/car/car-add/car-add.component';
+import { CarUpdateComponent } from './components/car/car-update/car-update.component';
+import { CarDetailsComponent } from './components/car/car-details/car-details.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +38,12 @@ import { RaceDetailsComponent } from './components/race/race-details/race-detail
     RaceUpdateComponent,
     RaceAddComponent,
     RaceDetailsComponent,
+    PilotAddComponent,
+    PilotDetailsComponent,
+    PilotUpdateComponent,
+    CarAddComponent,
+    CarUpdateComponent,
+    CarDetailsComponent,
   ],
   imports: [
     BrowserModule,

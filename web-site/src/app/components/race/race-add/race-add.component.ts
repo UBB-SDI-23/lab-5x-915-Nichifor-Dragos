@@ -17,25 +17,41 @@ export class RaceAddComponent implements OnInit{
     private router: Router
   ) {}
 
-  model = new RaceAddUpdate('', '', 0, 0, '');
+  name ?: string
+  country ?: string
+  date ?: string
+  numberOfLaps ?: number
+  lapLength?: number
+
+  model ?: RaceAddUpdate;
 
   ngOnInit() {
-    console.log(this.model)
   }
 
   resetForm() {
-    this.model = new RaceAddUpdate('', '' , 0, 0, '')
+    this.name = ""
+    this.country = ""
+    this.date = ""
+    this.numberOfLaps = undefined
+    this.lapLength = undefined
   }
 
   onSubmit() { 
-    this.submitted = true; 
-    this.raceService.addRace(this.model).subscribe(
-      response => {
-        console.log('Race added successfully');
-      },
-      error => {
-        console.error('Error adding race:', error);
-      });;
+    this.submitted = true;
+    if (this.name && this.country && this.lapLength && this.numberOfLaps && this.date)
+    {
+      this.model = new RaceAddUpdate(this.name, this. country, this.numberOfLaps, this.lapLength, this.date)
+      this.raceService.addRace(this.model).subscribe(
+        response => {
+          console.log('Race added successfully');
+        },
+        error => {
+          console.error('Error adding race:', error);
+        });;
+    }
+    else
+      console.log("Error at creating race")
+    this.router.navigateByUrl("race-component")
   }
 
   onBackToRacePage() {
