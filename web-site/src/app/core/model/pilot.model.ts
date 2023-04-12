@@ -24,7 +24,13 @@ export class PilotOne {
 }
 
 export class PilotAddUpdate {
-
+    constructor(
+        public firstName: string,
+        public lastName: string,
+        public nationality: string,
+        public date: string,
+        public drivingExperience: number,
+    ) {}
 }
 
 export class PilotRaceDTO {

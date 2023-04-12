@@ -1,1 +1,48 @@
-<p>pilot-add works!</p>
+<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center">
+    <div [hidden]="submitted">
+      <h1 class="mt-5 mb-5"><b>Add a new pilot</b></h1>     
+
+      <form (ngSubmit)="onSubmit()" #raceForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name"
+                 required
+                 [(ngModel)]="firstName" name="name">
+        </div>
+  
+        <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country"
+                   required
+                   [(ngModel)]="lastName" name="country">       
+        </div>
+
+        <div class="form-group">
+            <label for="noLaps">Number Of Laps</label>
+            <input type="number" class="form-control" id="noLaps"
+                   required
+                   [(ngModel)]="nationality" name="noLaps"
+                   #noLaps="ngModel">
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date"
+                   required
+                   [(ngModel)]="date" name="date">
+        </div>
+
+        <div class="form-group">
+            <label for="lapLength">Lap length</label>
+            <input type="number" class="form-control" id="lapLength" step="10"
+                   required
+                   [(ngModel)]="drivingExperience" name="lapLength">
+        </div>
+  
+        <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!raceForm.form.valid">Add</button>
+        <button type="button" class="btn btn-secondary mt-2 d-flex flex-column" (click)="resetForm(); raceForm.reset()">Reset form</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onBackToRacePage()">Back to race page</button>
+      </form>
+
+    </div>
+  </div>
