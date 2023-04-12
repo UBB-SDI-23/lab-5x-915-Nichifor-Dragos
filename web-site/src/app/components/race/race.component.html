@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row p-5" *ngIf="!sortedByName">
+    <div class="row pt-5 pb-5" *ngIf="!sortedByName">
 
         <h1 class="p-4 text-center mb-5">All races</h1>
 
@@ -7,7 +7,7 @@
             <button class="btn btn-primary mt-4" (click)="onSortName()" > Sort by race name</button>
         </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let race of races">
+        <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let race of races">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
@@ -17,7 +17,7 @@
                                         Number of laps: {{ race.numberOfLaps }}, <br>
                                         Lap length: {{ race.lapLength }}, <br>
                                         Date: {{ race.date | date: "MMM. dd. yyyy" }}
-                    <div class=”dropdown”>
+                    <div class="dropdown">
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="settings-svg" src="assets/settings.png">
@@ -35,7 +35,7 @@
 
     </div>
 
-    <div class="row p-5" *ngIf="sortedByName">
+    <div class="row pt-5 pb-5" *ngIf="sortedByName">
 
         <h1 class="p-4 text-center mb-5">Races sorted by name</h1>
 
@@ -43,7 +43,7 @@
             <button class="btn btn-primary mt-4" (click)="listRaces()" > Unsort </button>
         </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let race of races">
+        <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let race of races">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">

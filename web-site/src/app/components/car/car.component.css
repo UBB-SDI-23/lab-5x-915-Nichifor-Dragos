@@ -16,3 +16,7 @@
 .card-separator{
     color: white
 }
+
+.card {
+    min-height: 15rem;
+}

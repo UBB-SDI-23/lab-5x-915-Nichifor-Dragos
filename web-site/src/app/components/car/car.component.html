@@ -5,9 +5,9 @@
         </div>
     </div>
 
-    <div class="row px-5 pb-4" *ngIf="searchTerm != null && searchTerm != ''">
+    <div class="row pt-5 pb-5" *ngIf="searchTerm != null && searchTerm != ''">
         <h1 class="p-4 text-center mb-5">All cars with cylindrical capacity greater than: {{ this.searchTerm }} </h1>
-        <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let car of carsFiltered">
+        <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let car of carsFiltered">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
@@ -34,9 +34,9 @@
         </div>
     </div>
 
-    <div class="row px-5 pb-4" *ngIf="searchTerm == null || searchTerm == ''">
+    <div class="row pt-5 pb-5" *ngIf="searchTerm == null || searchTerm == ''">
         <h1 class="p-4 text-center mb-5">All cars</h1>
-        <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let car of cars">
+        <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let car of cars">
             <div class="card bg-dark text-white m-4">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
