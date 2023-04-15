@@ -19,6 +19,10 @@ export class RaceService {
       return this.httpClient.get(this.baseUrl + "race?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<Race[]>;
     }
 
+    countRaces(): Observable<Number> {
+      return this.httpClient.get(this.baseUrl + "race/count") as Observable<Number>;
+    }
+
     getRace(id: string): Observable<RaceOne>
     {
       return this.httpClient.get(this.baseUrl + "race/" + id) as Observable<RaceOne>;
@@ -35,10 +39,6 @@ export class RaceService {
     deleteRace(id: string) {
       // SET UP CASCADE -> THIS DOES NOT WORK
       return this.httpClient.delete(this.baseUrl + "race/" + id)
-    }
-
-    countRaces(): Observable<Number> {
-      return this.httpClient.get(this.baseUrl + "race/count") as Observable<Number>;
     }
 
 }

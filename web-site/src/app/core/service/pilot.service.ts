@@ -15,6 +15,14 @@ export class PilotService {
         return this.httpClient.get<Pilot[]>(this.baseUrl + 'pilot');
     }
 
+    listPagePilots(pageNo: Number, pageSize: Number): Observable<Pilot[]> {
+      return this.httpClient.get(this.baseUrl + "pilot?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<Pilot[]>;
+    }
+
+    countPilots(): Observable<Number> {
+      return this.httpClient.get(this.baseUrl + "pilot/count") as Observable<Number>;
+    }
+
     getPilot(id: string): Observable<PilotOne>
     {
       return this.httpClient.get(this.baseUrl + "pilot/" + id) as Observable<PilotOne>;

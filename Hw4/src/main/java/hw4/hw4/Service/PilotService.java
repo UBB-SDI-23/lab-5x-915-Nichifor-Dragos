@@ -40,6 +40,10 @@ public class PilotService {
         return pilotRepository.findAll(pageable).getContent();
     }
 
+    public Long getPilotCount() {
+        return pilotRepository.count();
+    }
+
     public Pilot getOnePilot(Long id) {
         return pilotRepository.findById(id)
                 .orElseThrow(() -> new PilotNotFoundException(id));

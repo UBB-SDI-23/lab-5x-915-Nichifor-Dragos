@@ -3,7 +3,6 @@
         <h1 class="p-4 text-center mb-5"><b>All pilots</b></h1>
         <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let pilot of pilots">
             <div class="card bg-dark text-white m-4">
-                <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
                     <h4 class="card-title text"><b>{{ pilot.lastName }} {{ pilot.firstName }}</b></h4>
                     <hr class ="card-separator">
@@ -26,4 +25,17 @@
             </div>
         </div>
     </div>
+
+    <mat-paginator #paginator
+               class="demo-paginator"
+               (page)="onPageChanged($event)"
+               [length]="noPages * pageSize"
+               [pageSize]="pageSize"
+               [showFirstLastButtons]="true"
+               [pageSizeOptions]="[10, 25, 50]"
+               [pageIndex]="pageNumber"
+               aria-label="Select page">
+    </mat-paginator>
+
+
 </div>

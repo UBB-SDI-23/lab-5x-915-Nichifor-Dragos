@@ -25,7 +25,7 @@ const routes: Routes = [
     { path: 'race-add-component', component: RaceAddComponent },
     { path: 'race-update-component/:id', component: RaceUpdateComponent },
     { path: 'race-details-component/:id', component: RaceDetailsComponent },
-    { path: 'pilot-component', component: PilotComponent },
+    { path: 'pilot-component', component: PilotComponent, data: { pageNo: 0, pageSize: 25 } },
     { path: 'pilot-add-component', component: PilotAddComponent },
     { path: 'pilot-update-component/:id', component: PilotUpdateComponent },
     { path: 'pilot-details-component/:id', component: PilotDetailsComponent },
