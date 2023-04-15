@@ -29,7 +29,7 @@ const routes: Routes = [
     { path: 'pilot-add-component', component: PilotAddComponent },
     { path: 'pilot-update-component/:id', component: PilotUpdateComponent },
     { path: 'pilot-details-component/:id', component: PilotDetailsComponent },
-    { path: 'car-component', component: CarComponent },
+    { path: 'car-component', component: CarComponent, data: { pageNo: 0, pageSize: 25 }  },
     { path: 'car-add-component', component: CarAddComponent },
     { path: 'car-update-component/:id', component: CarUpdateComponent },
     { path: 'car-details-component/:id', component: CarDetailsComponent },

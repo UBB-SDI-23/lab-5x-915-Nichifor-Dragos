@@ -27,7 +27,7 @@
               Pilots
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
-              <li><a class="dropdown-item" routerLink="pilot-component" [ngClass]="getDropdownStyle() + '-item'">Show all pilots</a></li>
+              <li><a class="dropdown-item" routerLink="pilot-component" [ngClass]="getDropdownStyle() + '-item'" [queryParams]="{pageNo: 0, pageSize: 25}">Show all pilots</a></li>
               <li><a class="dropdown-item" routerLink="pilot-add-component" [ngClass]="getDropdownStyle() + '-item'">Add a pilot</a></li>
             </ul>
           </li>
@@ -37,7 +37,7 @@
               Cars
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
-              <li><a class="dropdown-item" routerLink="car-component" [ngClass]="getDropdownStyle() + '-item'">Show all cars</a></li>
+              <li><a class="dropdown-item" routerLink="car-component" [ngClass]="getDropdownStyle() + '-item'" [queryParams]="{pageNo: 0, pageSize: 25}">Show all cars</a></li>
               <li><a class="dropdown-item" routerLink="car-add-component" [ngClass]="getDropdownStyle() + '-item'">Add a car</a></li>
             </ul>
           </li>
