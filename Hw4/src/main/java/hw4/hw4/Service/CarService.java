@@ -35,6 +35,10 @@ public class CarService {
         return this.carRepository.findAll(pageable).getContent();
     }
 
+    public Long getCarsCount() {
+        return this.carRepository.count();
+    }
+
     public Car getOneCar(Long id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new CarNotFoundException(id));

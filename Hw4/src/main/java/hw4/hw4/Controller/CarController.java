@@ -36,6 +36,11 @@ public class CarController {
         return this.carService.getAllCarsWithCapacityGreaterThan(pageNo, pageSize, capacity).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
     }
 
+    @GetMapping("/car/count")
+    Long getCarsCount() {
+        return this.carService.getCarsCount();
+    }
+
     @GetMapping("/car/{id}")
         // get a car by its id
     CarDTO_One oneCar(@PathVariable Long id) {

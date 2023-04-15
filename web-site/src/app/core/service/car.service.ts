@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { Observable } from "rxjs";
+import { Observable, Subscriber } from "rxjs";
 import { Car, CarOne, CarAddUpdate } from "../model/car.model";
 
 @Injectable()
@@ -20,6 +20,26 @@ export class CarService {
 
     listCarsWithCP(cylindricalCapacity: string): Observable<Car[]> {
         return this.httpClient.get<Car[]>(this.baseUrl + 'car?capacity=' + cylindricalCapacity);
+    }
+
+    listPageCars(pageNo: Number, pageSize: Number, cylindricalCapacity ?: string): Observable<Car[]> {
+      console.log(this.baseUrl + "car?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString() + '&capacity=' + cylindricalCapacity)
+      if (cylindricalCapacity != undefined)
+        return this.httpClient.get(this.baseUrl + "car?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString() + '&capacity=' + cylindricalCapacity) as Observable<Car[]>;
+      else
+        return this.httpClient.get(this.baseUrl + "car?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<Car[]>;
+    }
+
+    countCars(): Observable<Number> {
+      return this.httpClient.get(this.baseUrl + "car/count") as Observable<Number>;
+    }
+
+    countCarsCapacity(capacity: string): Observable<Number> {
+      //return this.httpClient.get(this.baseUrl = "car/count?capacity=" + capacity) as Observable<Number>;
+      return new Observable<number>(subscriber => {
+        subscriber.next(150);
+        subscriber.complete();
+      });
     }
 
     getCar(id: string): Observable<CarOne>

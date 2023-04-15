@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 import { Car } from 'src/app/core/model/car.model';
 import { CarService } from 'src/app/core/service/car.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-car',
@@ -13,19 +14,31 @@ import { CarService } from 'src/app/core/service/car.service';
 })
 export class CarComponent {
 
+  pageNumber: number = 0;
+  pageSize: number = 25; 
+  noPages: number = 0;
+  goToPageNumber: number = 0;
+
   searchTerm: string = '';
 
   subscriptions: Subscription[] = [];
   cars: Car[] = []
-  carsFiltered: Car[] = []
 
   constructor(
     private carService: CarService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
+      this.carService.countCars().subscribe((result: Number) => {
+        this.noPages = Math.floor(result.valueOf() / this.pageSize);
+        if (result.valueOf() % this.pageSize > 0) {
+          this.noPages++;
+        }
+      });
+  
       this.listCars();
     }
 
@@ -34,9 +47,13 @@ export class CarComponent {
   }
 
     listCars() {
-      this.subscriptions.push(this.carService.listCars().subscribe(cars => {
-        this.cars = cars
-      }, (error) => this.toastrService.success("Something went wrong", '', { progressBar: true }) ))
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.pageNumber = Number(params['pageNo']) || 0;
+        this.pageSize = Number(params['pageSize']) || 50;
+      });
+      this.carService.listPageCars(this.pageNumber, this.pageSize, this.searchTerm).subscribe(
+        (response) => { this.cars = response },
+        (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }))
     }
 
     onDeleteCar(id: string) {
@@ -51,8 +68,64 @@ export class CarComponent {
     }
 
     onSearch() {
-      this.subscriptions.push(this.carService.listCarsWithCP(this.searchTerm).subscribe(cars => {
-        this.carsFiltered = cars
-      }, (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }) ))
+      if (this.searchTerm != '' && this.searchTerm != null)
+        this.subscriptions.push(this.carService.listPageCars(this.pageNumber, this.pageSize, this.searchTerm).subscribe(cars => {
+        this.cars = cars
+        this.carService.countCarsCapacity(this.searchTerm).subscribe((result: Number) => {
+          this.noPages = Math.floor(result.valueOf() / this.pageSize);
+          if (result.valueOf() % this.pageSize > 0) {
+            this.noPages++;
+          }
+        });
+      }, (error) => {} ))
+      else {
+        this.subscriptions.push(this.carService.listPageCars(this.pageNumber, this.pageSize).subscribe(cars => {
+          this.cars = cars
+          this.carService.countCars().subscribe((result: Number) => {
+            this.noPages = Math.floor(result.valueOf() / this.pageSize);
+            if (result.valueOf() % this.pageSize > 0) {
+              this.noPages++;
+            }
+          });
+        }, (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }) ))
+      }
+      this.router.navigate(['/car-component'], { queryParams: { pageNo: 0, pageSize: this.pageSize } })
+          .then(() => this.listCars());
     }
+
+    checkPageNumber(): void {
+      if (this.goToPageNumber > this.noPages) {
+        this.goToPageNumber = this.noPages;
+      }
+    }
+  
+    onPageChanged(event: PageEvent) {
+      this.pageNumber = event.pageIndex;
+      this.goToPageNumber = this.pageNumber;
+      this.pageSize = event.pageSize;
+      if (this.searchTerm == null) {
+        this.carService.countCars().subscribe((result: Number) => {
+        this.noPages = Math.floor(result.valueOf() / this.pageSize);
+        if (result.valueOf() % this.pageSize > 0) {
+          this.noPages++;
+        } });
+      } else {
+        this.carService.countCarsCapacity(this.searchTerm).subscribe((result: Number) => {
+          this.noPages = Math.floor(result.valueOf() / this.pageSize);
+          if (result.valueOf() % this.pageSize > 0) {
+            this.noPages++;
+          }
+        });
+      }
+      
+      this.goToPage()
+    }
+  
+    goToPage(): void {
+      this.pageNumber = Math.min(Math.max(0, this.goToPageNumber), this.noPages);
+      const pageIndex = this.pageNumber;
+      this.router.navigate(['/car-component'], { queryParams: { pageNo: pageIndex, pageSize: this.pageSize } })
+          .then(() => this.listCars());
+    }
+
 }
