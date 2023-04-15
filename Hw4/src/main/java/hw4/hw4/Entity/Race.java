@@ -36,7 +36,7 @@ public class Race {
 
     private Date date;
 
-    @OneToMany(mappedBy = "race")
+    @OneToMany(mappedBy = "race", cascade = CascadeType.ALL)
     @JsonIgnore
     Set<RacesPilots> racesPilots;
 

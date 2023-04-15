@@ -43,7 +43,7 @@ public class Pilot {
     @JsonIgnore
     private Set<Car> cars;
 
-    @OneToMany(mappedBy = "pilot")
+    @OneToMany(mappedBy = "pilot", cascade = CascadeType.ALL)
     @JsonIgnore
     Set<RacesPilots> racesPilots;
 
