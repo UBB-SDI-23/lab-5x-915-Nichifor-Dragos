@@ -14,8 +14,8 @@ import { PilotDetailsComponent } from "./components/pilot/pilot-details/pilot-de
 import { CarAddComponent } from "./components/car/car-add/car-add.component";
 import { CarUpdateComponent } from "./components/car/car-update/car-update.component";
 import { CarDetailsComponent } from "./components/car/car-details/car-details.component";
-import { PilotStatisticsComponent } from "./statistics/pilot-statistics/pilot-statistics.component";
-import { RaceStatisticsComponent } from "./statistics/race-statistics/race-statistics.component";
+import { PilotStatisticComponent } from "./components/statistics/pilot-statistic/pilot-statistic.component";
+import { RaceStatisticComponent } from "./components/statistics/race-statistic/race-statistic.component";
 
 const routes: Routes = [
 {
@@ -35,8 +35,8 @@ const routes: Routes = [
     { path: 'car-add-component', component: CarAddComponent },
     { path: 'car-update-component/:id', component: CarUpdateComponent },
     { path: 'car-details-component/:id', component: CarDetailsComponent },
-    { path: 'pilot-statistics', component: PilotStatisticsComponent },
-    { path: 'race-statistics', component: RaceStatisticsComponent },
+    { path: 'pilot-statistics', component: PilotStatisticComponent },
+    { path: 'race-statistics', component: RaceStatisticComponent },
   ]
 }
 

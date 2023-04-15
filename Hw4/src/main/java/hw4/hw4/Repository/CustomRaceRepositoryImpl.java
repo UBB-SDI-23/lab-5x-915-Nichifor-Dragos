@@ -7,6 +7,7 @@ import hw4.hw4.Entity.Race;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 
 import java.util.List;
@@ -31,7 +32,10 @@ public class CustomRaceRepositoryImpl implements CustomRaceRepository {
                 .groupBy(raceRoot.get("name"), raceRoot.get("id"))
                 .orderBy(cb.desc(cb.count(racesPilotsPilotJoin.get("firstName"))));
 
-        return this.entityManager.createQuery(query).getResultList();
+        TypedQuery<RaceDTO_PilotStatistic> typedQuery = this.entityManager.createQuery(query);
+        typedQuery.setMaxResults(50);
+
+        return typedQuery.getResultList();
     }
 
     @Override

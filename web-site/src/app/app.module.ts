@@ -32,8 +32,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { PilotStatisticsComponent } from './statistics/pilot-statistics/pilot-statistics.component';
-import { RaceStatisticsComponent } from './statistics/race-statistics/race-statistics.component';
+import { PilotStatisticComponent } from './components/statistics/pilot-statistic/pilot-statistic.component';
+import { RaceStatisticComponent } from './components/statistics/race-statistic/race-statistic.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +53,8 @@ import { RaceStatisticsComponent } from './statistics/race-statistics/race-stati
     CarAddComponent,
     CarUpdateComponent,
     CarDetailsComponent,
-    PilotStatisticsComponent,
-    RaceStatisticsComponent,
+    PilotStatisticComponent,
+    RaceStatisticComponent,
   ],
   imports: [
     BrowserModule,

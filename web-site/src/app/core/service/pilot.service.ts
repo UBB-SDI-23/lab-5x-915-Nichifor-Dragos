@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { Pilot, PilotOne, PilotAddUpdate } from "../model/pilot.model";
+import { Pilot, PilotOne, PilotAddUpdate, PilotStatisticDTO } from "../model/pilot.model";
 
 @Injectable()
 export class PilotService {
@@ -17,6 +17,10 @@ export class PilotService {
 
     listPagePilots(pageNo: Number, pageSize: Number): Observable<Pilot[]> {
       return this.httpClient.get(this.baseUrl + "pilot?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<Pilot[]>;
+    }
+
+    listPilotStatistic(): Observable<PilotStatisticDTO[]> {
+      return this.httpClient.get<PilotStatisticDTO[]>(this.baseUrl + 'pilot/cars-statistic')
     }
 
     countPilots(): Observable<Number> {

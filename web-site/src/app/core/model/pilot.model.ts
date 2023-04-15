@@ -40,3 +40,12 @@ export class PilotRaceDTO {
         public needAccommodation: boolean
     ){}
 }
+
+export class PilotStatisticDTO {
+    constructor (
+        public pilotID: string,
+        public firstName: string,
+        public lastName: string,
+        public numberOfCars: number
+    ) {}
+}

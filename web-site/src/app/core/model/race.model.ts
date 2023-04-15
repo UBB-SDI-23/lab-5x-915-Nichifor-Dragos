@@ -41,7 +41,7 @@ export class RacePilotDTO {
 
 export class RaceStatisticDTO {
     constructor (
-        public raceId: string,
+        public raceID: string,
         public name: string,
         public numberOfPilots: number
     ) {}

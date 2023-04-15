@@ -19,12 +19,12 @@ export class RaceService {
       return this.httpClient.get(this.baseUrl + "race?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<Race[]>;
     }
 
-    countRaces(): Observable<Number> {
-      return this.httpClient.get(this.baseUrl + "race/count") as Observable<Number>;
+    listRaceStatistic(): Observable<RaceStatisticDTO[]> {
+      return this.httpClient.get<RaceStatisticDTO[]>(this.baseUrl + 'race/pilots-statistic')
     }
 
-    listRaceStatistic(): Observable<RaceStatisticDTO[]> {
-      return this.httpClient.get<RaceStatisticDTO[]>(this.baseUrl + 'race-statistic')
+    countRaces(): Observable<Number> {
+      return this.httpClient.get(this.baseUrl + "race/count") as Observable<Number>;
     }
 
     getRace(id: string): Observable<RaceOne>

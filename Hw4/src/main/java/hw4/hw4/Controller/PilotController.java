@@ -56,7 +56,7 @@ public class PilotController {
         return this.pilotService.getPilotCount();
     }
 
-    @GetMapping("/pilot/car-statistic")
+    @GetMapping("/pilot/cars-statistic")
     List<PilotDTO_CarStatistic> getPilotsWithNumberOfCarsAsc() {
         return this.pilotService.getPilotsWithNumberOfCarsAsc();
     }
