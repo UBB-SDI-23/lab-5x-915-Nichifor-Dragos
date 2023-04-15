@@ -32,13 +32,23 @@
             </ul>
           </li>
 
-          <li class="nav-item dropdown px-1" style="margin-right: 160px">
+          <li class="nav-item dropdown px-1">
             <a class="nav-link mx-2 dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="getLinkStyle()">
               Cars
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
               <li><a class="dropdown-item" routerLink="car-component" [ngClass]="getDropdownStyle() + '-item'" [queryParams]="{pageNo: 0, pageSize: 25}">Show all cars</a></li>
               <li><a class="dropdown-item" routerLink="car-add-component" [ngClass]="getDropdownStyle() + '-item'">Add a car</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown px-1" style="margin-right: 160px">
+            <a class="nav-link mx-2 dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="getLinkStyle()">
+              Statistics
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
+              <li><a class="dropdown-item" routerLink="pilot-statistics" [ngClass]="getDropdownStyle() + '-item'">Pilots by cars</a></li>
+              <li><a class="dropdown-item" routerLink="race-statistics" [ngClass]="getDropdownStyle() + '-item'">Races by pilots</a></li>
             </ul>
           </li>
 

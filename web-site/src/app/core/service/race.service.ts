@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { Race, RaceAddUpdate, RaceOne } from "../model/race.model";
+import { Race, RaceAddUpdate, RaceOne, RaceStatisticDTO } from "../model/race.model";
 
 @Injectable()
 export class RaceService {
@@ -21,6 +21,10 @@ export class RaceService {
 
     countRaces(): Observable<Number> {
       return this.httpClient.get(this.baseUrl + "race/count") as Observable<Number>;
+    }
+
+    listRaceStatistic(): Observable<RaceStatisticDTO[]> {
+      return this.httpClient.get<RaceStatisticDTO[]>(this.baseUrl + 'race-statistic')
     }
 
     getRace(id: string): Observable<RaceOne>

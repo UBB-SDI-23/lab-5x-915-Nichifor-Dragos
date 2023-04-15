@@ -32,6 +32,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { PilotStatisticsComponent } from './statistics/pilot-statistics/pilot-statistics.component';
+import { RaceStatisticsComponent } from './statistics/race-statistics/race-statistics.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { MatSelectModule } from '@angular/material/select';
     CarAddComponent,
     CarUpdateComponent,
     CarDetailsComponent,
+    PilotStatisticsComponent,
+    RaceStatisticsComponent,
   ],
   imports: [
     BrowserModule,
