@@ -17,7 +17,7 @@
               Races
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="getDropdownStyle()">
-              <li><a class="dropdown-item" routerLink="race-component" [ngClass]="getDropdownStyle() + '-item'">Show all races</a></li>
+              <li><a class="dropdown-item" routerLink="race-component" [ngClass]="getDropdownStyle() + '-item'" [queryParams]="{pageNo: 0, pageSize: 25}">Show all races</a></li>
               <li><a class="dropdown-item" routerLink="race-add-component" [ngClass]="getDropdownStyle() + '-item'">Add a race</a></li>
             </ul>
           </li>

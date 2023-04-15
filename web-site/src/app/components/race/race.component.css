@@ -24,3 +24,7 @@
 .container-padding {
     padding: 8rem;
 }
+
+.pagination .page-custom {
+    cursor: pointer;
+}

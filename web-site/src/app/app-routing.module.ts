@@ -21,7 +21,7 @@ const routes: Routes = [
   children: [
     { path: '', redirectTo: '/home-page', pathMatch: 'full' },
     { path:'home-page', component: MainPageComponent },
-    { path: 'race-component', component: RaceComponent },
+    { path: 'race-component', component: RaceComponent,  data: { pageNo: 0, pageSize: 25 } },
     { path: 'race-add-component', component: RaceAddComponent },
     { path: 'race-update-component/:id', component: RaceUpdateComponent },
     { path: 'race-details-component/:id', component: RaceDetailsComponent },

@@ -51,6 +51,11 @@ public class RaceController {
         return this.raceService.getRacesFromUSAWithNumberOfPilotsDesc();
     }
 
+    @GetMapping("/race/count")
+    Long getRacesCount() {
+        return this.raceService.getRacesCount();
+    }
+
     @PostMapping("/race") // add a new race
     Race newRace(@Valid @RequestBody Race newRace) {
         return raceService.addRace(newRace);

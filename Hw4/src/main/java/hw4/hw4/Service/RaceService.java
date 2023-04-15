@@ -59,6 +59,10 @@ public class RaceService {
         return this.raceRepository.getRacesFromUSAWithNumberOfPilotsDesc().stream().limit(100).collect(Collectors.toList());
     }
 
+    public Long getRacesCount() {
+        return this.raceRepository.count();
+    }
+
     public Race addRace(Race newRace) {
         return raceRepository.save(newRace);
     }
