@@ -39,6 +39,10 @@ public class CarService {
         return this.carRepository.count();
     }
 
+    public Long getCarsCapacityCount(Integer capacity) {
+        return this.carRepository.countByCylindricalCapacityGreaterThan(capacity);
+    }
+
     public Car getOneCar(Long id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new CarNotFoundException(id));

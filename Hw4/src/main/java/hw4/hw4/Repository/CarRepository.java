@@ -17,4 +17,6 @@ public interface CarRepository extends JpaRepository<Car, Long> { // interface w
 
     @NonNull
     Page<Car> findAll(@NonNull Pageable pageable);
+
+    Long countByCylindricalCapacityGreaterThan(Integer mileageThreshold);
 }

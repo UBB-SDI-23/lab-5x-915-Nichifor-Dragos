@@ -41,6 +41,11 @@ public class CarController {
         return this.carService.getCarsCount();
     }
 
+    @GetMapping("/car/count-capacity")
+    Long getCarsCount(@RequestParam Integer capacity) {
+        return this.carService.getCarsCapacityCount(capacity);
+    }
+
     @GetMapping("/car/{id}")
         // get a car by its id
     CarDTO_One oneCar(@PathVariable Long id) {

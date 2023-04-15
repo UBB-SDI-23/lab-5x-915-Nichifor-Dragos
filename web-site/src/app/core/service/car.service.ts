@@ -35,11 +35,7 @@ export class CarService {
     }
 
     countCarsCapacity(capacity: string): Observable<Number> {
-      //return this.httpClient.get(this.baseUrl = "car/count?capacity=" + capacity) as Observable<Number>;
-      return new Observable<number>(subscriber => {
-        subscriber.next(150);
-        subscriber.complete();
-      });
+      return this.httpClient.get(this.baseUrl + "car/count-capacity?capacity=" + capacity) as Observable<Number>;
     }
 
     getCar(id: string): Observable<CarOne>
