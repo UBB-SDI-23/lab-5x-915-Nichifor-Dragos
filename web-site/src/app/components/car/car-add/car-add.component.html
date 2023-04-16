@@ -1,1 +1,103 @@
-<p>car-add works!</p>
+<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center">
+    <div [hidden]="submitted">
+      <h1 class="mt-5 mb-5"><b>Add a new car</b></h1>     
+
+      <form (ngSubmit)="onSubmit()" #carForm="ngForm">
+        <div class="form-group">
+          <label for="brand">Brand</label>
+          <input type="text" class="form-control" id="brand"
+                 required
+                 [(ngModel)]="this.brand" name="brand"
+                 #carBrand="ngModel">
+          <div [hidden]="carBrand.valid || carBrand.pristine" class="alert alert-danger">
+            Car brand is required.
+          </div> 
+        </div>
+  
+        <div class="form-group">
+            <label for="motorization">Motorization</label>
+            <input type="text" class="form-control" id="motorization"
+                   required
+                   [(ngModel)]="this.motorization" name="motorization"
+                   #carMotorization="ngModel">
+            <div [hidden]="carMotorization.valid || carMotorization.pristine" class="alert alert-danger">
+              Car motorization is required.
+            </div>        
+        </div>
+
+        <div class="form-group">
+            <label for="gearBox">Gear box</label>
+            <input type="text" class="form-control" id="gearBox"
+                   required
+                   [(ngModel)]="this.gearBox" name="gearBox"
+                   #carGearBox="ngModel">
+            <div [hidden]="carGearBox.valid || carGearBox.pristine" class="alert alert-danger">
+              Car gear box is required.
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="cylindricalCapacity">Cylindrical capacity</label>
+            <input type="number" class="form-control" id="cylindricalCapacity" step="100"
+                   required
+                   min="2000"
+                   max="8000"
+                   [(ngModel)]="this.cylindricalCapacity" name="cylindricalCapacity"
+                   #carCylindricalCapacity="ngModel">
+            <div [hidden]="carCylindricalCapacity.valid || carCylindricalCapacity.pristine" class="alert alert-danger">
+              Number between 2000 and 8000.
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="horsePower">Horse power</label>
+            <input type="number" class="form-control" id="horsePower" step="10"
+                   required
+                   min="150"
+                   max="800"
+                   [(ngModel)]="this.horsePower" name="horsePower"
+                   #carHorsePower="ngModel">
+            <div [hidden]="carHorsePower.valid || carHorsePower.pristine" class="alert alert-danger">
+                Number between 150 and 800.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea type="textarea" class="form-control" id="description"
+                   required
+                   maxlength="2000"
+                   [(ngModel)]="this.description" name="description"
+                   #carDescription="ngModel"></textarea>
+            <div [hidden]="carDescription.valid || carDescription.pristine" class="alert alert-danger">
+                Car description is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Pilot</label>
+            <input type="text" name="options" class="form-control" placeholder="Select a pilot, search by last name" 
+            matInput [matAutocomplete]="car" [(ngModel)]="selectedOption" #carSearchInput required
+            (input)="search(carSearchInput.value)" matAutocompletePosition="below">
+            <mat-autocomplete #car="matAutocomplete" (optionSelected)="onSelection($event)">
+                <div>
+                    <mat-option *ngFor="let option of options" [value]="option">
+                        Name: {{option.firstName}} {{option.lastName}}, nationality: {{option.nationality}}
+                    </mat-option>
+                </div>
+                <mat-option *ngIf="options === undefined" disabled>
+                    No option
+                </mat-option>
+                <mat-option *ngIf="options !== undefined && options.length === 0" disabled>
+                    No results found
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+  
+        <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!carForm.form.valid">Add</button>
+        <button type="button" class="btn btn-secondary mt-2 d-flex flex-column" (click)="carForm.reset()">Reset form</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onBackToCarPage()">Back to race page</button>
+      </form>
+
+    </div>
+  </div>

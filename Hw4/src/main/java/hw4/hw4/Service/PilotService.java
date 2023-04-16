@@ -66,7 +66,9 @@ public class PilotService {
         return this.pilotRepository.getPilotsWithNumberOfCarsAsc();
     }
 
-
+    public List<Pilot> searchPilotsByNameFullText(String name) {
+        return this.pilotRepository.findTop20BySearchTerm(name);
+    }
 
     public Pilot addPilot(Pilot newPilot) {
         return pilotRepository.save(newPilot);

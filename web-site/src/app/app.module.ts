@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { PilotStatisticComponent } from './components/statistics/pilot-statistic/pilot-statistic.component';
 import { RaceStatisticComponent } from './components/statistics/race-statistic/race-statistic.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { RaceStatisticComponent } from './components/statistics/race-statistic/r
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [
     RaceService,

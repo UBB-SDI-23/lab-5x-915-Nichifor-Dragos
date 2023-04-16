@@ -51,6 +51,11 @@ public class PilotController {
     @GetMapping("/pilot/{id}/race") // get all the races that the pilot will attend to
     List<RaceDTO_All> onePilotRaces(@PathVariable Long id){return pilotService.getAllRacesFromPilot(id).stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());}
 
+    @GetMapping("/pilot-search")
+    List<Pilot> getPilotsByName(@RequestParam(required = false) String name) {
+        return this.pilotService.searchPilotsByNameFullText(name);
+    }
+
     @GetMapping("/pilot/count")
     Long getPilotCount() {
         return this.pilotService.getPilotCount();

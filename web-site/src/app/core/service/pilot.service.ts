@@ -23,6 +23,10 @@ export class PilotService {
       return this.httpClient.get<PilotStatisticDTO[]>(this.baseUrl + 'pilot/cars-statistic')
     }
 
+    getPilotsByName(name: string): Observable<Pilot[]> {
+      return this.httpClient.get(this.baseUrl + "pilot-search?name=" + name) as Observable<Pilot[]>;
+    }
+
     countPilots(): Observable<Number> {
       return this.httpClient.get(this.baseUrl + "pilot/count") as Observable<Number>;
     }

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { Observable, Subscriber } from "rxjs";
 import { Car, CarOne, CarAddUpdate } from "../model/car.model";
+import { Pilot } from "../model/pilot.model";
 
 @Injectable()
 export class CarService {
@@ -43,8 +44,9 @@ export class CarService {
       return this.httpClient.get(this.baseUrl + "car/" + id) as Observable<CarOne>;
     }
   
-    addCar(car: CarAddUpdate): Observable<CarAddUpdate> {
-      return this.httpClient.post(this.baseUrl + "car", car) as Observable<CarAddUpdate>
+    addCar(car: CarAddUpdate, pilotId: string): Observable<CarAddUpdate> {
+      console.log(this.baseUrl + "pilot/" + pilotId + "/car", car)
+      return this.httpClient.post(this.baseUrl + "pilot/" + pilotId + "/car", car) as Observable<CarAddUpdate>
     }
 
     updateCar(car: CarAddUpdate, id: string) {
@@ -52,7 +54,6 @@ export class CarService {
     }
 
     deleteCar(id: string) {
-      // SET UP CASCADE -> THIS DOES NOT WORK
       return this.httpClient.delete(this.baseUrl + "car/" + id)
     }
 

@@ -94,6 +94,7 @@ public class CarService {
                     car.setGearBox(newCar.getGearBox());
                     car.setCylindricalCapacity(newCar.getCylindricalCapacity());
                     car.setHorsePower(newCar.getHorsePower());
+                    car.setDescription(newCar.getDescription());
                     return carRepository.save(car);
                 })
                 .orElseGet(() -> {
