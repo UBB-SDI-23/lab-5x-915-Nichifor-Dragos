@@ -1,1 +1,72 @@
 <p>car-update works!</p>
+<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center" *ngIf="car">
+    <div [hidden]="submitted">
+      <h1 class="mt-5 mb-5"><b>Update the car</b></h1>     
+
+      <form (ngSubmit)="onSubmit()" #carForm="ngForm">
+        <div class="form-group">
+          <label for="brand">Brand</label>
+          <input type="text" class="form-control" id="brand"
+                 required
+                 [(ngModel)]="this.car.brand" name="brand"
+                 #carBrand="ngModel">
+          <div [hidden]="carBrand.valid || carBrand.pristine" class="alert alert-danger">
+            Car brand is required.
+          </div> 
+        </div>
+  
+        <div class="form-group">
+            <label for="motorization">Motorization</label>
+            <input type="text" class="form-control" id="motorization"
+                   required
+                   [(ngModel)]="this.car.motorization" name="motorization"
+                   #carMotorization="ngModel">
+            <div [hidden]="carMotorization.valid || carMotorization.pristine" class="alert alert-danger">
+              Car motorization is required.
+            </div>        
+        </div>
+
+        <div class="form-group">
+            <label for="gearBox">Gear box</label>
+            <input type="text" class="form-control" id="gearBox"
+                   required
+                   [(ngModel)]="this.car.gearBox" name="gearBox"
+                   #carGearBox="ngModel">
+            <div [hidden]="carGearBox.valid || carGearBox.pristine" class="alert alert-danger">
+              Car gear box is required.
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="cylindricalCapacity">Gear box</label>
+            <input type="number" class="form-control" id="cylindricalCapacity" step="100"
+                   required
+                   min="2000"
+                   max="8000"
+                   [(ngModel)]="this.car.cylindricalCapacity" name="cylindricalCapacity"
+                   #carCylindricalCapacity="ngModel">
+            <div [hidden]="carCylindricalCapacity.valid || carCylindricalCapacity.pristine" class="alert alert-danger">
+              Number between 2000 and 8000.
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="horsePower">Driving experience</label>
+            <input type="number" class="form-control" id="horsePower" step="10"
+                   required
+                   min="150"
+                   max="800"
+                   [(ngModel)]="this.car.horsePower" name="horsePower"
+                   #carHorsePower="ngModel">
+            <div [hidden]="carHorsePower.valid || carHorsePower.pristine" class="alert alert-danger">
+                Number between 150 and 800.
+            </div>
+        </div>
+  
+        <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!carForm.form.valid">Update</button>
+        <button type="button" class="btn btn-secondary mt-2 d-flex flex-column" (click)="carForm.reset()">Reset form</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onBackToCarPage()">Back to race page</button>
+      </form>
+
+    </div>
+  </div>

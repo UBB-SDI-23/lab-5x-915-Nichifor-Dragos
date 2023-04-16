@@ -13,7 +13,7 @@ export interface Car {
 
 export class CarOne {
     constructor(
-        public id: number,
+        public id: string,
         public brand: string,
         public motorization: string,
         public gearBox: string,
@@ -25,5 +25,11 @@ export class CarOne {
 }
 
 export class CarAddUpdate {
-
+    constructor(  
+        public brand: string,
+        public motorization: string,
+        public gearBox: string,
+        public cylindricalCapacity: number,
+        public horsePower: number,
+        public description: string,){}
 }

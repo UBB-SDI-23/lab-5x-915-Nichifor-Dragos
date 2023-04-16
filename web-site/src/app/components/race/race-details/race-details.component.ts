@@ -28,7 +28,7 @@ export class RaceDetailsComponent implements OnInit{
   }
 
   onBackToRacePage() {
-    this.router.navigateByUrl("race-component")
+    this.router.navigate(['/race-component'])
   }
 
 }

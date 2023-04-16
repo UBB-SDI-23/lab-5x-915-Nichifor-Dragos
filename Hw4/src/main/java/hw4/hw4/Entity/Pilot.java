@@ -34,7 +34,7 @@ public class Pilot {
 
     @NotEmpty
     private String nationality;
-    
+
     private Date date;
 
     @Min(3)

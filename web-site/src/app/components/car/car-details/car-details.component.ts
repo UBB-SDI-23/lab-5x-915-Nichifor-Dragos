@@ -28,8 +28,8 @@ export class CarDetailsComponent {
     });
   }
 
-  onBackToRacePage() {
-    this.router.navigateByUrl("car-component")
+  onBackToCarPage() {
+    this.router.navigate(['/car-component'])
   }
 
 

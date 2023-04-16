@@ -28,6 +28,6 @@ export class PilotDetailsComponent {
   }
 
   onBacktoPilotPage() {
-    this.router.navigateByUrl("pilot-component")
+    this.router.navigate(['/pilot-component'])
   }
 }

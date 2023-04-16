@@ -45,7 +45,7 @@ export class PilotUpdateComponent {
   }
 
   onBacktoPilotPage() {
-    this.router.navigateByUrl("pilot-component")
+    this.router.navigate(['/pilot-component'])
   }
 
 }
