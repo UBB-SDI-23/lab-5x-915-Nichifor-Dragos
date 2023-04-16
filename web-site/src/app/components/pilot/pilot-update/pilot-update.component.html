@@ -7,14 +7,22 @@
           <label for="firstName">First name</label>
           <input type="text" class="form-control" id="firstName"
                  required
-                 [(ngModel)]="this.pilot.firstName" name="firstName">
+                 [(ngModel)]="this.pilot.firstName" name="firstName"
+                 #pilotFirstName="ngModel">
+          <div [hidden]="pilotFirstName.valid || pilotFirstName.pristine" class="alert alert-danger">
+            Pilot first name is required.
+          </div> 
         </div>
   
         <div class="form-group">
             <label for="lastName">Last name</label>
             <input type="text" class="form-control" id="lastName"
                    required
-                   [(ngModel)]="this.pilot.lastName" name="lastName">       
+                   [(ngModel)]="this.pilot.lastName" name="lastName"
+                   #pilotLastName="ngModel">
+            <div [hidden]="pilotLastName.valid || pilotLastName.pristine" class="alert alert-danger">
+              Pilot last name is required.
+            </div>        
         </div>
 
         <div class="form-group">
@@ -22,21 +30,34 @@
             <input type="text" class="form-control" id="nationality"
                    required
                    [(ngModel)]="this.pilot.nationality" name="nationality"
-                   #noLaps="ngModel">
+                   #pilotNationality="ngModel">
+            <div [hidden]="pilotNationality.valid || pilotNationality.pristine" class="alert alert-danger">
+              Pilot nationality is required.
+            </div> 
         </div>
 
         <div class="form-group">
             <label for="date">Birth date</label>
             <input type="date" class="form-control" id="date"
                    required
-                   [(ngModel)]="this.pilot.date" name="date">
+                   [(ngModel)]="this.pilot.date" name="date"
+                   #pilotBirthDate="ngModel">
+            <div [hidden]="pilotBirthDate.valid || pilotBirthDate.pristine" class="alert alert-danger">
+              Pilot birth date is required.
+            </div> 
         </div>
 
         <div class="form-group">
             <label for="drivingExperience">Driving experience</label>
             <input type="number" class="form-control" id="drivingExperience" step="10"
                    required
-                   [(ngModel)]="this.pilot.drivingExperience" name="drivingExperience">
+                   min="3"
+                   max="25"
+                   [(ngModel)]="this.pilot.drivingExperience" name="drivingExperience"
+                   #pilotDrivingExperience="ngModel">
+            <div [hidden]="pilotDrivingExperience.valid || pilotDrivingExperience.pristine" class="alert alert-danger">
+              Number between 3 and 25.
+            </div>
         </div>
   
         <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!pilotForm.form.valid">Update</button>
