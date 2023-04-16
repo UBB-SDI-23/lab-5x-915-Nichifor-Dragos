@@ -7,36 +7,59 @@
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name"
                  required
-                 [(ngModel)]="name" name="name">
+                 [(ngModel)]="name" name="name"
+                 #raceName="ngModel">
+          <div [hidden]="raceName.valid || raceName.pristine" class="alert alert-danger">
+            Name is required.
+          </div>   
         </div>
   
         <div class="form-group">
             <label for="country">Country</label>
             <input type="text" class="form-control" id="country"
                    required
-                   [(ngModel)]="country" name="country">       
+                   [(ngModel)]="country" name="country"
+                   #raceCountry="ngModel">   
+            <div [hidden]="raceCountry.valid || raceCountry.pristine" class="alert alert-danger">
+              Country is required.
+            </div>    
         </div>
 
         <div class="form-group">
             <label for="noLaps">Number Of Laps</label>
             <input type="number" class="form-control" id="noLaps"
                    required
+                   min="5"
+                   max="15"
                    [(ngModel)]="numberOfLaps" name="noLaps"
-                   #noLaps="ngModel">
+                   #raceNumberOfLaps="ngModel">
+            <div [hidden]="raceNumberOfLaps.valid || raceNumberOfLaps.pristine" class="alert alert-danger">
+              Number between 5 and 15.
+            </div>
         </div>
 
         <div class="form-group">
             <label for="lapLength">Lap length</label>
             <input type="number" class="form-control" id="lapLength" step="10"
                    required
-                   [(ngModel)]="lapLength" name="lapLength">
+                   min="30"
+                   max="80"
+                   [(ngModel)]="lapLength" name="lapLength"
+                   #raceLapLength="ngModel">
+            <div [hidden]="raceLapLength.valid || raceLapLength.pristine" class="alert alert-danger">
+              Number between 30 and 80.
+            </div>
         </div>
 
         <div class="form-group">
             <label for="date">Date</label>
             <input type="date" class="form-control" id="date"
                    required
-                   [(ngModel)]="date" name="date">
+                   [(ngModel)]="date" name="date"
+                   #raceDate="ngModel">
+            <div [hidden]="raceDate.valid || raceDate.pristine" class="alert alert-danger">
+              Date is required.
+            </div>
         </div>
   
         <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!raceForm.form.valid">Add</button>

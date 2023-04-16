@@ -9,9 +9,8 @@
                  required
                  [(ngModel)]="race.name" name="name"
                  #name="ngModel">
-          <div [hidden]="name.valid || name.pristine"
-               class="alert alert-danger">
-            Name is required
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+            Name is required.
           </div>
         </div>
   
@@ -21,9 +20,8 @@
                    required
                    [(ngModel)]="race.country" name="country"
                    #country="ngModel">
-            <div [hidden]="country.valid || country.pristine"
-                 class="alert alert-danger">
-              Country is required
+            <div [hidden]="country.valid || country.pristine" class="alert alert-danger">
+              Country is required.
             </div>
         </div>
 
@@ -31,11 +29,12 @@
             <label for="noLaps">Number Of Laps</label>
             <input type="number" class="form-control" id="noLaps"
                    required
+                   min="5"
+                   max="15"
                    [(ngModel)]="race.numberOfLaps" name="noLaps"
                    #noLaps="ngModel">
-            <div [hidden]="noLaps.valid || noLaps.pristine"
-                 class="alert alert-danger">
-              The number of laps is required
+            <div [hidden]="noLaps.valid || noLaps.pristine" class="alert alert-danger">
+                 Number between 5 and 15.
             </div>
         </div>
 
@@ -44,10 +43,11 @@
             <input type="number" class="form-control" id="lapLength"
                    required
                    [(ngModel)]="race.lapLength" name="lapLength"
+                   min="30"
+                   max="80"
                    #lapLength="ngModel">
-            <div [hidden]="lapLength.valid || lapLength.pristine"
-                 class="alert alert-danger">
-              The lap length is required
+            <div [hidden]="lapLength.valid || lapLength.pristine" class="alert alert-danger">
+              Number between 30 and 80.
             </div>
         </div>
 
@@ -57,9 +57,8 @@
                    required
                    [(ngModel)]="race.date" name="date"
                    #date="ngModel">
-            <div [hidden]="date.valid || date.pristine"
-                 class="alert alert-danger">
-              The date is required
+            <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+              Date is required.
             </div>
         </div>
   

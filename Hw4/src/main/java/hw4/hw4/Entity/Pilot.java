@@ -3,6 +3,7 @@ package hw4.hw4.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -33,10 +34,11 @@ public class Pilot {
 
     @NotEmpty
     private String nationality;
-
+    
     private Date date;
 
     @Min(3)
+    @Max(25)
     private Integer drivingExperience;
 
     @OneToMany(mappedBy = "pilot", cascade = CascadeType.ALL)

@@ -3,6 +3,8 @@ package hw4.hw4.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +32,12 @@ public class Race {
     @NotEmpty
     private String country;
 
+    @Min(5)
+    @Max(15)
     private Integer numberOfLaps;
 
+    @Min(30)
+    @Max(80)
     private Integer lapLength;
 
     private Date date;
