@@ -27,7 +27,7 @@ export class PilotDetailsComponent {
     });
   }
 
-  onBackToRacePage() {
+  onBacktoPilotPage() {
     this.router.navigateByUrl("pilot-component")
   }
 }

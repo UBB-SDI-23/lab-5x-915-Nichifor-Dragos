@@ -46,10 +46,10 @@ export class PilotAddComponent {
         (response) => { this.toastrService.success("Pilot added successfully", '', { progressBar: true }) },
         (error) => { this.toastrService.error("Could not add pilot", '', { progressBar: true }) });;
     } else { this.toastrService.error("One of the pilot's fields was left empty", '', { progressBar: true }) }
-   this.onBackToRacePage()
+   this.onBacktoPilotPage()
   }
 
-  onBackToRacePage() {
+  onBacktoPilotPage() {
     this.router.navigateByUrl("pilot-component")
   }
 

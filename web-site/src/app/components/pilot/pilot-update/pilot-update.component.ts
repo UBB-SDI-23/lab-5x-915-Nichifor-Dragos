@@ -41,11 +41,11 @@ export class PilotUpdateComponent {
         (response) => { this.toastrService.success("Pilot updated successfully", '', { progressBar: true }) },
         (error) => { this.toastrService.error("Could not update pilot", '', { progressBar: true }) });
     }
-    this.onBackToRacePage()
+    this.onBacktoPilotPage()
   }
 
-  onBackToRacePage() {
-    this.router.navigateByUrl("race-component")
+  onBacktoPilotPage() {
+    this.router.navigateByUrl("pilot-component")
   }
 
 }
