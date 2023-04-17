@@ -40,10 +40,6 @@ public class PilotService {
         return pilotRepository.findAll(pageable).getContent();
     }
 
-    public Long getPilotCount() {
-        return pilotRepository.count();
-    }
-
     public Pilot getOnePilot(Long id) {
         return pilotRepository.findById(id)
                 .orElseThrow(() -> new PilotNotFoundException(id));
@@ -64,6 +60,10 @@ public class PilotService {
 
     public List<PilotDTO_CarStatistic> getPilotsWithNumberOfCarsAsc() {
         return this.pilotRepository.getPilotsWithNumberOfCarsAsc();
+    }
+
+    public Long getPilotCount() {
+        return pilotRepository.count();
     }
 
     public List<Pilot> searchPilotsByNameFullText(String name) {

@@ -35,6 +35,13 @@ public class CarService {
         return this.carRepository.findAll(pageable).getContent();
     }
 
+    public List<Car> getAllCarsWithCapacityGreaterThan(Integer pageNo, Integer pageSize, Integer capacity) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
+
+        return this.carRepository.findByCylindricalCapacityGreaterThan(pageable, capacity).getContent();
+
+    }
+
     public Long getCarsCount() {
         return this.carRepository.count();
     }
@@ -46,13 +53,6 @@ public class CarService {
     public Car getOneCar(Long id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new CarNotFoundException(id));
-    }
-
-    public List<Car> getAllCarsWithCapacityGreaterThan(Integer pageNo, Integer pageSize, Integer capacity) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
-
-        return this.carRepository.findByCylindricalCapacityGreaterThan(pageable, capacity).getContent();
-
     }
 
     public Car addCar(Car newCar, Long id) {
