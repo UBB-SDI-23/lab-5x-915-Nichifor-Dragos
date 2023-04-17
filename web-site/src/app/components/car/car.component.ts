@@ -38,7 +38,6 @@ export class CarComponent {
           this.noPages++;
         }
       });
-  
       this.listCars();
     }
 

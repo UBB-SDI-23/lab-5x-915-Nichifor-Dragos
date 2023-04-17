@@ -49,7 +49,7 @@ export class RaceDetailsComponent implements OnInit{
   }
 
   onBackToRacePage() {
-    this.router.navigate(['/race-component'])
+    this.router.navigate(['/race-component'],  { queryParams: { pageNo: 0, pageSize: 25 }} )
   }
 
 }

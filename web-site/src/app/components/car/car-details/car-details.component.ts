@@ -29,7 +29,7 @@ export class CarDetailsComponent {
   }
 
   onBackToCarPage() {
-    this.router.navigate(['/car-component'])
+    this.router.navigate(['/car-component'], { queryParams: { pageNo: 0, pageSize: 25 }} )
   }
 
 

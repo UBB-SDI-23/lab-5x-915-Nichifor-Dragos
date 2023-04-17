@@ -45,11 +45,11 @@ export class RaceAddComponent implements OnInit{
       this.raceService.addRace(this.model).subscribe(
         (response) => { this.toastrService.success("Race added successfully", '', { progressBar: true }); this.onBackToRacePage() },
         error => { this.toastrService.error("Error at adding race", '', { progressBar: true }); this.onBackToRacePage() });;
-    } else { this.toastrService.error("One of the race's fields was left empty", '', { progressBar: true }); this.onBackToRacePage()}
+    } else { this.toastrService.error("Something went wrong", '', { progressBar: true }); this.onBackToRacePage()}
   }
 
   onBackToRacePage() {
-    this.router.navigate(['/race-component'])
+    this.router.navigate(['/race-component'],  { queryParams: { pageNo: 0, pageSize: 25 }} )
   }
 
 }

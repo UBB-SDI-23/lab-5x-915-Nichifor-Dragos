@@ -28,6 +28,6 @@ export class PilotDetailsComponent {
   }
 
   onBacktoPilotPage() {
-    this.router.navigate(['/pilot-component'])
+    this.router.navigate(['/pilot-component'],  { queryParams: { pageNo: 0, pageSize: 25 }} )
   }
 }

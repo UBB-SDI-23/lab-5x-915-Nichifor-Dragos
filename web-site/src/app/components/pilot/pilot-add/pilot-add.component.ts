@@ -45,11 +45,11 @@ export class PilotAddComponent {
       this.pilotService.addPilot(this.model).subscribe(
         (response) => { this.toastrService.success("Pilot added successfully", '', { progressBar: true }); this.onBacktoPilotPage() },
         (error) => { this.toastrService.error("Could not add pilot", '', { progressBar: true }); this.onBacktoPilotPage() });;
-    } else { this.toastrService.error("One of the pilot's fields was left empty", '', { progressBar: true }); this.onBacktoPilotPage() }
+    } else { this.toastrService.error("Something went wrong", '', { progressBar: true }); this.onBacktoPilotPage() }
   }
 
   onBacktoPilotPage() {
-    this.router.navigate(['/pilot-component'])
+    this.router.navigate(['/pilot-component'], { queryParams: { pageNo: 0, pageSize: 25 }} )
   }
 
 }

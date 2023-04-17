@@ -65,15 +65,10 @@ export class CarAddComponent {
       this.carService.addCar(car, this.pilotID!).subscribe(
         (response) => { this.toastrService.success("Car added successfully", '', { progressBar: true }); this.onBackToCarPage() },
         (error) => { this.toastrService.error("Could not add car", '', { progressBar: true }); this.onBackToCarPage() });
-
-    this.onBackToCarPage()
-
-    }
-    else { this.toastrService.error("Could not add car", '', { progressBar: true }); this.onBackToCarPage() }
+    } else { this.toastrService.error("Something went wrong", '', { progressBar: true }); this.onBackToCarPage() }
   }
 
   onSelection(event: any): void {
-    console.log(event)
     this.selectedOption = event.option.value.firstName + " " + event.option.value.lastName;
     this.selectedPilot = event.option.value;
   }
@@ -83,7 +78,7 @@ export class CarAddComponent {
   }
 
   onBackToCarPage() {
-    this.router.navigate(['/car-component'])
+    this.router.navigate(['/car-component'], { queryParams: { pageNo: 0, pageSize: 25 } })
   }
 
 }
