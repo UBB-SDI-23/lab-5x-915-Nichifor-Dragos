@@ -17,10 +17,13 @@
   
         <div class="form-group">
             <label for="needAccommodation">Need accomodation</label>
-            <input type="text" class="form-control" id="needAccommodation" 
+            <mat-select class="form-control" id="needAccommodation" 
                     required
                    [(ngModel)]="this.needAccommodation" name="needAccommodation"
                    #participationNeedAccomodation="ngModel">
+                <mat-option value="true">True</mat-option>
+                <mat-option value="false">False</mat-option>
+            </mat-select>
             <div [hidden]="participationNeedAccomodation.valid || participationNeedAccomodation.pristine" class="alert alert-danger">
               Must be true of false.
             </div>        
