@@ -35,6 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { PilotStatisticComponent } from './components/statistics/pilot-statistic/pilot-statistic.component';
 import { RaceStatisticComponent } from './components/statistics/race-statistic/race-statistic.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { RaceParticipationAddComponent } from './components/race/race-participation/race-participation-add/race-participation-add.component';
+import { RaceParticipationUpdateComponent } from './components/race/race-participation/race-participation-update/race-participation-update.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CarDetailsComponent,
     PilotStatisticComponent,
     RaceStatisticComponent,
+    RaceParticipationAddComponent,
+    RaceParticipationUpdateComponent,
   ],
   imports: [
     BrowserModule,

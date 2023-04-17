@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { Race, RaceAddUpdate, RaceOne, RaceStatisticDTO } from "../model/race.model";
+import { ParticipationAdd, Race, RaceAddUpdate, RaceOne, RaceStatisticDTO } from "../model/race.model";
 
 @Injectable()
 export class RaceService {
@@ -41,8 +41,11 @@ export class RaceService {
     }
 
     deleteRace(id: string) {
-      // SET UP CASCADE -> THIS DOES NOT WORK
       return this.httpClient.delete(this.baseUrl + "race/" + id)
+    }
+
+    addParticipation(participation: ParticipationAdd, pilotId: string, raceId: string): Observable<ParticipationAdd> {
+      return this.httpClient.post(this.baseUrl + "races/" + raceId + "/pilots/" + pilotId, participation, {}) as Observable<ParticipationAdd>
     }
 
 }

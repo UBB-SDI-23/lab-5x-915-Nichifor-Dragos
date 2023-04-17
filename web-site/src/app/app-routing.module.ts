@@ -16,6 +16,8 @@ import { CarUpdateComponent } from "./components/car/car-update/car-update.compo
 import { CarDetailsComponent } from "./components/car/car-details/car-details.component";
 import { PilotStatisticComponent } from "./components/statistics/pilot-statistic/pilot-statistic.component";
 import { RaceStatisticComponent } from "./components/statistics/race-statistic/race-statistic.component";
+import { RaceParticipationAddComponent } from "./components/race/race-participation/race-participation-add/race-participation-add.component";
+import { RaceParticipationUpdateComponent } from "./components/race/race-participation/race-participation-update/race-participation-update.component";
 
 const routes: Routes = [
 {
@@ -27,6 +29,8 @@ const routes: Routes = [
     { path: 'race-add-component', component: RaceAddComponent },
     { path: 'race-update-component/:id', component: RaceUpdateComponent },
     { path: 'race-details-component/:id', component: RaceDetailsComponent },
+    { path: 'race-participation-add-component/:id', component: RaceParticipationAddComponent },
+    { path: 'race-participation-update-component/:id', component: RaceParticipationUpdateComponent },
     { path: 'pilot-component', component: PilotComponent, data: { pageNo: 0, pageSize: 25 } },
     { path: 'pilot-add-component', component: PilotAddComponent },
     { path: 'pilot-update-component/:id', component: PilotUpdateComponent },

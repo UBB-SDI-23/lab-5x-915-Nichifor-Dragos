@@ -37,6 +37,7 @@
 
     </div>
 
-    <button class="btn btn-primary m-5" (click)="onBackToRacePage()" > Back to the race page </button>
+    <button class="btn btn-primary m-5" [routerLink]="['/race-participation-add-component', race.id]"> Add new participation </button>
+    <button class="btn btn-primary m-5 mt-0" (click)="onBackToRacePage()" > Back to the race page </button>
 
 </div>

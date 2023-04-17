@@ -46,3 +46,10 @@ export class RaceStatisticDTO {
         public numberOfPilots: number
     ) {}
 }
+
+export class ParticipationAdd {
+    constructor(
+        public startPosition: number,
+        public needAccommodation: boolean
+    ) {}
+}
