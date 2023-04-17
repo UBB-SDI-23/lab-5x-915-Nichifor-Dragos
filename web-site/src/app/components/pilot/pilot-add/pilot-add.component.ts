@@ -43,10 +43,9 @@ export class PilotAddComponent {
     if (this.firstName && this.lastName && this.nationality && this.date && this.drivingExperience) {
       this.model = new PilotAddUpdate(this.firstName, this.lastName, this.nationality, this.date, this.drivingExperience)
       this.pilotService.addPilot(this.model).subscribe(
-        (response) => { this.toastrService.success("Pilot added successfully", '', { progressBar: true }) },
-        (error) => { this.toastrService.error("Could not add pilot", '', { progressBar: true }) });;
-    } else { this.toastrService.error("One of the pilot's fields was left empty", '', { progressBar: true }) }
-   this.onBacktoPilotPage()
+        (response) => { this.toastrService.success("Pilot added successfully", '', { progressBar: true }); this.onBacktoPilotPage() },
+        (error) => { this.toastrService.error("Could not add pilot", '', { progressBar: true }); this.onBacktoPilotPage() });;
+    } else { this.toastrService.error("One of the pilot's fields was left empty", '', { progressBar: true }); this.onBacktoPilotPage() }
   }
 
   onBacktoPilotPage() {

@@ -38,14 +38,13 @@ export class RaceUpdateComponent implements OnInit {
     if (this.race) {
       this.raceUpdateDTO = new RaceAddUpdate(this.race.name, this.race.country, this.race.numberOfLaps, this.race.lapLength, this.race.date)
       this.raceService.updateRace(this.raceUpdateDTO, this.race.id).subscribe(
-        (response) => { this.toastrService.success("Race updated successfully", '', { progressBar: true }) },
-        (error) => { this.toastrService.error("Could not update race", '', { progressBar: true }) });
+        (response) => { this.toastrService.success("Race updated successfully", '', { progressBar: true }); this.onBackToRacePage()},
+        (error) => { this.toastrService.error("Could not update race", '', { progressBar: true }); this.onBackToRacePage() });
     }
-    this.onBackToRacePage()
   }
 
   onBackToRacePage() {
-    this.router.navigate(['/race-component'])
+    this.router.navigate(['/race-component'], { queryParams: { pageNo: 0, pageSize: 25 } })
   }
 
 }

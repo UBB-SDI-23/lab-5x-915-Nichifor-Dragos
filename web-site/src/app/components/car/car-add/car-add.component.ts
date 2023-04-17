@@ -63,13 +63,13 @@ export class CarAddComponent {
       this.pilotID = this.selectedPilot?.id.toString();
 
       this.carService.addCar(car, this.pilotID!).subscribe(
-        (response) => { this.toastrService.success("Car added successfully", '', { progressBar: true }) },
-        (error) => { this.toastrService.error("Could not add car", '', { progressBar: true }) });
+        (response) => { this.toastrService.success("Car added successfully", '', { progressBar: true }); this.onBackToCarPage() },
+        (error) => { this.toastrService.error("Could not add car", '', { progressBar: true }); this.onBackToCarPage() });
 
     this.onBackToCarPage()
 
     }
-    else this.toastrService.error("Could not add car", '', { progressBar: true })
+    else { this.toastrService.error("Could not add car", '', { progressBar: true }); this.onBackToCarPage() }
   }
 
   onSelection(event: any): void {

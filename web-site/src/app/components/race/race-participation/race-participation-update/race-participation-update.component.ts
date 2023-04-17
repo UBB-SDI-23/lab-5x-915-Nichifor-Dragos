@@ -49,12 +49,9 @@ export class RaceParticipationUpdateComponent {
       }
 
       this.raceService.updateParticipation(participation, this.pilotId!, this.raceId!).subscribe(
-        (response) => { this.toastrService.success("Participation updated successfully", '', { progressBar: true }) },
-        (error) => { this.toastrService.error("Could not update participation", '', { progressBar: true }) });
-    }
-    else this.toastrService.error("Could not update participation", '', { progressBar: true })
-    
-    this.onBackToRaceDetailsPage()
+        (response) => { this.toastrService.success("Participation updated successfully", '', { progressBar: true }); this.onBackToRaceDetailsPage() },
+        (error) => { this.toastrService.error("Could not update participation", '', { progressBar: true }); this.onBackToRaceDetailsPage() });
+    }  else { this.toastrService.error("Could not update participation", '', { progressBar: true }); this.onBackToRaceDetailsPage() } 
   }
 
   onBackToRaceDetailsPage() {

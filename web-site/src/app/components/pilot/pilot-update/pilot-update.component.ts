@@ -38,14 +38,13 @@ export class PilotUpdateComponent {
     if (this.pilot) {
       this.pilotUpdateDTO = new PilotAddUpdate(this.pilot.firstName, this.pilot.lastName, this.pilot.nationality, this.pilot.date, this.pilot.drivingExperience)
       this.pilotService.updatePilot(this.pilotUpdateDTO, this.pilot.id).subscribe(
-        (response) => { this.toastrService.success("Pilot updated successfully", '', { progressBar: true }) },
-        (error) => { this.toastrService.error("Could not update pilot", '', { progressBar: true }) });
+        (response) => { this.toastrService.success("Pilot updated successfully", '', { progressBar: true }); this.onBacktoPilotPage() },
+        (error) => { this.toastrService.error("Could not update pilot", '', { progressBar: true }); this.onBacktoPilotPage() });
     }
-    this.onBacktoPilotPage()
   }
 
   onBacktoPilotPage() {
-    this.router.navigate(['/pilot-component'])
+    this.router.navigate(['/pilot-component'], { queryParams: { pageNo: 0, pageSize: 25 } })
   }
 
 }

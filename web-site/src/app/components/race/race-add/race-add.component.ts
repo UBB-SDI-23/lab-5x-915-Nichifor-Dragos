@@ -43,10 +43,9 @@ export class RaceAddComponent implements OnInit{
     if (this.name && this.country && this.lapLength && this.numberOfLaps && this.date) {
       this.model = new RaceAddUpdate(this.name, this. country, this.numberOfLaps, this.lapLength, this.date)
       this.raceService.addRace(this.model).subscribe(
-        (response) => { this.toastrService.success("Race added successfully", '', { progressBar: true }) },
-        error => { this.toastrService.error("Error at adding race", '', { progressBar: true }) });;
-    } else this.toastrService.error("One of the race's fields was left empty", '', { progressBar: true })
-    this.onBackToRacePage()
+        (response) => { this.toastrService.success("Race added successfully", '', { progressBar: true }); this.onBackToRacePage() },
+        error => { this.toastrService.error("Error at adding race", '', { progressBar: true }); this.onBackToRacePage() });;
+    } else { this.toastrService.error("One of the race's fields was left empty", '', { progressBar: true }); this.onBackToRacePage()}
   }
 
   onBackToRacePage() {

@@ -38,14 +38,13 @@ export class CarUpdateComponent {
     if (this.car) {
       this.carUpdateDTO = new CarAddUpdate(this.car.brand, this.car.motorization, this.car.gearBox, this.car.cylindricalCapacity, this.car.horsePower, this.car.description)
       this.carService.updateCar(this.carUpdateDTO, this.car.id).subscribe(
-        (response) => { this.toastrService.success("Car updated successfully", '', { progressBar: true }) },
-        (error) => { this.toastrService.error("Could not update car", '', { progressBar: true }) });
+        (response) => { this.toastrService.success("Car updated successfully", '', { progressBar: true }); this.onBackToCarPage() },
+        (error) => { this.toastrService.error("Could not update car", '', { progressBar: true }); this.onBackToCarPage() });
     }
-    this.onBackToCarPage()
   }
 
   onBackToCarPage() {
-    this.router.navigate(['/car-component'])
+    this.router.navigate(['/car-component'], { queryParams: { pageNo: 0, pageSize: 25 } });
   }
 
 }
