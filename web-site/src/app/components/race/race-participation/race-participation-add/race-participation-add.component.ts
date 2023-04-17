@@ -65,12 +65,11 @@ export class RaceParticipationAddComponent {
 
       this.raceService.addParticipation(participation, this.pilotId!, this.raceId!).subscribe(
         (response) => { this.toastrService.success("Participation added successfully", '', { progressBar: true }) },
-        (error) => { this.toastrService.error("Could not add participation", '', { progressBar: true }) });
-
-    this.onBackToRaceDetailsPage()
-
+        (error) => { this.toastrService.error("Could not add participation", '', { progressBar: true }) })
     }
     else this.toastrService.error("Could not add participation", '', { progressBar: true })
+
+    this.onBackToRaceDetailsPage()
   }
 
   onSelection(event: any): void {

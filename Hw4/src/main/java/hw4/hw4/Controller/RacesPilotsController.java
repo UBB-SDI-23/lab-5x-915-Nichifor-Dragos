@@ -22,6 +22,11 @@ public class RacesPilotsController {
         return this.racesPilotsService.getAllRacesPilots();
     }
 
+    @GetMapping("/races/{idRace}/pilots/{idPilot}") // get one race pilot pair
+    RacesPilots oneRacesPilots(@PathVariable Long idRace, @PathVariable Long idPilot) {
+        return this.racesPilotsService.getOneRacesPilots(idRace, idPilot);
+    }
+
     @PostMapping("/races/{idRace}/pilots/{idPilot}") // add a new race pilot pair
     RacesPilots newRacesPilots(@RequestBody RacesPilots newRacesPilots, @PathVariable Long idRace, @PathVariable Long idPilot) {
         return racesPilotsService.addRacesPilots(newRacesPilots, idRace, idPilot);

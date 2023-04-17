@@ -53,10 +53,3 @@ export class ParticipationAdd {
         public needAccommodation: boolean
     ) {}
 }
-
-export class ParticipationUpdate {
-    constructor(
-        public startPosition: string,
-        public needAccommodation: boolean
-    ) {}
-}

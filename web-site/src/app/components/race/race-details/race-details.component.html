@@ -17,7 +17,7 @@
                                 <img class="settings-svg" src="assets/settings.png">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" [routerLink]="['/race-participation-update-component', pilot.pilotId, race.id]">Update</a>
+                                <a class="dropdown-item" [routerLink]="['/race-participation-update-component', race.id, pilot.pilotId]">Update</a>
                                 <a class="dropdown-item" (click)="onDeleteParticipation(pilot.pilotId)"> Delete</a>
                             </div>
                         </div>

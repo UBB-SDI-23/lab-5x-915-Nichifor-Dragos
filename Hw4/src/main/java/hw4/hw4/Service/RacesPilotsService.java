@@ -5,6 +5,7 @@ import hw4.hw4.Entity.Race;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
 import hw4.hw4.Entity.RacePilot.RacesPilotsKey;
 import hw4.hw4.Exception.PilotNotFoundException;
+import hw4.hw4.Exception.RacesPilotsNotFoundException;
 import hw4.hw4.Repository.PilotRepository;
 import hw4.hw4.Repository.RaceRepository;
 import hw4.hw4.Repository.RacesPilotsRepository;
@@ -29,6 +30,15 @@ public class RacesPilotsService {
 
     public List<RacesPilots> getAllRacesPilots() {
         return racesPilotsRepository.findAll();
+    }
+
+    public RacesPilots getOneRacesPilots(Long idRace, Long idPilot) {
+        RacesPilotsKey key = new RacesPilotsKey();
+        Pilot pilot = pilotRepository.findById(idPilot).orElseThrow(() -> new PilotNotFoundException(idPilot));
+        Race race = raceRepository.findById(idRace).orElseThrow(() -> new PilotNotFoundException(idRace));
+        key.setRaceId(race.getId());
+        key.setPilotId(pilot.getId());
+        return racesPilotsRepository.findById(key).orElseThrow(() -> new RacesPilotsNotFoundException(key));
     }
 
     public RacesPilots addRacesPilots(RacesPilots newRacesPilots, Long idRace, Long idPilot) {

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { ParticipationAdd, Race, RaceAddUpdate, RaceOne, RaceStatisticDTO, ParticipationUpdate } from "../model/race.model";
+import { ParticipationAdd, Race, RaceAddUpdate, RaceOne, RaceStatisticDTO } from "../model/race.model";
 
 @Injectable()
 export class RaceService {
@@ -44,12 +44,17 @@ export class RaceService {
       return this.httpClient.delete(this.baseUrl + "race/" + id)
     }
 
+    getParticipation(pilotId: string, raceId: string): Observable<ParticipationAdd> {
+      return this.httpClient.get(this.baseUrl + "races/" + raceId + "/pilots/" + pilotId, {}) as Observable<ParticipationAdd>
+    }
+
     addParticipation(participation: ParticipationAdd, pilotId: string, raceId: string): Observable<ParticipationAdd> {
       return this.httpClient.post(this.baseUrl + "races/" + raceId + "/pilots/" + pilotId, participation, {}) as Observable<ParticipationAdd>
     }
 
-    updateParticipation(participation: ParticipationUpdate, pilotId: string, raceId: string): Observable<ParticipationUpdate> {
-      return this.httpClient.put(this.baseUrl + "races/" + raceId + "/pilots/" + pilotId, participation, {}) as Observable<ParticipationUpdate>
+    updateParticipation(participation: ParticipationAdd, pilotId: string, raceId: string): Observable<ParticipationAdd> {
+      console.log(participation)
+      return this.httpClient.put(this.baseUrl + "races/" + raceId + "/pilots/" + pilotId, participation, {}) as Observable<ParticipationAdd>
     }
 
     deleteParticipation(raceId: string, pilotId: string) {
