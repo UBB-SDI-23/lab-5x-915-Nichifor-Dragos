@@ -7,6 +7,7 @@
           <label for="startPosition">Start position</label>
           <input type="number" class="form-control" id="startPosition"
                  required
+                 disabled="true"
                  [(ngModel)]="this.startPosition" name="startPosition"
                  #participationStartPosition="ngModel">
           <div [hidden]="participationStartPosition.valid || participationStartPosition.pristine" class="alert alert-danger">
@@ -21,7 +22,7 @@
                    [(ngModel)]="this.needAccommodation" name="needAccommodation"
                    #participationNeedAccomodation="ngModel">
             <div [hidden]="participationNeedAccomodation.valid || participationNeedAccomodation.pristine" class="alert alert-danger">
-              Car motorization is required.
+              Must be true of false.
             </div>        
         </div>
 

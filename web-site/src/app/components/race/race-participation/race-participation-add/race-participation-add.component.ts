@@ -15,7 +15,7 @@ import { ParticipationAdd } from 'src/app/core/model/race.model';
 })
 export class RaceParticipationAddComponent {
 
-  startPosition?: number
+  startPosition?: string
   needAccommodation?: boolean
 
   submitted: boolean = false
@@ -39,6 +39,7 @@ export class RaceParticipationAddComponent {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.raceId = params['id']
+      this.startPosition = params['nextParticipation']
     })
 
     this.searchTerm.pipe(

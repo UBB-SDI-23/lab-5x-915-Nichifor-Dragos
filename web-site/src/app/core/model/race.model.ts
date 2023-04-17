@@ -49,7 +49,14 @@ export class RaceStatisticDTO {
 
 export class ParticipationAdd {
     constructor(
-        public startPosition: number,
+        public startPosition: string,
+        public needAccommodation: boolean
+    ) {}
+}
+
+export class ParticipationUpdate {
+    constructor(
+        public startPosition: string,
         public needAccommodation: boolean
     ) {}
 }

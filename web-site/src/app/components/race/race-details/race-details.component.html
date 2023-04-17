@@ -11,6 +11,17 @@
                     <hr class="card-separator">
                     <p class="card-text"> Starting position: <b>{{ pilot.startPosition }}</b></p>
                     <p class="card-text"> Need accomodation: <b>{{ pilot.needAccommodation }}</b></p>
+                    <div class="dropdown">
+                        <div class="btn-group float-end">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="settings-svg" src="assets/settings.png">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" [routerLink]="['/race-participation-update-component', pilot.pilotId, race.id]">Update</a>
+                                <a class="dropdown-item" (click)="onDeleteParticipation(pilot.pilotId)"> Delete</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,7 +48,7 @@
 
     </div>
 
-    <button class="btn btn-primary m-5" [routerLink]="['/race-participation-add-component', race.id]"> Add new participation </button>
+    <button class="btn btn-primary m-5" [routerLink]="['/race-participation-add-component', race.id, nextParticipation]"> Add new participation </button>
     <button class="btn btn-primary m-5 mt-0" (click)="onBackToRacePage()" > Back to the race page </button>
 
 </div>
