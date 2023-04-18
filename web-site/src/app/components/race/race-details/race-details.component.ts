@@ -33,7 +33,7 @@ export class RaceDetailsComponent implements OnInit{
       this.race = race;
       for (let pilot of this.race.pilots)
       {
-        if (pilot.startPosition > this.nextParticipation)
+        if (pilot.startPosition >= this.nextParticipation)
         {
           this.nextParticipation = pilot.startPosition + 1
         }

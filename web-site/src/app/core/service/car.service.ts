@@ -24,7 +24,6 @@ export class CarService {
     }
 
     listPageCars(pageNo: Number, pageSize: Number, cylindricalCapacity ?: string): Observable<Car[]> {
-      console.log(this.baseUrl + "car?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString() + '&capacity=' + cylindricalCapacity)
       if (cylindricalCapacity != undefined)
         return this.httpClient.get(this.baseUrl + "car?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString() + '&capacity=' + cylindricalCapacity) as Observable<Car[]>;
       else
@@ -45,7 +44,6 @@ export class CarService {
     }
   
     addCar(car: CarAddUpdate, pilotId: string): Observable<CarAddUpdate> {
-      console.log(this.baseUrl + "pilot/" + pilotId + "/car", car)
       return this.httpClient.post(this.baseUrl + "pilot/" + pilotId + "/car", car) as Observable<CarAddUpdate>
     }
 

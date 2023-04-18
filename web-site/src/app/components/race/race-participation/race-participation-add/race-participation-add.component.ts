@@ -70,7 +70,6 @@ export class RaceParticipationAddComponent {
   }
 
   onSelection(event: any): void {
-    console.log(event)
     this.selectedOption = event.option.value.firstName + " " + event.option.value.lastName;
     this.selectedPilot = event.option.value;
   }

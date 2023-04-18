@@ -53,7 +53,6 @@ export class RaceService {
     }
 
     updateParticipation(participation: ParticipationAdd, pilotId: string, raceId: string): Observable<ParticipationAdd> {
-      console.log(participation)
       return this.httpClient.put(this.baseUrl + "races/" + raceId + "/pilots/" + pilotId, participation, {}) as Observable<ParticipationAdd>
     }
 

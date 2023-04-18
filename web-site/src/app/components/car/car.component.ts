@@ -67,7 +67,7 @@ export class CarComponent {
     }
 
     onSearch() {
-      if (this.searchTerm != '' && this.searchTerm != null)
+      if (this.searchTerm != '' && this.searchTerm != null && this.searchTerm != undefined)
         this.subscriptions.push(this.carService.listPageCars(this.pageNumber, this.pageSize, this.searchTerm).subscribe(cars => {
         this.cars = cars
         this.carService.countCarsCapacity(this.searchTerm).subscribe((result: Number) => {
@@ -102,7 +102,7 @@ export class CarComponent {
       this.pageNumber = event.pageIndex;
       this.goToPageNumber = this.pageNumber;
       this.pageSize = event.pageSize;
-      if (this.searchTerm == null) {
+      if (this.searchTerm == '' || this.searchTerm == null || this.searchTerm == undefined) {
         this.carService.countCars().subscribe((result: Number) => {
         this.noPages = Math.floor(result.valueOf() / this.pageSize);
         if (result.valueOf() % this.pageSize > 0) {
