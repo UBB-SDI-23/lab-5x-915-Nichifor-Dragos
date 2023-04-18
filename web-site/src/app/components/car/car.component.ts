@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -31,7 +31,15 @@ export class CarComponent {
     private activatedRoute: ActivatedRoute
     ) {}
 
+    isPc = true;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isPc = window.innerWidth > 768;
+  }
+
     ngOnInit() {
+      this.onResize();
       this.carService.countCars().subscribe((result: Number) => {
         this.noPages = Math.floor(result.valueOf() / this.pageSize);
         if (result.valueOf() % this.pageSize > 0) {

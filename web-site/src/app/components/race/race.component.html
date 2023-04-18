@@ -1,4 +1,4 @@
-<div class="container-fluid container-padding ">
+<div class="container-fluid" [ngClass]="{ 'container-padding': isPc }">
     <div class="row pb-5 m-0">
 
         <h1 class="p-4 text-center mb-5" *ngIf="!sortedByName"><b>All races</b></h1>

@@ -1,4 +1,4 @@
-<div class="container-fluid container-padding">
+<div class="container-fluid" [ngClass]="{ 'container-padding': isPc }">
     <div class="container px-5">
         <div class="my-2 my-lg-0 p-5">
           <input class="form-control mr-sm-2" type="number" step="500" placeholder="Search by cylindrical capacity" aria-label="Search" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" >

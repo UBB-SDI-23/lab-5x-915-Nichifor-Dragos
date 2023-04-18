@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PilotService } from 'src/app/core/service/pilot.service';
 
@@ -29,7 +29,15 @@ export class PilotComponent implements OnInit, OnDestroy{
     private activatedRoute: ActivatedRoute
   ) {}
 
+  isPc = true;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isPc = window.innerWidth > 768;
+  }
+
   ngOnInit() {
+    this.onResize();
     this.pilotService.countPilots().subscribe((result: Number) => {
       this.noPages = Math.floor(result.valueOf() / this.pageSize);
       if (result.valueOf() % this.pageSize > 0) {

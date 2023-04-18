@@ -1,4 +1,4 @@
-<div class="container-fluid container-padding">
+<div class="container-fluid" [ngClass]="{ 'container-padding': isPc }">
     <div class="row pb-5 m-0">
         <h1 class="p-4 text-center mb-5"><b>All pilots</b></h1>
         <div class="col-lg-4 col-md-12 col-sm-12" *ngFor="let pilot of pilots">

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 
 import { Race, RaceAll } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
@@ -32,7 +32,15 @@ export class RaceComponent implements OnInit, OnDestroy{
     private activatedRoute: ActivatedRoute
     ) {}
 
+    isPc = true;
+
+    @HostListener('window:resize', ['$event'])
+    onResize() {
+      this.isPc = window.innerWidth > 768;
+    }
+
   ngOnInit() {
+    this.onResize()
     this.raceService.countRaces().subscribe((result: Number) => {
       this.noPages = Math.floor(result.valueOf() / this.pageSize);
       if (result.valueOf() % this.pageSize > 0) {
