@@ -9,6 +9,16 @@ export interface Race {
     date: string
 }
 
+export interface RaceAll {
+    id: string;
+    name: string;
+    country: string
+    numberOfLaps: number;
+    lapLength: number;
+    date: string
+    numberOfParticipants: number;
+}
+
 export class RaceAddUpdate {
     constructor(
         public name: string,

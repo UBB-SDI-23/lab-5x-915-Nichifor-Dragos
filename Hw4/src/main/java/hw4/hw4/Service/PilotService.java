@@ -1,6 +1,9 @@
 package hw4.hw4.Service;
 
+import hw4.hw4.DTO.Pilot.PilotDTO_All;
 import hw4.hw4.DTO.Pilot.PilotDTO_CarStatistic;
+import hw4.hw4.DTO.Pilot.PilotDTO_Converters;
+import hw4.hw4.DTO.Race.RaceDTO_Converters;
 import hw4.hw4.Entity.Car;
 import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.Race;
@@ -34,10 +37,13 @@ public class PilotService {
         this.racesPilotsRepository = racesPilotsRepository;
     }
 
-    public List<Pilot> getAllPilots(Integer pageNo, Integer pageSize) {
+    public List<PilotDTO_All> getAllPilots(Integer pageNo, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
 
-        return pilotRepository.findAll(pageable).getContent();
+        return pilotRepository.findAll(pageable).getContent().stream().map(
+                pilot -> PilotDTO_Converters.convertToPilotDTO_All(pilot,
+                        this.racesPilotsRepository.countByPilotId(pilot.getId()))
+        ).collect(Collectors.toList());
     }
 
     public Pilot getOnePilot(Long id) {

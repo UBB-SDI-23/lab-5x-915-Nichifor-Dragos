@@ -10,6 +10,16 @@ export interface Pilot {
     drivingExperience: number;
 }
 
+export interface PilotAll {
+    id: string;
+    firstName: string;
+    lastName: string;
+    nationality: string;
+    date: Date;
+    drivingExperience: number;
+    numberOfRaces: number;
+}
+
 export class PilotOne {
     constructor(
         public id: string,

@@ -1,5 +1,7 @@
 package hw4.hw4.Service;
 
+import hw4.hw4.DTO.Race.RaceDTO_All;
+import hw4.hw4.DTO.Race.RaceDTO_Converters;
 import hw4.hw4.DTO.Race.RaceDTO_PilotStatistic;
 import hw4.hw4.DTO.Race.RaceDTO_PilotStatistic_CountryUSA;
 import hw4.hw4.Entity.Pilot;
@@ -30,10 +32,13 @@ public class RaceService {
         this.racesPilotsRepository = racesPilotsRepository;
     }
 
-    public List<Race> getAllRaces(Integer pageNo, Integer pageSize) {
+    public List<RaceDTO_All> getAllRaces(Integer pageNo, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id"));
 
-        return raceRepository.findAll(pageable).getContent();
+        return raceRepository.findAll(pageable).getContent().stream().map(
+                race -> RaceDTO_Converters.convertToRaceDTO_All(race,
+                        this.racesPilotsRepository.countByRaceId(race.getId()))
+        ).collect(Collectors.toList());
     }
 
     public Race getOneRace(Long id) {

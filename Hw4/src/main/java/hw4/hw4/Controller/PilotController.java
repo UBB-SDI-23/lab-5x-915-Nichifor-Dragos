@@ -35,7 +35,7 @@ public class PilotController {
 
     @GetMapping("/pilot") // get all the pilots
     List<PilotDTO_All> allPilots(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize) {
-        return pilotService.getAllPilots(pageNo, pageSize).stream().map(this::convertToPilotDTO_All).collect(Collectors.toList());
+        return pilotService.getAllPilots(pageNo, pageSize);
     }
 
     @GetMapping("/pilot/{id}") // get a pilot by its id

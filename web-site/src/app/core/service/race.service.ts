@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { ParticipationAdd, Race, RaceAddUpdate, RaceOne, RaceStatisticDTO } from "../model/race.model";
+import { ParticipationAdd, Race, RaceAddUpdate, RaceOne, RaceStatisticDTO, RaceAll } from "../model/race.model";
 
 @Injectable()
 export class RaceService {
@@ -11,12 +11,12 @@ export class RaceService {
     
     constructor(private httpClient: HttpClient) { }
 
-    listRaces(): Observable<Race[]> {
-        return this.httpClient.get<Race[]>(this.baseUrl + 'race');
+    listRaces(): Observable<RaceAll[]> {
+        return this.httpClient.get<RaceAll[]>(this.baseUrl + 'race');
     }
 
-    listPageRaces(pageNo: Number, pageSize: Number): Observable<Race[]> {
-      return this.httpClient.get(this.baseUrl + "race?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<Race[]>;
+    listPageRaces(pageNo: Number, pageSize: Number): Observable<RaceAll[]> {
+      return this.httpClient.get(this.baseUrl + "race?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<RaceAll[]>;
     }
 
     listRaceStatistic(): Observable<RaceStatisticDTO[]> {
@@ -30,6 +30,11 @@ export class RaceService {
     getRace(id: string): Observable<RaceOne>
     {
       return this.httpClient.get(this.baseUrl + "race/" + id) as Observable<RaceOne>;
+    }
+
+    getCountParticipants(id: string): Observable<Number> {
+      console.log(this.baseUrl + "race/no-participants/" + id)
+      return this.httpClient.get(this.baseUrl + "race/no-participants/" + id) as Observable<Number>;
     }
   
     addRace(race: RaceAddUpdate): Observable<Race> {

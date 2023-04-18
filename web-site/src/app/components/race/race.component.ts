@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Race } from 'src/app/core/model/race.model';
+import { Race, RaceAll } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class RaceComponent implements OnInit, OnDestroy{
   sortedByName = false;
 
   subscriptions: Subscription[] = [];
-  races: Race[] = [];
+  races: RaceAll[] = [];
 
   pageNumber: number = 0;
   pageSize: number = 25; 

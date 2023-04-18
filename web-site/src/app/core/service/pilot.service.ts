@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { Pilot, PilotOne, PilotAddUpdate, PilotStatisticDTO } from "../model/pilot.model";
+import { Pilot, PilotOne, PilotAddUpdate, PilotStatisticDTO, PilotAll } from "../model/pilot.model";
 
 @Injectable()
 export class PilotService {
@@ -11,12 +11,12 @@ export class PilotService {
     
     constructor(private httpClient: HttpClient) { }
 
-    listPilots(): Observable<Pilot[]> {
-        return this.httpClient.get<Pilot[]>(this.baseUrl + 'pilot');
+    listPilots(): Observable<PilotAll[]> {
+        return this.httpClient.get<PilotAll[]>(this.baseUrl + 'pilot');
     }
 
-    listPagePilots(pageNo: Number, pageSize: Number): Observable<Pilot[]> {
-      return this.httpClient.get(this.baseUrl + "pilot?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<Pilot[]>;
+    listPagePilots(pageNo: Number, pageSize: Number): Observable<PilotAll[]> {
+      return this.httpClient.get(this.baseUrl + "pilot?pageNo=" + pageNo.toString() + "&pageSize=" + pageSize.toString()) as Observable<PilotAll[]>;
     }
 
     listPilotStatistic(): Observable<PilotStatisticDTO[]> {

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PilotService } from 'src/app/core/service/pilot.service';
 
 import { Subscription } from 'rxjs';
-import { Pilot } from 'src/app/core/model/pilot.model';
+import { Pilot, PilotAll } from 'src/app/core/model/pilot.model';
 import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -20,7 +20,7 @@ export class PilotComponent implements OnInit, OnDestroy{
   goToPageNumber: number = 0;
 
   subscriptions: Subscription[] = [];
-  pilots: Pilot[] = [];
+  pilots: PilotAll[] = [];
 
   public constructor (
     private pilotService: PilotService,
