@@ -11,7 +11,7 @@ public class RacesPilotsNotFoundAdvice {
     @ResponseBody // signals that this advice is rendered straight into the response body.
     @ExceptionHandler(RacesPilotsNotFoundException.class) // configures the advice to only respond if an RacesPilotsNotFoundException is thrown
     @ResponseStatus(HttpStatus.NOT_FOUND) // says to issue an HttpStatus.NOT_FOUND, i.e. an HTTP 404
-    String pilotNotFoundHandler(RacesPilotsNotFoundException ex) {
+    String racesPilotsNotFoundHandler(RacesPilotsNotFoundException ex) {
         return ex.getMessage();
     }
 

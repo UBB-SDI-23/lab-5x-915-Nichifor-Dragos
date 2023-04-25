@@ -5,7 +5,7 @@ import hw4.hw4.DTO.Car.CarDTO_All;
 import hw4.hw4.DTO.Car.CarDTO_One;
 import hw4.hw4.Entity.Car;
 import hw4.hw4.Service.CarService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

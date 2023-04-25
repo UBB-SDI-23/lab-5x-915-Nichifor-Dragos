@@ -5,10 +5,10 @@ import hw4.hw4.DTO.Race.RaceDTO_PilotStatistic_CountryUSA;
 import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.Race;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 
 import java.util.List;
 

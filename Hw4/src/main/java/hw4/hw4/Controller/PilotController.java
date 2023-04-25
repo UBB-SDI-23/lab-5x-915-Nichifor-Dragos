@@ -12,7 +12,7 @@ import hw4.hw4.Entity.Car;
 import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.Race;
 import hw4.hw4.Service.PilotService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

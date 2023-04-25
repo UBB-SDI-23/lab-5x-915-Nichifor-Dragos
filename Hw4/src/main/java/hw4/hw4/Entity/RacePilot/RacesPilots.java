@@ -3,7 +3,7 @@ package hw4.hw4.Entity.RacePilot;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.Race;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 

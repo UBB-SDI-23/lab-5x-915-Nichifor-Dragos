@@ -2,10 +2,10 @@ package hw4.hw4.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Races")
+@Table(name = "races")
 public class Race {
 
     private @Id
