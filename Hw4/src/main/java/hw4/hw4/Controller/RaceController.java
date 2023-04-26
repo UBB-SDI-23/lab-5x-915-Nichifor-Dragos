@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-// indicates that the data returned by each method will be written straight into the response body instead of rendering a template.
 @RequestMapping("/api")
 public class RaceController {
 

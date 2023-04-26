@@ -1,6 +1,5 @@
 package hw4.hw4.Controller;
 
-import hw4.hw4.Entity.Race;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
 import hw4.hw4.Service.RacesPilotsService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,13 +9,12 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-// indicates that the data returned by each method will be written straight into the response body instead of rendering a template.
 @RequestMapping("/api")
 public class RacesPilotsController {
 
     private final RacesPilotsService racesPilotsService;
 
-    private RacesPilotsController (RacesPilotsService racesPilotsService) {this.racesPilotsService = racesPilotsService;}
+    RacesPilotsController (RacesPilotsService racesPilotsService) {this.racesPilotsService = racesPilotsService;}
 
     @GetMapping("/races/pilots") // get all race pilot pairs
     List<RacesPilots> allRacesPilots() {
