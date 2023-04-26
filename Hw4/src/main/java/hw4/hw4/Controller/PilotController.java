@@ -33,50 +33,50 @@ public class PilotController {
 
     PilotController(PilotService pilotService) {this.pilotService = pilotService;}
 
-    @GetMapping("/pilot") // get all the pilots
+    @GetMapping("/public/pilot") // get all the pilots
     List<PilotDTO_All> allPilots(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize) {
         return pilotService.getAllPilots(pageNo, pageSize);
     }
 
-    @GetMapping("/pilot/{id}") // get a pilot by its id
+    @GetMapping("/public/pilot/{id}") // get a pilot by its id
     PilotDTO_One onePilot(@PathVariable Long id) {
         return convertToPilotDTO_One(pilotService.getOnePilot(id));
     }
 
-    @GetMapping("/pilot/{id}/car") // get all the cars from a pilot given the id
+    @GetMapping("/public/pilot/{id}/car") // get all the cars from a pilot given the id
     List<CarDTO_All>  onePilotCars(@PathVariable Long id) {
         return pilotService.getAllCarsFromPilot(id).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
     }
 
-    @GetMapping("/pilot/{id}/race") // get all the races that the pilot will attend to
+    @GetMapping("/public/pilot/{id}/race") // get all the races that the pilot will attend to
     List<RaceDTO_All> onePilotRaces(@PathVariable Long id){return pilotService.getAllRacesFromPilot(id).stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());}
 
-    @GetMapping("/pilot-search")
+    @GetMapping("/public/pilot-search")
     List<Pilot> getPilotsByName(@RequestParam(required = false) String name) {
         return this.pilotService.searchPilotsByNameFullText(name);
     }
 
-    @GetMapping("/pilot/count")
+    @GetMapping("/public/pilot/count")
     Long getPilotCount() {
         return this.pilotService.getPilotCount();
     }
 
-    @GetMapping("/pilot/cars-statistic")
+    @GetMapping("/public/pilot/cars-statistic")
     List<PilotDTO_CarStatistic> getPilotsWithNumberOfCarsAsc() {
         return this.pilotService.getPilotsWithNumberOfCarsAsc();
     }
 
-    @PostMapping("/pilot") // add a new pilot
+    @PostMapping("/user/pilot") // add a new pilot
     Pilot newPilot(@Valid @RequestBody Pilot newPilot) {
         return pilotService.addPilot(newPilot);
     }
 
-    @PutMapping("/pilot/{id}") // update a pilot given its id
+    @PutMapping("/user/pilot/{id}") // update a pilot given its id
     Pilot replacePilot(@Valid @RequestBody Pilot newPilot, @PathVariable Long id) {
         return pilotService.updatePilot(newPilot, id);
     }
 
-    @DeleteMapping("/pilot/{id}") // delete a pilot given its id
+    @DeleteMapping("/admin/pilot/{id}") // delete a pilot given its id
     void deletePilot(@PathVariable Long id) {
         pilotService.deletePilot(id);
     }

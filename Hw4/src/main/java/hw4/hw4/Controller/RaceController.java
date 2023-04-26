@@ -28,45 +28,45 @@ public class RaceController {
 
     RaceController(RaceService raceService) {this.raceService = raceService;}
 
-    @GetMapping("/race") // get all the races
+    @GetMapping("/public/race") // get all the races
     List<RaceDTO_All> allRaces(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize) {
         return raceService.getAllRaces(pageNo, pageSize);
     }
 
-    @GetMapping("/race/{id}") // get a race by its id
+    @GetMapping("/public/race/{id}") // get a race by its id
     RaceDTO_One oneRace(@PathVariable Long id) {
         return this.convertToRaceDTO_One(raceService.getOneRace(id));
     }
 
-    @GetMapping("/race/{id}/pilot") // get all the pilots which will attend to the race
+    @GetMapping("/public/race/{id}/pilot") // get all the pilots which will attend to the race
     List<PilotDTO_All> oneRacePilots(@PathVariable Long id) {return raceService.getAllPilotsFromRace(id).stream().map(this::convertToPilotDTO_All).collect(Collectors.toList());}
 
-    @GetMapping("/race/pilots-statistic")
+    @GetMapping("/public/race/pilots-statistic")
     List<RaceDTO_PilotStatistic> getRacesWithNumberOfPilotsDesc() {
         return this.raceService.getRacesWithNumberOfPilotsDesc();
     }
 
-    @GetMapping("/race/USA-pilots-statistic")
+    @GetMapping("/public/race/USA-pilots-statistic")
     List<RaceDTO_PilotStatistic_CountryUSA> getRacesFromUSAWithNumberOfPilotsDesc() {
         return this.raceService.getRacesFromUSAWithNumberOfPilotsDesc();
     }
 
-    @GetMapping("/race/count")
+    @GetMapping("/public/race/count")
     Long getRacesCount() {
         return this.raceService.getRacesCount();
     }
 
-    @PostMapping("/race") // add a new race
+    @PostMapping("/user/race") // add a new race
     Race newRace(@Valid @RequestBody Race newRace) {
         return raceService.addRace(newRace);
     }
 
-    @PutMapping("/race/{id}") // update a race given its id
+    @PutMapping("/user/race/{id}") // update a race given its id
     Race replaceRace(@Valid @RequestBody Race newRace, @PathVariable Long id) {
         return raceService.updateRace(newRace, id);
     }
 
-    @DeleteMapping("/race/{id}") // delete a race given its id
+    @DeleteMapping("/admin/race/{id}") // delete a race given its id
     void deleteRace(@PathVariable Long id) {
         raceService.deleteRace(id);
     }

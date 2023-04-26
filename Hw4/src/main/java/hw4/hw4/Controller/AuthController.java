@@ -10,6 +10,7 @@ import hw4.hw4.DTO.Register.RegisterDTO;
 import hw4.hw4.Entity.User.Role;
 import hw4.hw4.Entity.User.User;
 import hw4.hw4.Entity.User.UserJwt;
+import hw4.hw4.Entity.User.UserProfile;
 import hw4.hw4.Repository.RoleRepository;
 import hw4.hw4.Repository.UserJwtRepository;
 import hw4.hw4.Repository.UserProfileRepository;
@@ -88,6 +89,9 @@ public class AuthController {
         jwtUtils.validateJwtToken(userJwt.getJwtToken());
 
         User user = new User();
+        UserProfile userProfile = new UserProfile();
+        userProfileRepository.save(userProfile);
+
         user.setUsername(userJwt.getUsername());
         user.setPassword(userJwt.getPassword());
 
@@ -96,6 +100,7 @@ public class AuthController {
                 .orElseThrow(() -> new RuntimeException("Error: User role not found."));
         roles.add(userRole);
         user.setRoles(roles);
+        user.setUserProfile(userProfile);
 
         userJwtRepository.delete(userJwt);
 
