@@ -8,14 +8,14 @@ import hw4.hw4.Service.CarService;
 import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-// indicates that the data returned by each method will be written straight into the response body instead of rendering a template.
 @RequestMapping("/api")
 public class CarController {
 
@@ -27,8 +27,7 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/public/car")
-        // get all the cars, or filter by cylindrical capacity if there is a parameter specified
+    @GetMapping("/car") // get all the cars
     List<CarDTO_All> allCars(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize, @RequestParam(required = false) Integer capacity) {
         if (capacity == null) {
             return this.carService.getAllCars(pageNo, pageSize).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
@@ -36,37 +35,40 @@ public class CarController {
         return this.carService.getAllCarsWithCapacityGreaterThan(pageNo, pageSize, capacity).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
     }
 
-    @GetMapping("/public/car/count")
+    @GetMapping("/car/count") // get the number of cars
     Long getCarsCount() {
         return this.carService.getCarsCount();
     }
 
-    @GetMapping("/public/car/count-capacity")
+    @GetMapping("/car/count-capacity") // get the number of cars with capacity greater than specified
     Long getCarsCount(@RequestParam Integer capacity) {
         return this.carService.getCarsCapacityCount(capacity);
     }
 
-    @GetMapping("/public/car/{id}") // get a car by its id
+    @GetMapping("/car/{id}") // get a car by its id
     CarDTO_One oneCar(@PathVariable Long id) {
         return this.convertToCarDTO_One(this.carService.getOneCar(id));
     }
-
-    @PostMapping("/user/pilot/{id}/car") // add a new car to an existing pilot
+    @PostMapping("/pilot/{id}/car") // add a new car to an existing pilot
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Car newCar(@Valid @RequestBody Car newCar, @PathVariable Long id) {
         return carService.addCar(newCar, id);
     }
 
-    @PostMapping("/user/pilot/{id}/cars") // add a new car to an existing pilot
+    @PostMapping("/pilot/{id}/cars") // bulk add new cars to an existing pilot
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     List<Car> newCars(@Valid @RequestBody List<Car> newCars, @PathVariable Long id) {
         return carService.addCars(newCars, id);
     }
 
-    @PutMapping("/user/car/{id}") // update a car given the id
+    @PutMapping("/car/{id}") // update a car given by its id
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Car replaceCar(@Valid @RequestBody Car newCar, @PathVariable Long id) {
         return carService.updateCar(newCar, id);
     }
 
-    @DeleteMapping("/admin/car/{id}") // delete a car given its id
+    @DeleteMapping("/car/{id}") // delete a car by its id
+    @PreAuthorize("hasRole('ADMIN')")
     void deleteCar(@PathVariable Long id) {
         carService.deleteCar(id);
     }

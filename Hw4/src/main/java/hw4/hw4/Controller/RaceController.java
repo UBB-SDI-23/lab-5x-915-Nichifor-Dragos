@@ -10,6 +10,7 @@ import hw4.hw4.Service.RaceService;
 import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,45 +29,48 @@ public class RaceController {
 
     RaceController(RaceService raceService) {this.raceService = raceService;}
 
-    @GetMapping("/public/race") // get all the races
+    @GetMapping("/race") // get all the races
     List<RaceDTO_All> allRaces(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize) {
         return raceService.getAllRaces(pageNo, pageSize);
     }
 
-    @GetMapping("/public/race/{id}") // get a race by its id
+    @GetMapping("/race/{id}") // get a race by its id
     RaceDTO_One oneRace(@PathVariable Long id) {
         return this.convertToRaceDTO_One(raceService.getOneRace(id));
     }
 
-    @GetMapping("/public/race/{id}/pilot") // get all the pilots which will attend to the race
+    @GetMapping("/race/{id}/pilot") // get all the pilots which will attend to the race
     List<PilotDTO_All> oneRacePilots(@PathVariable Long id) {return raceService.getAllPilotsFromRace(id).stream().map(this::convertToPilotDTO_All).collect(Collectors.toList());}
 
-    @GetMapping("/public/race/pilots-statistic")
+    @GetMapping("/race/pilots-statistic") // get the race-pilot statistic
     List<RaceDTO_PilotStatistic> getRacesWithNumberOfPilotsDesc() {
         return this.raceService.getRacesWithNumberOfPilotsDesc();
     }
 
-    @GetMapping("/public/race/USA-pilots-statistic")
+    @GetMapping("/race/USA-pilots-statistic") // get the pilots that participate in a race in the USA
     List<RaceDTO_PilotStatistic_CountryUSA> getRacesFromUSAWithNumberOfPilotsDesc() {
         return this.raceService.getRacesFromUSAWithNumberOfPilotsDesc();
     }
 
-    @GetMapping("/public/race/count")
+    @GetMapping("/race/count") // get the number of races
     Long getRacesCount() {
         return this.raceService.getRacesCount();
     }
 
     @PostMapping("/user/race") // add a new race
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Race newRace(@Valid @RequestBody Race newRace) {
         return raceService.addRace(newRace);
     }
 
-    @PutMapping("/user/race/{id}") // update a race given its id
+    @PutMapping("/user/race/{id}") // update a race by its id
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Race replaceRace(@Valid @RequestBody Race newRace, @PathVariable Long id) {
         return raceService.updateRace(newRace, id);
     }
 
-    @DeleteMapping("/admin/race/{id}") // delete a race given its id
+    @DeleteMapping("/admin/race/{id}") // delete a race by its id
+    @PreAuthorize("hasRole('ADMIN')")
     void deleteRace(@PathVariable Long id) {
         raceService.deleteRace(id);
     }

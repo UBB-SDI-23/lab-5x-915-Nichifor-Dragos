@@ -7,10 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import hw4.hw4.DTO.Register.RegisterDTO;
-import hw4.hw4.Entity.User.Role;
-import hw4.hw4.Entity.User.User;
-import hw4.hw4.Entity.User.UserJwt;
-import hw4.hw4.Entity.User.UserProfile;
+import hw4.hw4.Entity.User.*;
 import hw4.hw4.Repository.RoleRepository;
 import hw4.hw4.Repository.UserJwtRepository;
 import hw4.hw4.Repository.UserProfileRepository;
@@ -37,7 +34,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 5 * 60)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -69,12 +66,17 @@ public class AuthController {
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
+                .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(new UserInfoResponse(userDetails.getId(),
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .body(new UserInfoResponse(userDetails.getId(),
                         userDetails.getUsername(),
                         roles));
     }
@@ -96,7 +98,7 @@ public class AuthController {
         user.setPassword(userJwt.getPassword());
 
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("User")
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: User role not found."));
         roles.add(userRole);
         user.setRoles(roles);
@@ -117,22 +119,23 @@ public class AuthController {
         if (userJwtRepository.existsByUsername(signUpRequest.getUsername())) {
             userJwtRepository.deleteByUsername(signUpRequest.getUsername());
         }
-        UserDetailsImpl userDetails = new UserDetailsImpl(0L, signUpRequest.getUsername(), signUpRequest.getPassword(), new HashSet<>() {});
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+
+        String jwtToken = jwtUtils.generateTokenFromUsername(signUpRequest.getUsername());
 
         UserJwt userJwtPair = new UserJwt();
         userJwtPair.setUsername(signUpRequest.getUsername());
         userJwtPair.setPassword(encoder.encode(signUpRequest.getPassword()));
-        userJwtPair.setJwtToken(jwtCookie.getValue());
+        userJwtPair.setJwtToken(jwtToken);
 
         userJwtRepository.save(userJwtPair);
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(new RegisterDTO(userJwtPair.getUsername(), userJwtPair.getJwtToken()));
+        return ResponseEntity.ok().body(new RegisterDTO(userJwtPair.getUsername(), userJwtPair.getJwtToken()));
     }
 
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser() {
-        return ResponseEntity.ok().body(new MessageResponse("You've been signed out!"));
+        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(new MessageResponse("You've been signed out!"));
     }
 }

@@ -15,6 +15,7 @@ import hw4.hw4.Service.PilotService;
 import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,50 +34,53 @@ public class PilotController {
 
     PilotController(PilotService pilotService) {this.pilotService = pilotService;}
 
-    @GetMapping("/public/pilot") // get all the pilots
+    @GetMapping("/pilot") // get all the pilots
     List<PilotDTO_All> allPilots(@RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "50") Integer pageSize) {
         return pilotService.getAllPilots(pageNo, pageSize);
     }
 
-    @GetMapping("/public/pilot/{id}") // get a pilot by its id
+    @GetMapping("/pilot/{id}") // get a pilot by its id
     PilotDTO_One onePilot(@PathVariable Long id) {
         return convertToPilotDTO_One(pilotService.getOnePilot(id));
     }
 
-    @GetMapping("/public/pilot/{id}/car") // get all the cars from a pilot given the id
+    @GetMapping("/pilot/{id}/car") // get all the cars a pilot possesses
     List<CarDTO_All>  onePilotCars(@PathVariable Long id) {
         return pilotService.getAllCarsFromPilot(id).stream().map(this::convertToCarDTO_All).collect(Collectors.toList());
     }
 
-    @GetMapping("/public/pilot/{id}/race") // get all the races that the pilot will attend to
+    @GetMapping("/pilot/{id}/race") // get all the races that a pilot will attend to
     List<RaceDTO_All> onePilotRaces(@PathVariable Long id){return pilotService.getAllRacesFromPilot(id).stream().map(this::convertToRaceDTO_All).collect(Collectors.toList());}
 
-    @GetMapping("/public/pilot-search")
+    @GetMapping("/pilot-search") // get all the pilot whose name match the parameter
     List<Pilot> getPilotsByName(@RequestParam(required = false) String name) {
         return this.pilotService.searchPilotsByNameFullText(name);
     }
 
-    @GetMapping("/public/pilot/count")
+    @GetMapping("/pilot/count") // get the number of pilots
     Long getPilotCount() {
         return this.pilotService.getPilotCount();
     }
 
-    @GetMapping("/public/pilot/cars-statistic")
+    @GetMapping("/pilot/cars-statistic") // get the pilot-car statistic
     List<PilotDTO_CarStatistic> getPilotsWithNumberOfCarsAsc() {
         return this.pilotService.getPilotsWithNumberOfCarsAsc();
     }
 
-    @PostMapping("/user/pilot") // add a new pilot
+    @PostMapping("/pilot") // add a new pilot
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Pilot newPilot(@Valid @RequestBody Pilot newPilot) {
         return pilotService.addPilot(newPilot);
     }
 
-    @PutMapping("/user/pilot/{id}") // update a pilot given its id
+    @PutMapping("/pilot/{id}") // update a pilot by its id
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Pilot replacePilot(@Valid @RequestBody Pilot newPilot, @PathVariable Long id) {
         return pilotService.updatePilot(newPilot, id);
     }
 
-    @DeleteMapping("/admin/pilot/{id}") // delete a pilot given its id
+    @DeleteMapping("/pilot/{id}") // delete a pilot given its id
+    @PreAuthorize("hasRole('ADMIN')")
     void deletePilot(@PathVariable Long id) {
         pilotService.deletePilot(id);
     }

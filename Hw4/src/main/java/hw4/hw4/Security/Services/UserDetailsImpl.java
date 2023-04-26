@@ -1,6 +1,5 @@
 package hw4.hw4.Security.Services;
 
-import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -14,19 +13,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDetailsImpl implements UserDetails {
-    @Serial
     private static final long serialVersionUID = 1L;
 
-    private final Long id;
+    private Long id;
 
-    private final String username;
+    private String username;
 
     @JsonIgnore
-    private final String password;
+    private String password;
 
-    private final Collection<? extends GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String password,
+                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -35,7 +34,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
@@ -55,13 +54,13 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return username;
+    public String getPassword() {
+        return password;
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getUsername() {
+        return username;
     }
 
     @Override

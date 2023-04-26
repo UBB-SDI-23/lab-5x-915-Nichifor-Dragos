@@ -27,6 +27,7 @@ public class JwtUtils {
     @Value("${restapi.app.jwtCookieName}")
     private String jwtCookie;
 
+
     public String getJwtFromCookies(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         if (cookie != null) {
@@ -38,7 +39,12 @@ public class JwtUtils {
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-        ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(30 ).httpOnly(true).build();
+        ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(10 * 60).httpOnly(true).build();
+        return cookie;
+    }
+
+    public ResponseCookie getCleanJwtCookie() {
+        ResponseCookie cookie = ResponseCookie.from(jwtCookie, "").path("/api").build();
         return cookie;
     }
 
