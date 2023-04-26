@@ -1,41 +1,30 @@
 package hw4.hw4.Entity.User;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity // JPA annotation to make this object ready for storage in a JPA-based data store
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_profiles")
-public class UserProfile {
+@Table(name = "user_jwts")
+public class UserJwt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column
-    private String bio;
+    private String username;
 
     @Column
-    private String location;
+    private String password;
 
-    @Column
-    private Date birthdate;
-
-    @Column
-    private String gender;
-
-    @Column
-    private String maritalStatus;
-
-
+    @Column(length = 2000)
+    private String jwtToken;
 }
