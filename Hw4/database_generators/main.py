@@ -4,6 +4,7 @@ from insert.insert_pilots import insert_data_pilots
 from insert.insert_races import insert_data_races
 from insert.insert_user_profiles import insert_data_user_profiles
 from insert.insert_users import insert_data_users
+from insert.insert_user_roles import insert_data_user_roles
 
 
 def insert_races():
@@ -42,14 +43,21 @@ def insert_user_profiles():
     print("Finished inserting user profiles")
 
 
+def insert_user_roles():
+    print("Inserting user roles...")
+    insert_data_user_roles()
+    print("Finished inserting user roles")
+
+
 def insert():
     print("===== Insert script is running! =====")
+    # insert_user_profiles()
+    # insert_users()
+    # insert_user_roles()
     # insert_races()
     # insert_pilots()
-    # insert_cars()
+    insert_cars()
     # insert_participation()
-    # insert_users()
-    insert_user_profiles()
     print("===== Insert script was successful! =====")
 
 

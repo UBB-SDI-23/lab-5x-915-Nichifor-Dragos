@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.Race;
 import javax.persistence.*;
+
+import hw4.hw4.Entity.User.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +34,9 @@ public class RacesPilots {
 
     Integer startPosition;
     Boolean needAccommodation;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User user;
 
     @Override
     public int hashCode() {

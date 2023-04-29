@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
+import hw4.hw4.Entity.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +47,9 @@ public class Race {
     @OneToMany(mappedBy = "race", cascade = CascadeType.ALL)
     @JsonIgnore
     Set<RacesPilots> racesPilots;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User user;
 
     @Override
     public boolean equals(Object o) {

@@ -17,11 +17,14 @@ def insert_data_cars():
         with open("./queries/insert_cars.sql", "w", encoding="utf-8") as f:
             fake = Faker()
             with conn.cursor() as cursor:
+                cursor.execute("SELECT id from users")
+                user_ids = [el[0] for el in cursor.fetchall()]
                 cursor.execute("SELECT id from Pilots")
                 pilot_ids = [el[0] for el in cursor.fetchall()]
                 insert_query = \
-                    "INSERT INTO Cars (brand, motorization, gear_box, cylindrical_capacity, horse_power, description, pilot_id) VALUES "
+                    "INSERT INTO Cars (brand, motorization, gear_box, cylindrical_capacity, horse_power, description, pilot_id, user_id) VALUES "
                 values = []
+
                 for i in range(1000000):
                     brand_list = ["Audi", "BMW", "Mercedes", "Ferrari", "Lamborghini", "Aston Martin", "Volkswagen",
                                   "Renault", "Opel", "Seat", "Honda", "Hyundai", "KIA", "Suzuki", "Bugatti", "Skoda"]
@@ -44,8 +47,10 @@ def insert_data_cars():
 
                     pilot_id = random.choice(pilot_ids)
 
+                    user_id = random.choice(user_ids)
+
                     values.append(
-                        f"('{brand}', '{motorization}', '{gear_box}', {cylindrical_capacity}, {horse_power},'{description}', {pilot_id})")
+                        f"('{brand}', '{motorization}', '{gear_box}', {cylindrical_capacity}, {horse_power},'{description}', {pilot_id}, {user_id})")
 
                     if len(values) == 1000:
                         f.write(insert_query + ", ".join(values) + ";\n")

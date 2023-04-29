@@ -5,6 +5,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
+import hw4.hw4.Entity.User.User;
 import lombok.*;
 
 import java.util.Objects;
@@ -49,6 +51,9 @@ public class Car {
     @JsonIgnore
     @JoinColumn(name = "pilot_id", nullable = false)
     private Pilot pilot;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User user;
 
     @Override
     public boolean equals(Object o) {

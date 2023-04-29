@@ -1,7 +1,7 @@
 import random
 import psycopg2
 from faker import Faker
-from constants import HOST, PORT, DATABASE, USER, PASSWORD, SPECIAL_CHARS, SPECIAL_CHARS_DESCRIPTION
+from constants import HOST, PORT, DATABASE, USER, PASSWORD, SPECIAL_CHARS_DESCRIPTION
 from datetime import datetime, timedelta
 
 
@@ -25,8 +25,11 @@ def insert_data_races():
         with open("./queries/insert_races.sql", "w", encoding="utf-8") as f:
             fake = Faker()
             with conn.cursor() as cursor:
-                insert_query = "INSERT INTO races (name, country, number_of_laps, lap_length, date) VALUES "
+                cursor.execute("SELECT id from users")
+                user_ids = [el[0] for el in cursor.fetchall()]
+                insert_query = "INSERT INTO races (name, country, number_of_laps, lap_length, date, user_id) VALUES "
                 values = []
+
                 for i in range(1000000):
                     name_list = ["Monza Circuit", "Silverstone Circuit", "Circuit de Monaco",
                                  "Spa-Francorchamps Circuit", "Suzuka Circuit",
@@ -52,14 +55,16 @@ def insert_data_races():
                     country = "".join(c for c in country if c not in SPECIAL_CHARS_DESCRIPTION)
 
                     number_of_laps = random.randint(5, 15)
+
                     lap_length = random.randint(30, 80)
 
                     d1 = datetime.strptime('6/1/2023 1:30 PM', '%m/%d/%Y %I:%M %p')
                     d2 = datetime.strptime('12/29/2023 4:50 AM', '%m/%d/%Y %I:%M %p')
-
                     date = random_date(d1, d2)
 
-                    values.append(f"('{name}', '{country}', {number_of_laps}, {lap_length}, '{date}')")
+                    user_id = random.choice(user_ids)
+
+                    values.append(f"('{name}', '{country}', {number_of_laps}, {lap_length}, '{date}', {user_id})")
                     if len(values) == 1000:
                         f.write(insert_query + ", ".join(values) + ";\n")
                         values = []

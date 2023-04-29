@@ -1,16 +1,6 @@
-import random
 import psycopg2
 from faker import Faker
-from constants import HOST, PORT, DATABASE, USER, PASSWORD, SPECIAL_CHARS, SPECIAL_CHARS_DESCRIPTION
-from datetime import datetime, timedelta
-
-
-def random_date(start, end):
-    delta = end - start
-    int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
-    random_second = random.randrange(int_delta)
-    return start + timedelta(seconds=random_second)
-
+from constants import HOST, PORT, DATABASE, USER, PASSWORD, SPECIAL_CHARS
 
 usernames = {}
 
@@ -28,18 +18,22 @@ def insert_data_users():
         with open("./queries/insert_users.sql", "w", encoding="utf-8") as f:
             fake = Faker()
             with conn.cursor() as cursor:
-                insert_query = "INSERT INTO users (username, password) VALUES "
+                cursor.execute("SELECT id from user_profiles")
+                user_profile_ids = [el[0] for el in cursor.fetchall()]
+                insert_query = "INSERT INTO users (username, password, user_profile_id) VALUES "
                 values = []
-                for i in range(10000):
+
+                for user_profile_id in user_profile_ids:
                     username = fake.name()
                     username = "".join(c for c in username if c not in SPECIAL_CHARS).lower().replace(" ", "")
                     while username in usernames.keys():
                         username = fake.name()
                         username = "".join(c for c in username if c not in SPECIAL_CHARS).lower().replace(" ", "")
                     usernames[username] = 1
+
                     password = "Qqqqqq12"
 
-                    values.append(f"('{username}', '{password}')")
+                    values.append(f"('{username}', '{password}', '{user_profile_id}')")
                     if len(values) == 1000:
                         f.write(insert_query + ", ".join(values) + ";\n")
                         values = []
