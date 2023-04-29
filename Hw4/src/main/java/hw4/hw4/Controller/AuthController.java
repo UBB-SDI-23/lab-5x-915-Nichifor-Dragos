@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import hw4.hw4.DTO.Register.RegisterDTO;
 import hw4.hw4.Entity.User.*;
+import hw4.hw4.Exception.JwtTokenInvalidException;
 import hw4.hw4.Repository.RoleRepository;
 import hw4.hw4.Repository.UserJwtRepository;
 import hw4.hw4.Repository.UserProfileRepository;
@@ -21,6 +22,8 @@ import hw4.hw4.Security.Services.UserDetailsImpl;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
+import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -103,7 +106,8 @@ public class AuthController {
         }
 
         UserJwt userJwt = userJwtRepository.findByJwtToken(jwtToken);
-        jwtUtils.validateJwtToken(userJwt.getJwtToken());
+        if (! jwtUtils.validateJwtToken(userJwt.getJwtToken()))
+            throw new JwtTokenInvalidException(userJwt.getJwtToken());
 
         User user = new User();
         UserProfile userProfile = new UserProfile();
@@ -137,7 +141,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        String jwtCookie = jwtUtils.generateTokenFromUsernameSignin(userDetails.getUsername()).toString();
+        String jwtCookie = jwtUtils.generateTokenFromUsernameSignIn(userDetails.getUsername()).toString();
 
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

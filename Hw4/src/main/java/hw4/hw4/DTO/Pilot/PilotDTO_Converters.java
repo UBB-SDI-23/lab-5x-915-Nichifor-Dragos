@@ -15,6 +15,7 @@ public class PilotDTO_Converters {
         newPilot.setDrivingExperience(pilot.getDrivingExperience());
         newPilot.setNationality(pilot.getNationality());
         newPilot.setNumberOfRaces(countRaces);
+        newPilot.setUsername(pilot.getUser().getUsername());
         return newPilot;
     }
 

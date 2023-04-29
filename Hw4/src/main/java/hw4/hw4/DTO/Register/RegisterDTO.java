@@ -10,6 +10,7 @@ import lombok.*;
 public class RegisterDTO {
 
     String username;
+
     String jwtToken;
 
 }

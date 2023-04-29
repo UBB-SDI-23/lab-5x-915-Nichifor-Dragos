@@ -1,6 +1,7 @@
 package hw4.hw4.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -11,7 +12,7 @@ import lombok.*;
 
 import java.util.Objects;
 
-@Entity // JPA annotation to make this object ready for storage in a JPA-based data store
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +20,8 @@ import java.util.Objects;
 @Table(name = "cars")
 public class Car {
 
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide\
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
     @NotEmpty
     @Column
@@ -52,7 +54,9 @@ public class Car {
     @JoinColumn(name = "pilot_id", nullable = false)
     private Pilot pilot;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Override
@@ -77,7 +81,7 @@ public class Car {
     public String toString() {
         return "Car{" + "id=" + this.id + ", brand='" + this.brand + '\'' + ", motorization='" + this.motorization + '\'' +
                 ", gearBox='" + this.gearBox + '\'' + ", cylindricalCapacity='" + this.cylindricalCapacity + '\'' +
-                ", horsePower='" + this.horsePower + '\'' + '}';
+                ", horsePower='" + this.horsePower + '\'' + "pilotId=" + this.pilot.getId() + ", userId='" + this.user.getId() + '\'' + '}';
     }
 
 }

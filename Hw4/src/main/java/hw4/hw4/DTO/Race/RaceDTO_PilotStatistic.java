@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RaceDTO_PilotStatistic {
+
     private Long raceID;
+
     private String name;
+
     private Long numberOfPilots;
+
 }

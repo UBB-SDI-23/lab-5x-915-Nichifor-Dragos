@@ -11,8 +11,11 @@ import lombok.NoArgsConstructor;
 public class PilotDTO_CarStatistic {
 
     private Long pilotID;
+
     private String firstName;
+
     private String lastName;
+
     private Long numberOfCars;
 
 }

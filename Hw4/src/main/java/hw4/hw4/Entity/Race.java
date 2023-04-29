@@ -2,6 +2,7 @@ package hw4.hw4.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -17,7 +18,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity  // JPA annotation to make this object ready for storage in a JPA-based data store
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +27,7 @@ import java.util.Set;
 public class Race {
 
     private @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
     @NotEmpty
     private String name;
@@ -48,7 +49,9 @@ public class Race {
     @JsonIgnore
     Set<RacesPilots> racesPilots;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Override

@@ -8,8 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RaceDTO_PilotStatistic_CountryUSA {
+
     private Long raceID;
+
     private String name;
+
     private String country;
+
     private Long numberOfPilots;
+
 }

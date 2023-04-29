@@ -8,7 +8,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.List;
 
-public interface CarRepository extends JpaRepository<Car, Long> { // interface which extends Spring Data JPA’s
+public interface CarRepository extends JpaRepository<Car, Long> {
 
     @NonNull
     Page<Car> findByCylindricalCapacityGreaterThan(Pageable pageable, Integer cylindricalCapacity);
@@ -19,4 +19,7 @@ public interface CarRepository extends JpaRepository<Car, Long> { // interface w
     Page<Car> findAll(@NonNull Pageable pageable);
 
     Long countByCylindricalCapacityGreaterThan(Integer mileageThreshold);
+
+    boolean existsById(Long id);
+
 }

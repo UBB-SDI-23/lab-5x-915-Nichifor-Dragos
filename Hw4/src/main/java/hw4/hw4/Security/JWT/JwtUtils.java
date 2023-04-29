@@ -59,7 +59,7 @@ public class JwtUtils {
         return false;
     }
 
-    public ResponseCookie generateTokenFromUsernameSignin(String username) {
+    public ResponseCookie generateTokenFromUsernameSignIn(String username) {
         String token = Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())

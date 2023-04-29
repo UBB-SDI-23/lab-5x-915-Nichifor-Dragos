@@ -5,9 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
-@Entity // JPA annotation to make this object ready for storage in a JPA-based data store
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor

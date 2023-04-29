@@ -12,4 +12,6 @@ public class PilotDTO_All extends PilotDTO {
 
     private Long numberOfRaces;
 
+    private String username;
+
 }

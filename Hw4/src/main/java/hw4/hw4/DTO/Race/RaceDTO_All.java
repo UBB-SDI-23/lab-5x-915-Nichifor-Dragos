@@ -9,5 +9,9 @@ import lombok.*;
 @Getter
 @Setter
 public class RaceDTO_All extends RaceDTO {
+
     private Long numberOfParticipants;
+
+    private String username;
+
 }

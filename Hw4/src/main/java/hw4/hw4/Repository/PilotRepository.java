@@ -1,7 +1,6 @@
 package hw4.hw4.Repository;
 
 
-import hw4.hw4.Entity.Car;
 import hw4.hw4.Entity.Pilot;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,4 +21,6 @@ public interface PilotRepository  extends CustomPilotRepository ,JpaRepository<P
             "to_tsquery('english', replace(?1, ' ', ':* & ') || ':*')) DESC LIMIT 20", nativeQuery = true)
     List<Pilot> findTop20BySearchTerm(String searchTerm);
 
-} // interface which extends Spring Data JPA’s
+    boolean existsById(Long id);
+
+}
