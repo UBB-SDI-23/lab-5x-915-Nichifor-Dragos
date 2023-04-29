@@ -46,6 +46,6 @@ public class RacesPilots {
     @Override
     public String toString() {
         return "PilotRace{" + "id='" + this.id + ", startPosition='" + this.startPosition + '\'' + ", needAccommodation='" + this.needAccommodation + '\'' +'}';
-    }//dsadas
+    }
 
 }
