@@ -38,4 +38,5 @@ public class CustomPilotRepositoryImpl implements CustomPilotRepository{
 
         return typedQuery.getResultList();
     }
+
 }

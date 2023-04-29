@@ -1,6 +1,5 @@
 package hw4.hw4.Repository;
 
-import hw4.hw4.Entity.Car;
 import hw4.hw4.Entity.Race;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +11,6 @@ public interface RaceRepository extends CustomRaceRepository, JpaRepository<Race
     @NonNull
     Page<Race> findAll(@NonNull Pageable pageable);
 
-} // interface which extends Spring Data JPA’s
+    boolean existsById(Long id);
+
+}

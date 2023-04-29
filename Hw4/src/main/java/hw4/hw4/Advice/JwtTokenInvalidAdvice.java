@@ -1,6 +1,6 @@
 package hw4.hw4.Advice;
 
-import hw4.hw4.Exception.RaceNotFoundException;
+import hw4.hw4.Exception.JwtTokenInvalidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class RaceNotFoundAdvice {
+public class JwtTokenInvalidAdvice {
 
     @ResponseBody
-    @ExceptionHandler(RaceNotFoundException.class)
+    @ExceptionHandler(JwtTokenInvalidException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String raceNotFoundHandler(RaceNotFoundException ex) {
+    String jwtTokenInvalidHandler(JwtTokenInvalidException ex) {
         return ex.getMessage();
     }
 

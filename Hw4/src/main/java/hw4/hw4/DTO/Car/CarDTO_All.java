@@ -12,4 +12,6 @@ public class CarDTO_All extends CarDTO {
 
     private Long pilotID;
 
+    private String username;
+
 }

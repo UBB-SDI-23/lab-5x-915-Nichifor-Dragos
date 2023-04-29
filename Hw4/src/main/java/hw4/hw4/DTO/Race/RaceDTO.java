@@ -12,10 +12,15 @@ import java.util.Date;
 public abstract class RaceDTO {
 
     private Long id;
+
     private String name;
+
     private String country;
+
     private Integer numberOfLaps;
+
     private Integer lapLength;
+
     private Date date;
 
 }

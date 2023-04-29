@@ -8,7 +8,11 @@ import lombok.*;
 @Getter
 @Setter
 public class RacesPilotsDTO_Pilot {
+
     Long raceId;
+
     Integer startPosition;
+
     Boolean needAccommodation;
+
 }

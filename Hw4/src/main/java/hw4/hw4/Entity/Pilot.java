@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity // JPA annotation to make this object ready for storage in a JPA-based data store
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +26,7 @@ import java.util.Set;
 public class Pilot {
 
     private @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id; // marked with more JPA annotations to indicate it’s the primary key and automatically populated by the JPA provide
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
     @NotEmpty
     private String firstName;
@@ -51,7 +51,9 @@ public class Pilot {
     @JsonIgnore
     Set<RacesPilots> racesPilots;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Override

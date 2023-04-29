@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity // JPA annotation to make this object ready for storage in a JPA-based data store
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,13 +32,14 @@ public class User {
     @NotEmpty
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_profile_id", nullable = false)
     private UserProfile userProfile;
 
     public User(String username, String password) {

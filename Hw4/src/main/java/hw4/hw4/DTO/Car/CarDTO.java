@@ -10,11 +10,17 @@ import lombok.NoArgsConstructor;
 public abstract class CarDTO {
 
     private Long id;
+
     private String brand;
+
     private String motorization;
+
     private String gearBox;
+
     private Integer cylindricalCapacity;
+
     private Integer horsePower;
+
     private String description;
 
 }

@@ -13,8 +13,8 @@ public class RaceDTO_Converters {
         newRace.setLapLength(race.getLapLength());
         newRace.setNumberOfLaps(race.getNumberOfLaps());
         newRace.setNumberOfParticipants(countParticipants);
+        newRace.setUsername(race.getUser().getUsername());
         return newRace;
     }
-
 
 }

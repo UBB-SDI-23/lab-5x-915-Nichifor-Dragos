@@ -1,10 +1,14 @@
 package hw4.hw4.Controller;
 
 import hw4.hw4.Entity.RacePilot.RacesPilots;
+import hw4.hw4.Entity.User.User;
+import hw4.hw4.Security.JWT.JwtUtils;
 import hw4.hw4.Service.RacesPilotsService;
+import hw4.hw4.Service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @CrossOrigin
@@ -14,33 +18,56 @@ public class RacesPilotsController {
 
     private final RacesPilotsService racesPilotsService;
 
-    RacesPilotsController (RacesPilotsService racesPilotsService) {this.racesPilotsService = racesPilotsService;}
+    private final UserService userService;
 
-    @GetMapping("/races/pilots") // get all race pilot pairs
+    private final JwtUtils jwtUtils;
+
+    RacesPilotsController (RacesPilotsService racesPilotsService, UserService userService, JwtUtils jwtUtils) {
+        this.racesPilotsService = racesPilotsService;
+        this.userService = userService;
+        this.jwtUtils = jwtUtils;
+    }
+
+    @GetMapping("/races/pilots")
     List<RacesPilots> allRacesPilots() {
         return this.racesPilotsService.getAllRacesPilots();
     }
 
-    @GetMapping("/races/{idRace}/pilots/{idPilot}") // get one race pilot pair
-    RacesPilots oneRacesPilots(@PathVariable Long idRace, @PathVariable Long idPilot) {
+    @GetMapping("/races/{idRace}/pilots/{idPilot}")
+    RacesPilots oneRacesPilots(@PathVariable Long idRace,
+                               @PathVariable Long idPilot) {
         return this.racesPilotsService.getOneRacesPilots(idRace, idPilot);
     }
 
-    @PostMapping("/races/{idRace}/pilots/{idPilot}") // add a new race pilot pair
+    @PostMapping("/races/{idRace}/pilots/{idPilot}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    RacesPilots newRacesPilots(@RequestBody RacesPilots newRacesPilots, @PathVariable Long idRace, @PathVariable Long idPilot) {
-        return racesPilotsService.addRacesPilots(newRacesPilots, idRace, idPilot);
+    RacesPilots newRacesPilots(@RequestBody RacesPilots newRacesPilots,
+                               @PathVariable Long idRace, @PathVariable Long idPilot,
+                               HttpServletRequest request) {
+        String token = this.jwtUtils.getJwtFromCookies(request);
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        return racesPilotsService.addRacesPilots(newRacesPilots, idRace, idPilot, user.getId());
     }
 
-    @PutMapping("/races/{idRace}/pilots/{idPilot}") // update a race given its id
+    @PutMapping("/races/{idRace}/pilots/{idPilot}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    RacesPilots replaceRacesPilots(@RequestBody RacesPilots newRacesPilots, @PathVariable Long idRace, @PathVariable Long idPilot) {
-        return racesPilotsService.updateRacesPilots(newRacesPilots, idRace, idPilot);
+    RacesPilots replaceRacesPilots(@RequestBody RacesPilots newRacesPilots,
+                                   @PathVariable Long idRace,
+                                   @PathVariable Long idPilot,
+                                   HttpServletRequest request) {
+        String token = this.jwtUtils.getJwtFromCookies(request);
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        return racesPilotsService.updateRacesPilots(newRacesPilots, idRace, idPilot, user.getId());
     }
 
-    @DeleteMapping("/races/{idRace}/pilots/{idPilot}") // delete a race given its id
+    @DeleteMapping("/races/{idRace}/pilots/{idPilot}")
     @PreAuthorize("hasRole('ADMIN')")
-    void deleteRacesPilots(@PathVariable Long idRace, @PathVariable Long idPilot) {
+    void deleteRacesPilots(@PathVariable Long idRace,
+                           @PathVariable Long idPilot) {
         racesPilotsService.deleteRacesPilots(idRace, idPilot);
     }
 

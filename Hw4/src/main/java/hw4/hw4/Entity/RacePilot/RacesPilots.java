@@ -35,7 +35,9 @@ public class RacesPilots {
     Integer startPosition;
     Boolean needAccommodation;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Override

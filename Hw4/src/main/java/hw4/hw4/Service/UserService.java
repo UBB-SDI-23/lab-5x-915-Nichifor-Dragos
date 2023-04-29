@@ -27,6 +27,10 @@ public class UserService {
         return user.getUserProfile();
     }
 
+    public User getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+    }
+
     public UserProfile updateUserProfile(UserProfile newUserProfile, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));

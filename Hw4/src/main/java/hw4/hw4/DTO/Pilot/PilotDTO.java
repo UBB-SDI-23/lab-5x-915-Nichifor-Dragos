@@ -12,9 +12,15 @@ import java.util.Date;
 public abstract class PilotDTO {
 
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String nationality;
+
     private Date date;
+
     private Integer drivingExperience;
+
 }

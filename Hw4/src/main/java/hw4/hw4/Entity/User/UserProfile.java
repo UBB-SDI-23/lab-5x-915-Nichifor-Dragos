@@ -10,7 +10,7 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Entity // JPA annotation to make this object ready for storage in a JPA-based data store
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
