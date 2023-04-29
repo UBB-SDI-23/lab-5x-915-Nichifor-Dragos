@@ -21,9 +21,8 @@ import hw4.hw4.Security.Services.UserDetailsImpl;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,55 +38,70 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
     UserRepository userRepository;
 
-    @Autowired
     UserProfileRepository userProfileRepository;
 
-    @Autowired
     UserJwtRepository userJwtRepository;
 
-    @Autowired
     RoleRepository roleRepository;
 
-    @Autowired
     PasswordEncoder encoder;
 
-    @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserRepository userRepository,
+                          UserProfileRepository userProfileRepository,
+                          UserJwtRepository userJwtRepository,
+                          RoleRepository roleRepository,
+                          PasswordEncoder encoder,
+                          JwtUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.userProfileRepository = userProfileRepository;
+        this.userJwtRepository = userJwtRepository;
+        this.roleRepository = roleRepository;
+        this.encoder = encoder;
+        this.jwtUtils = jwtUtils;
+    }
 
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+    @Transactional
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+        }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (userJwtRepository.existsByUsername(signUpRequest.getUsername())) {
+            userJwtRepository.deleteByUsername(signUpRequest.getUsername());
+        }
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String jwtToken = jwtUtils.generateTokenFromUsernameRegister(signUpRequest.getUsername()).getValue();
 
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+        UserJwt userJwtPair = new UserJwt();
+        userJwtPair.setUsername(signUpRequest.getUsername());
+        userJwtPair.setPassword(encoder.encode(signUpRequest.getPassword()));
+        userJwtPair.setJwtToken(jwtToken);
 
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+        userJwtRepository.save(userJwtPair);
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(new UserInfoResponse(userDetails.getId(),
-                        userDetails.getUsername(),
-                        roles));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new RegisterDTO(userJwtPair.getUsername(), userJwtPair.getJwtToken()));
     }
 
     @PostMapping("register/confirm/{jwtToken}")
     public ResponseEntity<?> confirmUser(@PathVariable String jwtToken) {
 
         if (!userJwtRepository.existsByJwtToken(jwtToken)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Token is invalid!"));
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Token is invalid!"));
         }
+
         UserJwt userJwt = userJwtRepository.findByJwtToken(jwtToken);
         jwtUtils.validateJwtToken(userJwt.getJwtToken());
 
@@ -108,36 +122,42 @@ public class AuthController {
         userJwtRepository.delete(userJwt);
 
         userRepository.save(user);
-        return ResponseEntity.ok().body(new MessageResponse("Successfully confirmed the registration code!"));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new MessageResponse("Successfully confirmed the registration code!"));
     }
 
-    @Transactional
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
-        }
-        if (userJwtRepository.existsByUsername(signUpRequest.getUsername())) {
-            userJwtRepository.deleteByUsername(signUpRequest.getUsername());
-        }
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        String jwtToken = jwtUtils.generateTokenFromUsername(signUpRequest.getUsername());
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        UserJwt userJwtPair = new UserJwt();
-        userJwtPair.setUsername(signUpRequest.getUsername());
-        userJwtPair.setPassword(encoder.encode(signUpRequest.getPassword()));
-        userJwtPair.setJwtToken(jwtToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        userJwtRepository.save(userJwtPair);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return ResponseEntity.ok().body(new RegisterDTO(userJwtPair.getUsername(), userJwtPair.getJwtToken()));
+        String jwtCookie = jwtUtils.generateTokenFromUsernameSignin(userDetails.getUsername()).toString();
+
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header(HttpHeaders.SET_COOKIE, jwtCookie)
+                .body(new UserInfoResponse(userDetails.getId(),
+                        userDetails.getUsername(),
+                        roles));
     }
 
     @PostMapping("/signout")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> logoutUser() {
-        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+        String cookie = jwtUtils.getCleanJwtCookie().toString();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header(HttpHeaders.SET_COOKIE, cookie)
                 .body(new MessageResponse("You've been signed out!"));
     }
 }

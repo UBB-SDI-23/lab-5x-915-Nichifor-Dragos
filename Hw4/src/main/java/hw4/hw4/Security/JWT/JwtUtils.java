@@ -27,9 +27,8 @@ public class JwtUtils {
     @Value("${restapi.app.jwtCookieName}")
     private String jwtCookie;
 
-
     public String getJwtFromCookies(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+        Cookie cookie = WebUtils.getCookie(request, this.jwtCookie);
         if (cookie != null) {
             return cookie.getValue();
         } else {
@@ -37,24 +36,13 @@ public class JwtUtils {
         }
     }
 
-    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-        String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-        ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(10 * 60).httpOnly(true).build();
-        return cookie;
-    }
-
-    public ResponseCookie getCleanJwtCookie() {
-        ResponseCookie cookie = ResponseCookie.from(jwtCookie, "").path("/api").build();
-        return cookie;
-    }
-
     public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(this.jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
@@ -71,12 +59,44 @@ public class JwtUtils {
         return false;
     }
 
-    public String generateTokenFromUsername(String username) {
-        return Jwts.builder()
+    public ResponseCookie generateTokenFromUsernameSignin(String username) {
+        String token = Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .setExpiration(new Date((new Date()).getTime() + this.jwtExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, this.jwtSecret)
+                .compact();
+
+        return ResponseCookie.from(this.jwtCookie, token)
+                .path("/api")
+                .httpOnly(true)
+                .build();
+    }
+
+    public ResponseCookie generateTokenFromUsernameRegister(String username) {
+        String token = Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + 10 * 60 * 1000)) // 10 minutes available
+                .signWith(SignatureAlgorithm.HS512, this.jwtSecret)
+                .compact();
+
+        return ResponseCookie.from(this.jwtCookie, token)
+                .path("/api/register/confirm")
+                .httpOnly(true)
+                .build();
+    }
+
+    public ResponseCookie getCleanJwtCookie() {
+        String token = Jwts.builder()
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime())) // 0 seconds available
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
+
+        return ResponseCookie.from(jwtCookie, token)
+                .path("/api")
+                .httpOnly(true)
+                .build();
     }
 }
