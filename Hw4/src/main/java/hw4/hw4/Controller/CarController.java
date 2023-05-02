@@ -114,7 +114,9 @@ public class CarController {
     }
 
     private CarDTO_One convertToCarDTO_One(Car car) {
-        return this.modelMapper.map(car, CarDTO_One.class);
+        CarDTO_One carDTO = this.modelMapper.map(car, CarDTO_One.class);
+        carDTO.setUsername(car.getUser().getUsername());
+        return carDTO;
     }
 
 }

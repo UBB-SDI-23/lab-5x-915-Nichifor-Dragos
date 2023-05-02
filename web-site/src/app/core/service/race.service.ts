@@ -27,13 +27,11 @@ export class RaceService {
       return this.httpClient.get(this.baseUrl + "race/count") as Observable<Number>;
     }
 
-    getRace(id: string): Observable<RaceOne>
-    {
+    getRace(id: string): Observable<RaceOne> {
       return this.httpClient.get(this.baseUrl + "race/" + id) as Observable<RaceOne>;
     }
 
     getCountParticipants(id: string): Observable<Number> {
-      console.log(this.baseUrl + "race/no-participants/" + id)
       return this.httpClient.get(this.baseUrl + "race/no-participants/" + id) as Observable<Number>;
     }
   

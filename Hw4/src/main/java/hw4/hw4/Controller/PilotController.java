@@ -111,7 +111,9 @@ public class PilotController {
     }
 
     private PilotDTO_One convertToPilotDTO_One(Pilot pilot) {
-        return this.modelMapper.map(pilot, PilotDTO_One.class);
+        PilotDTO_One pilotDTO = this.modelMapper.map(pilot, PilotDTO_One.class);
+        pilotDTO.setUsername(pilot.getUser().getUsername());
+        return pilotDTO;
     }
 
     private CarDTO_All convertToCarDTO_All(Car car) {

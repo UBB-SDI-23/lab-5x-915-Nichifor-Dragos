@@ -18,6 +18,11 @@ import { PilotStatisticComponent } from "./components/statistics/pilot-statistic
 import { RaceStatisticComponent } from "./components/statistics/race-statistic/race-statistic.component";
 import { RaceParticipationAddComponent } from "./components/race/race-participation/race-participation-add/race-participation-add.component";
 import { RaceParticipationUpdateComponent } from "./components/race/race-participation/race-participation-update/race-participation-update.component";
+import { RegisterComponent } from "./components/user/register/register.component";
+import { LoginComponent } from "./components/user/login/login.component";
+import { ProfileComponent } from "./components/user/profile/profile.component";
+import { AdminBoardComponent } from "./components/admin-board/admin-board.component";
+import { ProfileFormComponent } from "./components/user/profile-form/profile-form.component";
 
 const routes: Routes = [
 {
@@ -41,6 +46,12 @@ const routes: Routes = [
     { path: 'car-details-component/:id', component: CarDetailsComponent },
     { path: 'pilot-statistics', component: PilotStatisticComponent },
     { path: 'race-statistics', component: RaceStatisticComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'profile', component: ProfileComponent},
+    { path: 'profile/:username', component: ProfileComponent},
+    { path: 'profile-edit', component: ProfileFormComponent},
+    { path: 'admin', component: AdminBoardComponent},
   ]
 }
 

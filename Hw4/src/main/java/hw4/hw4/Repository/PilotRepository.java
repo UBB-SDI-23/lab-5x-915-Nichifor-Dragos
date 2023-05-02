@@ -1,6 +1,7 @@
 package hw4.hw4.Repository;
 
 
+import hw4.hw4.Entity.Car;
 import hw4.hw4.Entity.Pilot;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +23,7 @@ public interface PilotRepository  extends CustomPilotRepository ,JpaRepository<P
     List<Pilot> findTop20BySearchTerm(String searchTerm);
 
     boolean existsById(Long id);
+
+    List<Pilot> findByUserId(Long id);
 
 }

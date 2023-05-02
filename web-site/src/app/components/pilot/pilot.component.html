@@ -10,6 +10,7 @@
                     <p class="card-text"> Birth date: <b>{{ pilot.date | date: "MMM. dd. yyyy" }}</b></p>                    
                     <p class="card-text"> Driving experience: <b>{{ pilot.drivingExperience }}</b></p>
                     <p class="card-text"> Number of races: <b>{{ pilot.numberOfRaces }}</b></p>
+                    <p class="card-text"> Added by: <b><a [routerLink]="['/profile', pilot.username]">{{ pilot.username }}</a></b></p>
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -17,8 +18,8 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" [routerLink]="['/pilot-details-component', pilot.id]">Details</a>
-                                <a class="dropdown-item" [routerLink]="['/pilot-update-component', pilot.id]">Update</a>
-                                <a class="dropdown-item" (click)="onDeletePilot(pilot.id)"> Delete</a>
+                                <a class="dropdown-item" [routerLink]="['/pilot-update-component', pilot.id]"  *ngIf="isUpdatable(pilot.username)">Update</a>
+                                <a class="dropdown-item" (click)="onDeletePilot(pilot.id)" *ngIf="isDeletable()"> Delete</a>
                             </div>
                         </div>
                     </div>

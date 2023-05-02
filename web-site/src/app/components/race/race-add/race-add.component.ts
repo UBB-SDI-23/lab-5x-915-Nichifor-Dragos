@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { RaceAddUpdate } from 'src/app/core/model/race.model';
+
 import { RaceService } from 'src/app/core/service/race.service';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from 'src/app/core/service/storage.service';
 
 @Component({
   selector: 'app-race-add',
@@ -14,9 +17,10 @@ export class RaceAddComponent implements OnInit{
   submitted = false;
   
   constructor(
-    private raceService: RaceService,
     private router: Router,
-    private toastrService: ToastrService
+    private raceService: RaceService,
+    private toastrService: ToastrService,
+    private storageService: StorageService
   ) {}
 
   name ?: string
@@ -28,6 +32,9 @@ export class RaceAddComponent implements OnInit{
   model ?: RaceAddUpdate;
 
   ngOnInit() {
+    if(! this.storageService.isLoggedIn()) {
+      this.toastrService.error("Logging in is required", '', { progressBar: true }); this.onBackToHomePage() 
+    }
   }
 
   resetForm() {
@@ -38,7 +45,7 @@ export class RaceAddComponent implements OnInit{
     this.lapLength = undefined
   }
 
-  onSubmit() { 
+  onSubmit() {
     this.submitted = true;
     if (this.name && this.country && this.lapLength && this.numberOfLaps && this.date) {
       this.model = new RaceAddUpdate(this.name, this. country, this.numberOfLaps, this.lapLength, this.date)
@@ -50,6 +57,10 @@ export class RaceAddComponent implements OnInit{
 
   onBackToRacePage() {
     this.router.navigate(['/race-component'],  { queryParams: { pageNo: 0, pageSize: 25 }} )
+  }
+
+  onBackToHomePage() {
+    this.router.navigate(['/home-page'])
   }
 
 }

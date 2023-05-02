@@ -103,7 +103,9 @@ public class RaceController {
     }
 
     private RaceDTO_One convertToRaceDTO_One(Race race) {
-        return this.modelMapper.map(race, RaceDTO_One.class);
+        RaceDTO_One raceDTO = this.modelMapper.map(race, RaceDTO_One.class);
+        raceDTO.setUsername(race.getUser().getUsername());
+        return raceDTO;
     }
 
 

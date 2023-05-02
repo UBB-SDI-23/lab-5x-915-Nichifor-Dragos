@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Pilot } from 'src/app/core/model/pilot.model';
+
 import { ParticipationAdd } from 'src/app/core/model/race.model';
+
+import { ToastrService } from 'ngx-toastr';
 import { PilotService } from 'src/app/core/service/pilot.service';
 import { RaceService } from 'src/app/core/service/race.service';
 
@@ -23,10 +24,9 @@ export class RaceParticipationUpdateComponent {
   participation?: ParticipationAdd
 
   constructor(
-    private raceService: RaceService,
-    private pilotService: PilotService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private raceService: RaceService,
     private toastrService: ToastrService
   ) {}
 
@@ -34,9 +34,11 @@ export class RaceParticipationUpdateComponent {
     this.activatedRoute.params.subscribe(params => {
       this.raceId = params['idRace']
       this.pilotId = params['idPilot']
-      this.raceService.getParticipation(this.pilotId!, this.raceId!).subscribe((participation: ParticipationAdd) => {
+      this.raceService.getParticipation(this.pilotId!, this.raceId!).subscribe(
+        (participation: ParticipationAdd) => {
         this.participation = participation;
-      })
+      },
+      (error) => { this.toastrService.error("Pilot does not exist", '', { progressBar: true }); this.onBackToRaceDetailsPage()})
     })
   }
 

@@ -37,6 +37,17 @@ import { RaceStatisticComponent } from './components/statistics/race-statistic/r
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RaceParticipationAddComponent } from './components/race/race-participation/race-participation-add/race-participation-add.component';
 import { RaceParticipationUpdateComponent } from './components/race/race-participation/race-participation-update/race-participation-update.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+
+import { httpInterceptorProviders } from './core/helpers/http.interceptor';
+import { AuthService } from './core/service/authentication.service';
+import { StorageService } from './core/service/storage.service';
+import { UserService } from './core/service/user.service';
+import { ProfileFormComponent } from './components/user/profile-form/profile-form.component';
+import { AdminBoardComponent } from './components/admin-board/admin-board.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -60,6 +71,11 @@ import { RaceParticipationUpdateComponent } from './components/race/race-partici
     RaceStatisticComponent,
     RaceParticipationAddComponent,
     RaceParticipationUpdateComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    ProfileFormComponent,
+    AdminBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,12 +91,17 @@ import { RaceParticipationUpdateComponent } from './components/race/race-partici
     MatInputModule,
     MatIconModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCardModule
   ],
   providers: [
     RaceService,
     CarService,
-    PilotService
+    PilotService,
+    AuthService,
+    StorageService,
+    UserService,
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

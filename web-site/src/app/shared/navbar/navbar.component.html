@@ -8,6 +8,10 @@
       <div class=" collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">
 
+          <li class="nav-item px-1 mx-2" *ngIf="showAdminBoard" [ngClass]="getLinkStyle()">
+            <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+          </li>
+
           <li class="nav-item px-1">
             <a class="nav-link mx-2 active" aria-current="page" routerLink="" [ngClass]="getLinkStyle()">Home</a>
           </li>
@@ -42,7 +46,7 @@
             </ul>
           </li>
 
-          <li class="nav-item dropdown px-1" style="margin-right: 160px">
+          <li class="nav-item dropdown px-1">
             <a class="nav-link mx-2 dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="getLinkStyle()">
               Statistics
             </a>
@@ -51,6 +55,24 @@
               <li><a class="dropdown-item" routerLink="race-statistics" [ngClass]="getDropdownStyle() + '-item'">Races by pilots</a></li>
             </ul>
           </li>
+
+          <ul class="navbar-nav ml-auto px-1" *ngIf="!isLoggedIn" style="margin-right: 160px">
+            <li class="nav-item mx-2" [ngClass]="getLinkStyle()">
+              <a class="nav-link" routerLink="profile"> Guest </a>
+            </li>
+            <li class="nav-item mx-2" [ngClass]="getLinkStyle()">
+              <a class="nav-link" routerLink="login">Log In</a>
+            </li>
+          </ul>
+          
+          <ul class="navbar-nav ml-auto px-1" *ngIf="isLoggedIn" style="margin-right: 160px">
+            <li class="nav-item mx-2" [ngClass]="getLinkStyle()">
+              <a class="nav-link" routerLink="profile"> {{ username }} </a>
+            </li>
+            <li class="nav-item mx-2" [ngClass]="getLinkStyle()">
+              <a type="button" class="nav-link" (click)="logout()">Log out</a>
+            </li>
+          </ul>
 
         </ul>
       </div>

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { PilotAddUpdate } from 'src/app/core/model/pilot.model';
+
 import { PilotService } from 'src/app/core/service/pilot.service';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from 'src/app/core/service/storage.service';
 
 @Component({
   selector: 'app-pilot-add',
@@ -14,9 +17,10 @@ export class PilotAddComponent {
   submitted = false;
   
   constructor(
-    private pilotService: PilotService,
     private router: Router,
-    private toastrService: ToastrService
+    private pilotService: PilotService,
+    private toastrService: ToastrService,
+    private storageService: StorageService
   ) {}
 
   firstName ?: string
@@ -28,6 +32,9 @@ export class PilotAddComponent {
   model ?: PilotAddUpdate;
 
   ngOnInit() {
+    if(! this.storageService.isLoggedIn()) {
+      this.toastrService.error("Logging in is required", '', { progressBar: true }); this.onBackToHomePage() 
+    }
   }
 
   resetForm() {
@@ -50,6 +57,10 @@ export class PilotAddComponent {
 
   onBacktoPilotPage() {
     this.router.navigate(['/pilot-component'], { queryParams: { pageNo: 0, pageSize: 25 }} )
+  }
+
+  onBackToHomePage() {
+    this.router.navigate(['/home-page'])
   }
 
 }

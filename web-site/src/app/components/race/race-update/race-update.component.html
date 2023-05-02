@@ -1,8 +1,9 @@
 <div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center" *ngIf="race">
     <div [hidden]="submitted">
-      <h1 class="mt-5 mb-5">Update the race</h1>     
-      <form (ngSubmit)="onSubmit()" #raceForm="ngForm">
 
+      <h1 class="mt-5 mb-5 text-center">Update race</h1>   
+
+      <form (ngSubmit)="onSubmit()" #raceForm="ngForm">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name"

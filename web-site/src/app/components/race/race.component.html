@@ -21,6 +21,7 @@
                     <p class="card-text"> Lap length: <b>{{ race.lapLength }}</b></p>
                     <p class="card-text"> Date: <b>{{ race.date | date: "MMM. dd. yyyy" }}</b></p>
                     <p class="card-text"> Participants: <b>{{ race.numberOfParticipants }}</b></p>
+                    <p class="card-text"> Added by: <b><a [routerLink]="['/profile', race.username]">{{ race.username }}</a></b></p>
                     <div class="dropdown">
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,8 +29,8 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" [routerLink]="['/race-details-component', race.id]">Details</a>
-                                <a class="dropdown-item" [routerLink]="['/race-update-component', race.id]">Update</a>
-                                <a class="dropdown-item" (click)="onDeleteRace(race.id)"> Delete</a>
+                                <a class="dropdown-item" [routerLink]="['/race-update-component', race.id]" *ngIf="isUpdatable(race.username)">Update</a>
+                                <a class="dropdown-item" (click)="onDeleteRace(race.id)" *ngIf="isDeletable()"> Delete</a>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,6 @@
-<p>car-update works!</p>
 <div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center" *ngIf="car">
     <div [hidden]="submitted">
-      <h1 class="mt-5 mb-5"><b>Update the car</b></h1>     
+      <h1 class="mt-5 mb-5 text-center">Update car</h1>     
 
       <form (ngSubmit)="onSubmit()" #carForm="ngForm">
         <div class="form-group">

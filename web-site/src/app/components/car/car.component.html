@@ -19,6 +19,7 @@
                     <p class="card-text"> Cylindrical capacity: <b>{{ car.cylindricalCapacity }}</b></p>
                     <p class="card-text"> Horse power: <b>{{ car.horsePower }}</b></p>
                     <p class="card-text"> Pilot id: <b>{{ car.pilotID }}</b></p>
+                    <p class="card-text"> Added by: <b><a [routerLink]="['/profile', car.username]">{{ car.username }}</a></b></p>
                     <div class=”dropdown”>
                         <div class="btn-group float-end">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,8 +27,8 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" [routerLink]="['/car-details-component', car.id]">Details</a>
-                                <a class="dropdown-item" [routerLink]="['/car-update-component', car.id]">Update</a>
-                                <a class="dropdown-item" (click)="onDeleteCar(car.id)"> Delete</a>
+                                <a class="dropdown-item" [routerLink]="['/car-update-component', car.id]" *ngIf="isUpdatable(car.username)">Update</a>
+                                <a class="dropdown-item" (click)="onDeleteCar(car.id)" *ngIf="isDeletable()"> Delete</a>
                             </div>
                         </div>
                     </div>

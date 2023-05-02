@@ -7,12 +7,18 @@ import { Pilot, PilotAll } from 'src/app/core/model/pilot.model';
 import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
 
+import { User } from 'src/app/core/model/user.model';
+import { StorageService } from 'src/app/core/service/storage.service';
+
 @Component({
   selector: 'app-pilot',
   templateUrl: './pilot.component.html',
   styleUrls: ['./pilot.component.css']
 })
-export class PilotComponent implements OnInit, OnDestroy{
+export class PilotComponent implements OnInit, OnDestroy {
+
+  isLoggedIn = false;
+  currentUser?: User
 
   pageNumber: number = 0;
   pageSize: number = 25; 
@@ -26,7 +32,8 @@ export class PilotComponent implements OnInit, OnDestroy{
     private pilotService: PilotService,
     private router: Router,
     private toastrService: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private storageService: StorageService
   ) {}
 
   isPc = true;
@@ -44,13 +51,12 @@ export class PilotComponent implements OnInit, OnDestroy{
         this.noPages++;
       }
     });
-
     this.listPilots();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-}
+  }
 
   listPilots() : void {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -60,6 +66,7 @@ export class PilotComponent implements OnInit, OnDestroy{
     this.pilotService.listPagePilots(this.pageNumber, this.pageSize).subscribe(
       (response) => { this.pilots = response },
       (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }))
+    this.isUserLoggedIn()
   }
 
   onDeletePilot(id: string) {
@@ -96,6 +103,31 @@ export class PilotComponent implements OnInit, OnDestroy{
     const pageIndex = this.pageNumber;
     this.router.navigate(['/pilot-component'], { queryParams: { pageNo: pageIndex, pageSize: this.pageSize } })
         .then(() => this.listPilots());
+  }
+
+  isUserLoggedIn() {
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = this.storageService.isLoggedIn();
+      this.currentUser = this.storageService.getUser();
+    }
+  }
+
+  isUpdatable(username: string) {
+    if (this.currentUser) {
+      if (this.currentUser.roles.includes("ROLE_ADMIN"))
+        return true;
+      if (this.isLoggedIn == true && username == this.currentUser.username)
+        return true;
+    }
+    return false;
+  }
+
+  isDeletable() {
+    if (this.currentUser) {
+      if (this.currentUser.roles.includes("ROLE_ADMIN") || this.currentUser.roles.includes("ROLE_MODERATOR"))
+        return true;
+    }
+    return false;
   }
 
 }

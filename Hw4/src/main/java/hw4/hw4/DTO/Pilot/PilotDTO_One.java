@@ -16,10 +16,10 @@ import java.util.Set;
 @Setter
 public class PilotDTO_One extends PilotDTO {
 
-    Set<CarDTO_All> cars;
+    private Set<CarDTO_All> cars;
 
-    Set<RacesPilotsDTO_Pilot> races;
+    private Set<RacesPilotsDTO_Pilot> races;
 
-    User user;
+    private String username;
 
 }
