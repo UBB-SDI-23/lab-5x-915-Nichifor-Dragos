@@ -1,5 +1,23 @@
-.profile-img-card {
-    width: 10%;
-    height: 10%;
-    border-radius: 50%;
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+}
+
+mat-card {
+  min-width: 700px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.centered-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.token-textarea {
+    resize:none; overflow:hidden; outline:none; border:none; background-color:transparent;
 }

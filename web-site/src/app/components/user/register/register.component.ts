@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/service/authentication.service';
 
 @Component({
@@ -14,35 +16,50 @@ export class RegisterComponent implements OnInit {
     username: null,
     password: null
   };
+
+  hidePassword = true;
+
   isSuccessful = false;
   isSignUpFailed = false;
-  errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastrService: ToastrService
+    ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
     const { username, password } = this.form;
-
     this.authService.register(username, password).subscribe({
       next: data => {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        // set up confirm code 
+        this.confirmationToken = data.jwtToken;
       },
       error: err => {
-        this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
       }
     });
   }
 
-  onConfirmRegistration(token: string) {
-    this.authService.confirmRegistration(token);
-    // set up errors etc
+  onConfirmRegistration() {
+    this.authService.confirmRegistration(this.confirmationToken).subscribe({
+      next: data => {
+        this.toastrService.success("The account was successfuly created", '', { progressBar: true });
+        this.onBackToHomePage();
+      },
+      error: err => {
+        this.toastrService.error("Something went wrong", '', { progressBar: true });
+        this.onBackToHomePage();
+      }
+    });
+  }
+
+  onBackToHomePage() {
+    this.router.navigate(['/home-page'])
   }
 
 }

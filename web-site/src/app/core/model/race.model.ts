@@ -21,16 +21,6 @@ export interface RaceAll {
     username: string;
 }
 
-export class RaceAddUpdate {
-    constructor(
-        public name: string,
-        public country: string,
-        public numberOfLaps: number,
-        public lapLength: number,
-        public date: string
-    ) {}
-}
-
 export class RaceOne {
     constructor(
         public id: string,
@@ -41,6 +31,16 @@ export class RaceOne {
         public date: string,
         public pilots: PilotRaceDTO[],
         public username: string
+    ) {}
+}
+
+export class RaceAddUpdate {
+    constructor(
+        public name: string,
+        public country: string,
+        public numberOfLaps: number,
+        public lapLength: number,
+        public date: string
     ) {}
 }
 
