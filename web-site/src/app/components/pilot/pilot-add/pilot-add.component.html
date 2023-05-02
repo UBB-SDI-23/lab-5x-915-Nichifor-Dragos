@@ -1,6 +1,6 @@
 <div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center">
     <div [hidden]="submitted">
-      <h1 class="mt-5 mb-5"><b>Add a new pilot</b></h1>     
+      <h1 class="mt-5 mb-5 text-center">Add new pilot</h1>     
 
       <form (ngSubmit)="onSubmit()" #pilotForm="ngForm">
         <div class="form-group">
@@ -65,5 +65,5 @@
         <button type="button" class="btn btn-primary mt-2" (click)="onBacktoPilotPage()">Back to race page</button>
       </form>
 
-    </div>
   </div>
+</div>

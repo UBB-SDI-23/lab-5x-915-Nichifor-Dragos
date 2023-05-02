@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import {debounceTime, distinctUntilChanged, filter, fromEvent, map, of, Subject} from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
+
+import { debounceTime, Subject } from 'rxjs';
+
 import { Pilot } from 'src/app/core/model/pilot.model';
+import { CarAddUpdate } from 'src/app/core/model/car.model';
+
 import { PilotService } from 'src/app/core/service/pilot.service';
 import { CarService } from 'src/app/core/service/car.service';
-import { Router } from '@angular/router';
-import { CarAddUpdate } from 'src/app/core/model/car.model';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from 'src/app/core/service/storage.service';
 
 @Component({
   selector: 'app-car-add',
@@ -31,13 +34,17 @@ export class CarAddComponent {
   options?: Pilot[];
 
   constructor(
+    private router: Router,
     private carService: CarService,
     private pilotService: PilotService,
-    private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private storageService: StorageService
     ) {}
 
   ngOnInit() {
+    if(!this.storageService.isLoggedIn()) {
+      this.toastrService.error("Logging in is required", '', { progressBar: true }); this.onBackToHomePage() 
+    }
     this.searchTerm.pipe(
       debounceTime(1000)).subscribe(term => {
         if (term.trim()) {
@@ -59,9 +66,7 @@ export class CarAddComponent {
         horsePower: this.horsePower,
         description: this.description
       }
-      
       this.pilotID = this.selectedPilot?.id.toString();
-
       this.carService.addCar(car, this.pilotID!).subscribe(
         (response) => { this.toastrService.success("Car added successfully", '', { progressBar: true }); this.onBackToCarPage() },
         (error) => { this.toastrService.error("Could not add car", '', { progressBar: true }); this.onBackToCarPage() });
@@ -79,6 +84,10 @@ export class CarAddComponent {
 
   onBackToCarPage() {
     this.router.navigate(['/car-component'], { queryParams: { pageNo: 0, pageSize: 25 } })
+  }
+
+  onBackToHomePage() {
+    this.router.navigate(['/home-page'])
   }
 
 }

@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import {debounceTime, distinctUntilChanged, filter, fromEvent, map, of, Subject} from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
+
 import { Pilot } from 'src/app/core/model/pilot.model';
+import { ParticipationAdd } from 'src/app/core/model/race.model';
+
+import { ToastrService } from 'ngx-toastr';
 import { PilotService } from 'src/app/core/service/pilot.service';
 import { RaceService } from 'src/app/core/service/race.service';
-import { ParticipationAdd } from 'src/app/core/model/race.model';
+import { StorageService } from 'src/app/core/service/storage.service';
 
 @Component({
   selector: 'app-race-participation-add',
@@ -29,14 +31,18 @@ export class RaceParticipationAddComponent {
   options?: Pilot[];
 
   constructor(
-    private raceService: RaceService,
-    private pilotService: PilotService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService
+    private activatedRoute: ActivatedRoute,
+    private toastrService: ToastrService,
+    private storageService: StorageService,
+    private raceService: RaceService,
+    private pilotService: PilotService
   ) {}
 
   ngOnInit(): void {
+    if(! this.storageService.isLoggedIn()) {
+      this.toastrService.error("Logging in is required", '', { progressBar: true }); this.onBackToHomePage() 
+    }
     this.activatedRoute.params.subscribe(params => {
       this.raceId = params['id']
       this.startPosition = params['nextParticipation']
@@ -80,6 +86,10 @@ export class RaceParticipationAddComponent {
 
   onBackToRaceDetailsPage() {
     this.router.navigate(['/race-details-component', this.raceId])
+  }
+
+  onBackToHomePage() {
+    this.router.navigate(['/home-page'])
   }
 
 

@@ -1,0 +1,56 @@
+<div class="container-fluid p-5 mb-5 d-flex align-items-center justify-content-center" *ngIf="userProfile">
+    <div [hidden]="submitted">
+      <h1 class="mt-5 mb-5 text-center">Update your profile</h1>     
+      <form (ngSubmit)="onSubmit()" #userProfileForm="ngForm">
+
+        <div class="form-group p-2">
+            <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input name="location" [(ngModel)]="userProfile.location" matInput placeholder="Your location">
+                <!-- <mat-hint>Hint</mat-hint>
+                <mat-icon matSuffix>map</mat-icon> -->
+            </mat-form-field>
+        </div>
+  
+        <div class="form-group p-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Gender</mat-label>
+            <mat-select name="gender" [(ngModel)]="userProfile.gender">
+              <mat-option *ngFor="let gender of genders" [value]="gender">
+                {{ gender }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group p-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Marital status</mat-label>
+            <mat-select name="maritalStatus" [(ngModel)]="userProfile.maritalStatus">
+              <mat-option *ngFor="let status of maritalStatuses" [value]="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group p-2">
+          <label for="date">Birth date</label>
+          <input type="date" class="form-control" id="date" required [(ngModel)]="userProfile.birthdate" name="birthdate" #date="ngModel">
+        </div>
+
+        <div class="form-group p-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Bio</mat-label>
+              <textarea matInput name="bio" [(ngModel)]="userProfile.bio" class="custom-textarea"></textarea>
+            </mat-form-field>
+          </div>
+          
+          <button type="submit" class="btn btn-success mt-4 d-flex flex-column" [disabled]="!userProfileForm.form.valid">Update</button>
+          <button type="button" class="btn btn-danger mt-2" (click)="onBackToProfilePage()"> Abort changes </button>
+          
+      </form>
+
+    </div>
+</div>
+  

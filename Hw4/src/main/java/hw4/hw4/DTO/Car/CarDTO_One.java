@@ -14,6 +14,6 @@ public class CarDTO_One extends CarDTO {
 
     private Pilot pilot;
 
-    private User user;
+    private String username;
 
 }

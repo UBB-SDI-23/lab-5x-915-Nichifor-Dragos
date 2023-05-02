@@ -1,5 +1,6 @@
 import { Car } from "./car.model";
 import { RacePilotDTO } from "./race.model";
+import { User } from "./user.model";
 
 export interface Pilot {
     id: string;
@@ -8,6 +9,7 @@ export interface Pilot {
     nationality: string;
     date: Date;
     drivingExperience: number;
+    username: string;
 }
 
 export interface PilotAll {
@@ -18,6 +20,7 @@ export interface PilotAll {
     date: Date;
     drivingExperience: number;
     numberOfRaces: number;
+    username: string;
 }
 
 export class PilotOne {
@@ -29,7 +32,8 @@ export class PilotOne {
         public date: string,
         public drivingExperience: number,
         public cars: Car[],
-        public races: RacePilotDTO[]
+        public races: RacePilotDTO[],
+        public username: string
     ) {}
 }
 
@@ -47,7 +51,8 @@ export class PilotRaceDTO {
     constructor(
         public pilotId: string,
         public startPosition: number,
-        public needAccommodation: boolean
+        public needAccommodation: boolean,
+        public user: User
     ){}
 }
 

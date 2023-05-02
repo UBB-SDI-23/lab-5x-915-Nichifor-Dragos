@@ -1,5 +1,6 @@
 package hw4.hw4.Controller;
 
+import hw4.hw4.DTO.RacesPilotsDTO.RacesPilotsDTO_One;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
 import hw4.hw4.Entity.User.User;
 import hw4.hw4.Security.JWT.JwtUtils;
@@ -34,8 +35,8 @@ public class RacesPilotsController {
     }
 
     @GetMapping("/races/{idRace}/pilots/{idPilot}")
-    RacesPilots oneRacesPilots(@PathVariable Long idRace,
-                               @PathVariable Long idPilot) {
+    RacesPilotsDTO_One oneRacesPilots(@PathVariable Long idRace,
+                                      @PathVariable Long idPilot) {
         return this.racesPilotsService.getOneRacesPilots(idRace, idPilot);
     }
 

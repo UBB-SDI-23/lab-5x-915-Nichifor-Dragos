@@ -32,5 +32,4 @@ export class CarDetailsComponent {
     this.router.navigate(['/car-component'], { queryParams: { pageNo: 0, pageSize: 25 }} )
   }
 
-
 }

@@ -6,7 +6,9 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
+import { StorageService } from 'src/app/core/service/storage.service';
 
+import { User } from 'src/app/core/model/user.model';
 
 @Component({
   selector: 'app-race',
@@ -29,8 +31,12 @@ export class RaceComponent implements OnInit, OnDestroy{
     private raceService: RaceService,
     private router: Router,
     private toastrService: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private storageService: StorageService
     ) {}
+
+    isLoggedIn = false;
+    currentUser?: User
 
     isPc = true;
 
@@ -64,6 +70,7 @@ export class RaceComponent implements OnInit, OnDestroy{
     this.raceService.listPageRaces(this.pageNumber, this.pageSize).subscribe(
       (response) => { this.races = response },
       (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }))
+    this.isUserLoggedIn();
     }
 
   onDeleteRace(id: string) {
@@ -103,6 +110,31 @@ export class RaceComponent implements OnInit, OnDestroy{
     const pageIndex = this.pageNumber;
     this.router.navigate(['/race-component'], { queryParams: { pageNo: pageIndex, pageSize: this.pageSize } })
         .then(() => this.listRaces());
+  }
+
+  isUserLoggedIn() {
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = this.storageService.isLoggedIn();
+      this.currentUser = this.storageService.getUser();
+    }
+  }
+
+  isUpdatable(username: string) {
+    if (this.currentUser) {
+      if (this.currentUser.roles.includes("ROLE_ADMIN") || this.currentUser.roles.includes("ROLE_MODERATOR"))
+        return true;
+      if (this.isLoggedIn == true && username == this.currentUser.username)
+        return true;
+    }
+    return false;
+  }
+
+  isDeletable() {
+    if (this.currentUser) {
+      if (this.currentUser.roles.includes("ROLE_ADMIN"))
+        return true;
+    }
+    return false;
   }
 
 }

@@ -9,6 +9,7 @@ export interface Car {
     horsePower: number;
     description: string;
     pilotID: string;
+    username: string;
 }
 
 export class CarOne {
@@ -21,6 +22,7 @@ export class CarOne {
         public horsePower: number,
         public description: string,
         public pilot: Pilot,
+        public username: string
     ) {}
 }
 

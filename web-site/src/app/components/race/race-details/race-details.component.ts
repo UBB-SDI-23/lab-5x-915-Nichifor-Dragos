@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { RaceOne } from 'src/app/core/model/race.model';
+
 import { ToastrService } from 'ngx-toastr';
-import { RaceAddUpdate, RaceOne } from 'src/app/core/model/race.model';
 import { RaceService } from 'src/app/core/service/race.service';
+import { StorageService } from 'src/app/core/service/storage.service';
+
+import { User } from 'src/app/core/model/user.model';
+
 @Component({
   selector: 'app-race-details',
   templateUrl: './race-details.component.html',
@@ -10,15 +16,19 @@ import { RaceService } from 'src/app/core/service/race.service';
 })
 export class RaceDetailsComponent implements OnInit{
 
+  isLoggedIn = false;
+  currentUser?: User
+
   race?: RaceOne
   raceId?: string
   nextParticipation: number = 1
 
   constructor(
-    private raceService: RaceService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService
+    private raceService: RaceService,
+    private toastrService: ToastrService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -26,11 +36,13 @@ export class RaceDetailsComponent implements OnInit{
       this.raceId = params['id']
       this.getRace()
     });
+    this.isUserLoggedIn()
   }
 
   getRace() {
     this.raceService.getRace(this.raceId!).subscribe((race: RaceOne) => {
       this.race = race;
+      console.log(race)
       for (let pilot of this.race.pilots)
       {
         if (pilot.startPosition >= this.nextParticipation)
@@ -50,6 +62,31 @@ export class RaceDetailsComponent implements OnInit{
 
   onBackToRacePage() {
     this.router.navigate(['/race-component'],  { queryParams: { pageNo: 0, pageSize: 25 }} )
+  }
+
+  isUserLoggedIn() {
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = this.storageService.isLoggedIn();
+      this.currentUser = this.storageService.getUser();
+    }
+  }
+
+  isUpdatable(username: string) {
+    if (this.currentUser) {
+      if (this.currentUser.roles.includes("ROLE_ADMIN") || this.currentUser.roles.includes("ROLE_MODERATOR"))
+        return true;
+      if (this.isLoggedIn == true && username == this.currentUser.username)
+        return true;
+    }
+    return false;
+  }
+
+  isDeletable() {
+    if (this.currentUser) {
+      if (this.currentUser.roles.includes("ROLE_ADMIN"))
+        return true;
+    }
+    return false;
   }
 
 }

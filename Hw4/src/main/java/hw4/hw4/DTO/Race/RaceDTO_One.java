@@ -16,6 +16,6 @@ public class RaceDTO_One extends RaceDTO{
 
     Set<RacesPilotsDTO_Race> pilots;
 
-    User user;
+    String username;
 
 }

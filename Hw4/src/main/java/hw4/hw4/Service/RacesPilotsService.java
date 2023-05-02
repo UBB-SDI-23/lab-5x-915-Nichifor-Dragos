@@ -1,5 +1,6 @@
 package hw4.hw4.Service;
 
+import hw4.hw4.DTO.RacesPilotsDTO.RacesPilotsDTO_One;
 import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.Race;
 import hw4.hw4.Entity.RacePilot.RacesPilots;
@@ -36,13 +37,24 @@ public class RacesPilotsService {
         return racesPilotsRepository.findAll();
     }
 
-    public RacesPilots getOneRacesPilots(Long idRace, Long idPilot) {
+    public RacesPilotsDTO_One getOneRacesPilots(Long idRace, Long idPilot) {
         RacesPilotsKey key = new RacesPilotsKey();
         Pilot pilot = pilotRepository.findById(idPilot).orElseThrow(() -> new PilotNotFoundException(idPilot));
         Race race = raceRepository.findById(idRace).orElseThrow(() -> new PilotNotFoundException(idRace));
         key.setRaceId(race.getId());
         key.setPilotId(pilot.getId());
-        return racesPilotsRepository.findById(key).orElseThrow(() -> new RacesPilotsNotFoundException(key));
+
+        RacesPilots racesPilots = racesPilotsRepository.findById(key).orElseThrow(() -> new RacesPilotsNotFoundException(key));
+        RacesPilotsDTO_One dtoTransfer = new RacesPilotsDTO_One();
+
+        dtoTransfer.setUser(racesPilots.getUser());
+        dtoTransfer.setStartPosition(racesPilots.getStartPosition());
+        dtoTransfer.setNeedAccommodation(racesPilots.getNeedAccommodation());
+        dtoTransfer.setRace(racesPilots.getRace());
+        dtoTransfer.setPilot(racesPilots.getPilot());
+        dtoTransfer.setId(racesPilots.getId());
+
+        return dtoTransfer;
     }
 
     public RacesPilots addRacesPilots(RacesPilots newRacesPilots, Long idRace, Long idPilot, Long userID) {

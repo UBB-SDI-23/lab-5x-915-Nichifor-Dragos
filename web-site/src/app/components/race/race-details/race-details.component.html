@@ -11,14 +11,15 @@
                     <hr class="card-separator">
                     <p class="card-text"> Starting position: <b>{{ pilot.startPosition }}</b></p>
                     <p class="card-text"> Need accomodation: <b>{{ pilot.needAccommodation }}</b></p>
+                    <p class="card-text"> Added by: <b><a [routerLink]="['/profile', pilot.user.username]">{{ pilot.user.username }}</a></b></p>
                     <div class="dropdown">
-                        <div class="btn-group float-end">
+                        <div class="btn-group float-end" *ngIf="isDeletable() || isUpdatable(pilot.user.username)">
                             <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-button-with-svg" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="settings-svg" src="assets/settings.png">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" [routerLink]="['/race-participation-update-component', race.id, pilot.pilotId]">Update</a>
-                                <a class="dropdown-item" (click)="onDeleteParticipation(pilot.pilotId)"> Delete</a>
+                                <a class="dropdown-item" [routerLink]="['/race-participation-update-component', race.id, pilot.pilotId]" *ngIf="isUpdatable(pilot.user.username)">Update</a>
+                                <a class="dropdown-item" (click)="onDeleteParticipation(pilot.pilotId)" *ngIf="isDeletable()"> Delete</a>
                             </div>
                         </div>
                     </div>

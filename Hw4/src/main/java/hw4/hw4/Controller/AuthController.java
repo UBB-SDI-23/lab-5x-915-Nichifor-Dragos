@@ -1,6 +1,5 @@
 package hw4.hw4.Controller;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +22,6 @@ import hw4.hw4.Security.Services.UserDetailsImpl;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +35,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins = "*", maxAge = 5 * 60)
+@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

@@ -15,6 +15,8 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car> findByPilotId(Long id);
 
+    List<Car> findByUserId(Long id);
+
     @NonNull
     Page<Car> findAll(@NonNull Pageable pageable);
 
