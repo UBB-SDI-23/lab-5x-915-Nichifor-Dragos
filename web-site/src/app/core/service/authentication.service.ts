@@ -37,13 +37,8 @@ export class AuthService {
   }
 
   confirmRegistration(token: string): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'register/confirm/',
-      {
-        token
-      },
-      httpOptions
-    );
+    console.log(AUTH_API + 'register/confirm/' + token)
+    return this.http.post(AUTH_API + 'register/confirm/' + token, httpOptions);
   }
 
   logout(): Observable<any> {

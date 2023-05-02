@@ -48,6 +48,7 @@ import { UserService } from './core/service/user.service';
 import { ProfileFormComponent } from './components/user/profile-form/profile-form.component';
 import { AdminBoardComponent } from './components/admin-board/admin-board.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,9 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    
   ],
   providers: [
     RaceService,

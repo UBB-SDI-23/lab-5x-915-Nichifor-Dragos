@@ -8,27 +8,35 @@ import { StorageService } from 'src/app/core/service/storage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   form: any = {
     username: null,
     password: null
   };
+
+  hidePassword = true;
+  
   isLoggedIn = false;
   isLoginFailed = false;
-  errorMessage = '';
-  roles: string[] = [];
 
-  constructor(private authService: AuthService, private storageService: StorageService) { }
+  roles: string[] = [];
+  username: string = ""
+
+  constructor(
+    private authService: AuthService, 
+    private storageService: StorageService
+    ) {}
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
+      this.username = this.storageService.getUser().username;
     }
   }
 
   onSubmit(): void {
     const { username, password } = this.form;
-
     this.authService.login(username, password).subscribe({
       next: data => {
         this.storageService.saveUser(data);
@@ -38,7 +46,6 @@ export class LoginComponent implements OnInit {
         this.reloadPage();
       },
       error: err => {
-        this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     });
