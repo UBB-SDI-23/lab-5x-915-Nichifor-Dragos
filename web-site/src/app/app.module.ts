@@ -49,6 +49,7 @@ import { ProfileFormComponent } from './components/user/profile-form/profile-for
 import { AdminBoardComponent } from './components/admin-board/admin-board.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import {MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatAutocompleteModule,
     MatCardModule,
     MatButtonModule,
-    
+    MatTabsModule
   ],
   providers: [
     RaceService,
