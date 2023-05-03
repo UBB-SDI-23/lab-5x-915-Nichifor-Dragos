@@ -1,6 +1,101 @@
-<div class="container">
+<div class="container container-custom">
     <mat-tab-group>
-        <mat-tab label="Users"> WORK IN PROGRESS </mat-tab>
-        <mat-tab label="Entities"> WORK IN PROGRESS </mat-tab>
+        <mat-tab label="Users">
+
+            <div class="container container-fluid mt-5 mb-5 container-custom">
+                <div class="row">
+                <div class="form-group">
+                    <label class="centered-label p-4">
+                        <h2 class="text-center">Search user by username</h2>
+                    </label>
+                    <input 
+                        type="text" 
+                        name="options" 
+                        class="form-control"
+                        placeholder="Select a user" 
+                        matInput 
+                        [matAutocomplete]="user" 
+                        [(ngModel)]="selectedOption"
+                        #usernameSearchInput
+                        required
+                        (input)="search(usernameSearchInput.value)" 
+                        matAutocompletePosition="below">
+                    <mat-autocomplete 
+                        #user="matAutocomplete" 
+                        (optionSelected)="onSelection($event)">
+                        <div>
+                            <mat-option *ngFor="let option of options" [value]="option">
+                                Username: {{option.username}}
+                            </mat-option>
+                        </div>
+                        <mat-option *ngIf="options === undefined" disabled>
+                            No option
+                        </mat-option>
+                        <mat-option *ngIf="options !== undefined && options.length === 0" disabled>
+                            No results found
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+            </div>
+            
+
+            <div class="container p-5" *ngIf="showEdit">
+
+                <section [formGroup]="roles">
+                    <h3> Edit user {{ selectedOption }} roles: </h3>
+                    <p><mat-checkbox formControlName="user">User</mat-checkbox></p>
+                    <p><mat-checkbox formControlName="moderator">Moderator</mat-checkbox></p>
+                    <p><mat-checkbox formControlName="admin">Admin</mat-checkbox></p>
+                </section>
+
+                <button class="btn btn-success mt-4" (click)="onUpdateRoles()">Update roles</button>
+
+            </div>
+
+        </div>
+        </mat-tab>
+
+        <mat-tab label="Entities"> 
+
+            <div class="container container-fluid mt-5 mb-5 container-custom">
+                <div class="row">
+            
+                    <div class="col-lg-3 col-md-6 mt-5">
+                        <h5>Inserts:</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item insert" (click)="insertAll()">INSERT ALL</li>
+                            <li class="list-group-item insert" (click)="insertCars()">INSERT CARS</li>
+                            <li class="list-group-item insert" (click)="insertPilots()">INSERT PILOTS</li>
+                            <li class="list-group-item insert" (click)="insertRaces()">INSERT RACES</li>
+                            <li class="list-group-item insert" (click)="insertParticipations()">INSERT PARTICIPATIONS</li>
+                        </ul>
+                    </div>
+            
+                    <div class="col-lg-3 col-md-6 mt-5">
+                        <h5>Deletes:</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item delete" (click)="deleteAll()">DELETE ALL</li>
+                            <li class="list-group-item delete" (click)="deleteParticipations()">DELETE PARTICIPATIONS</li>
+                            <li class="list-group-item delete" (click)="deleteRaces()">DELETE RACES</li>
+                            <li class="list-group-item delete" (click)="deletePilots()">DELETE PILOTS</li>
+                            <li class="list-group-item delete" (click)="deleteCars()">DELETE CARS</li>
+                        </ul>
+                    </div>
+            
+                    <div class="col-lg-6 col-md-12 mt-5 text-end">
+                        <div class="console text-start">
+                            <div class="header">Console</div>
+                            <div class="output">
+                                <div *ngFor="let message of messages">{{message}}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary mt-3" (click)="clearConsole()">Clear console</button>
+                    </div>
+            
+                </div>
+            </div>
+            
+        </mat-tab>
+
     </mat-tab-group>
 </div>

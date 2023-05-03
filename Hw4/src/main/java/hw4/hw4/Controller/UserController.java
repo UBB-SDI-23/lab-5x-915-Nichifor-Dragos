@@ -1,11 +1,14 @@
 package hw4.hw4.Controller;
 
+import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.User.User;
 import hw4.hw4.Entity.User.UserProfile;
 import hw4.hw4.Service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
 
 
 @CrossOrigin
@@ -47,10 +50,21 @@ public class UserController {
         return userService.getUserNumberOfRacesById(id);
     }
 
+    @GetMapping("/user-search")
+    List<User> getPilotsByName(@RequestParam(required = false) String username) {
+        return this.userService.searchUsersByUsername(username);
+    }
+
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @PutMapping("/user-profile/{id}")
     UserProfile updateUser(@Valid @RequestBody UserProfile newUserProfile, @PathVariable Long id) {
         return userService.updateUserProfile(newUserProfile, id);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/user-roles/{id}")
+    User updateUser(@Valid @RequestBody HashMap<String, Boolean> roles, @PathVariable Long id) {
+        return userService.updateRolesUser(roles, id);
     }
 
 }

@@ -1,0 +1,2 @@
+DELETE FROM races;
+ALTER SEQUENCE races_id_seq RESTART WITH 1;

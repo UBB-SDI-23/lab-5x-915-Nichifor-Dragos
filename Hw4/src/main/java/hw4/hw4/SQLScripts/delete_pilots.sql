@@ -1,0 +1,2 @@
+DELETE FROM pilots;
+ALTER SEQUENCE pilots_id_seq RESTART WITH 1;

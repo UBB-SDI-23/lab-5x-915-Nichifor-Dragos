@@ -1,0 +1,8 @@
+.centered-label {
+    display: block;
+    text-align: center;
+}
+
+.container-custom {
+    max-width: 80%;
+}
