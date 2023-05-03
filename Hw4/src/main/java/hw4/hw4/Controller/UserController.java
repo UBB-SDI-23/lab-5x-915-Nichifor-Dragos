@@ -61,11 +61,8 @@ public class UserController {
     }
 
     @PutMapping("/user-profile/{id}")
-    UserProfile updateUser(@Valid @RequestBody UserProfile newUserProfile,
-                           @PathVariable Long id,
-                           @RequestHeader("Authorization") String token) {
-        String username = this.jwtUtils.getUserNameFromJwtToken(token);
-        User user = this.userService.getUserByUsername(username);
+    UserProfile updateUserProfile(@Valid @RequestBody UserProfile newUserProfile,
+                           @PathVariable Long id) {
 
         return userService.updateUserProfile(newUserProfile, id);
     }

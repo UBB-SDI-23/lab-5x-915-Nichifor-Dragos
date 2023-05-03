@@ -93,14 +93,16 @@ public class UserService {
     }
 
     public User updateRolesUser(HashMap<String, Boolean> roles, Long id, Long userID) {
-        User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
+        User callerUser = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
 
-        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+        boolean isAdmin = callerUser.getRoles().stream().anyMatch((role) ->
                 role.getName() == ERole.ROLE_ADMIN
         );
         if (!isAdmin) {
-            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+            throw new UserNotAuthorizedException(String.format(callerUser.getUsername()));
         }
+
+        User user = this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 
         Set<Role> roleSet = new HashSet<>();
         if (roles.get("isUser")) {
