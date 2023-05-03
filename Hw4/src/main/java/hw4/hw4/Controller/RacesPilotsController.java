@@ -7,6 +7,7 @@ import hw4.hw4.Security.JWT.JwtUtils;
 import hw4.hw4.Service.RacesPilotsService;
 import hw4.hw4.Service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.util.List;
 @CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200", "https://racemasters.netlify.app"})
 @RestController
 @RequestMapping("/api")
+@Validated
 public class RacesPilotsController {
 
     private final RacesPilotsService racesPilotsService;

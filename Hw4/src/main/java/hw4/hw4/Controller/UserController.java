@@ -5,6 +5,7 @@ import hw4.hw4.Entity.User.User;
 import hw4.hw4.Entity.User.UserProfile;
 import hw4.hw4.Service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.List;
 @CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200", "https://racemasters.netlify.app"})
 @RestController
 @RequestMapping("/api")
+@Validated
 public class UserController {
 
     private final UserService userService;
