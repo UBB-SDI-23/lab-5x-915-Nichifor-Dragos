@@ -13,6 +13,17 @@ export interface User {
     roles: string[]
 }
 
+export interface Role {
+    id: string,
+    role: string
+}
+
+export interface UserAdminPage {
+    id: string,
+    username: string,
+    roles: Role[]
+}
+
 export class UserProfileUpdate {
     constructor(
         public id: string,
@@ -23,3 +34,7 @@ export class UserProfileUpdate {
         public maritalStatus: string
     ) {}
 }
+
+export interface SQLResponse {
+    message: string
+  }

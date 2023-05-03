@@ -1,11 +1,18 @@
 package hw4.hw4.Service;
 
+import hw4.hw4.Entity.User.ERole;
+import hw4.hw4.Entity.User.Role;
 import hw4.hw4.Entity.User.User;
 import hw4.hw4.Entity.User.UserProfile;
 import hw4.hw4.Exception.UserNotFoundException;
 import hw4.hw4.Exception.UserProfileNotFoundException;
 import hw4.hw4.Repository.*;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -20,12 +27,15 @@ public class UserService {
 
     private final UserProfileRepository userProfileRepository;
 
-    public UserService(UserRepository userRepository, CarRepository carRepository, PilotRepository pilotRepository, RaceRepository raceRepository, UserProfileRepository userProfileRepository) {
+    private final RoleRepository roleRepository;
+
+    public UserService(UserRepository userRepository, CarRepository carRepository, PilotRepository pilotRepository, RaceRepository raceRepository, UserProfileRepository userProfileRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.carRepository = carRepository;
         this.pilotRepository = pilotRepository;
         this.raceRepository = raceRepository;
         this.userProfileRepository = userProfileRepository;
+        this.roleRepository = roleRepository;
     }
 
     public UserProfile getUserProfileById(Long id) {
@@ -69,5 +79,29 @@ public class UserService {
 
     public Integer getUserNumberOfRacesById(Long id) {
         return raceRepository.findByUserId(id).size();
+    }
+
+    public List<User> searchUsersByUsername(String username) {
+        return this.userRepository.findTop20BySearchTerm(username);
+    }
+
+    public User updateRolesUser(HashMap<String, Boolean> roles, Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        Set<Role> roleSet = new HashSet<>();
+        if (roles.get("isUser")) {
+            Role role = roleRepository.findByName(ERole.ROLE_USER).orElseThrow();//config role exp
+            roleSet.add(role);
+        }
+        if (roles.get("isModerator")){
+            Role role = roleRepository.findByName(ERole.ROLE_MODERATOR).orElseThrow();//config role exp
+            roleSet.add(role);
+        }
+        if (roles.get("isAdmin")){
+            Role role = roleRepository.findByName(ERole.ROLE_ADMIN).orElseThrow();//config role exp
+            roleSet.add(role);
+        }
+        user.setRoles(roleSet);
+        return userRepository.save(user);
     }
 }

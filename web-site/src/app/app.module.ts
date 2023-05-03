@@ -3,7 +3,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 
@@ -50,6 +50,8 @@ import { AdminBoardComponent } from './components/admin-board/admin-board.compon
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import {MatTabsModule } from '@angular/material/tabs';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { SqlService } from './core/service/sql.service';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,9 @@ import {MatTabsModule } from '@angular/material/tabs';
     MatAutocompleteModule,
     MatCardModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCheckboxModule,
+    ReactiveFormsModule
   ],
   providers: [
     RaceService,
@@ -105,6 +109,7 @@ import {MatTabsModule } from '@angular/material/tabs';
     AuthService,
     StorageService,
     UserService,
+    SqlService,
     httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
