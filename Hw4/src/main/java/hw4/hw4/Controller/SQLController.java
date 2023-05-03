@@ -16,7 +16,7 @@ import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200"})
+@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200", "https://dynamic-parfait-71d8c1.netlify.app"})
 @RestController
 @RequestMapping("/api")
 public class SQLController {
