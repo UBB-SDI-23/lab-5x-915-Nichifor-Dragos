@@ -64,14 +64,22 @@ public class RacesPilotsService {
 
         User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
 
+        boolean userOrModOrAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+                        || role.getName() == ERole.ROLE_MODERATOR
+                        || role.getName() == ERole.ROLE_USER
+        );
+        if (!userOrModOrAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if (!Objects.equals(user.getId(), race.getUser().getId()) || !Objects.equals(user.getId(), pilot.getUser().getId())) {
             boolean modOrAdmin = user.getRoles().stream().anyMatch((role) ->
                     role.getName() == ERole.ROLE_ADMIN || role.getName() == ERole.ROLE_MODERATOR
             );
 
             if (!modOrAdmin) {
-                throw new UserNotAuthorizedException(String.format("%s does not have permission to " +
-                        "add race-pilot pair (%s, %s)", user.getUsername(), race.getId(), pilot.getId()));
+                throw new UserNotAuthorizedException(String.format(user.getUsername()));
             }
         }
 
@@ -80,6 +88,7 @@ public class RacesPilotsService {
         newRacesPilots.setId(key);
         newRacesPilots.setRace(race);
         newRacesPilots.setPilot(pilot);
+        newRacesPilots.setUser(user);
         return racesPilotsRepository.save(newRacesPilots);
     }
 
@@ -94,14 +103,20 @@ public class RacesPilotsService {
 
         User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
 
+        boolean isUser = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_USER
+        );
+        if (!isUser) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if (!Objects.equals(user.getId(), race.getUser().getId()) || !Objects.equals(user.getId(), pilot.getUser().getId())) {
             boolean modOrAdmin = user.getRoles().stream().anyMatch((role) ->
                     role.getName() == ERole.ROLE_ADMIN || role.getName() == ERole.ROLE_MODERATOR
             );
 
             if (!modOrAdmin) {
-                throw new UserNotAuthorizedException(String.format("%s does not have permission to " +
-                        "add race-pilot pair (%s, %s)", user.getUsername(), race.getId(), pilot.getId()));
+                throw new UserNotAuthorizedException(String.format(user.getUsername()));
             }
         }
 
@@ -113,8 +128,16 @@ public class RacesPilotsService {
                 }).orElseThrow(() -> new RacesPilotsNotFoundException(id));
     }
 
-    public void deleteRacesPilots(Long idRace, Long idPilot)
-    {
+    public void deleteRacesPilots(Long idRace, Long idPilot, Long userID) {
+        User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         RacesPilotsKey id = new RacesPilotsKey();
         id.setRaceId(idRace);
         id.setPilotId(idPilot);

@@ -88,6 +88,15 @@ public class PilotService {
         User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
         newPilot.setUser(user);
 
+        boolean userOrModOrAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+                        || role.getName() == ERole.ROLE_MODERATOR
+                        || role.getName() == ERole.ROLE_USER
+        );
+        if (!userOrModOrAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         return pilotRepository.save(newPilot);
     }
 
@@ -95,14 +104,20 @@ public class PilotService {
         Pilot pilot = this.pilotRepository.findById(pilotID).orElseThrow(() -> new RaceNotFoundException(pilotID));
         User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
 
+        boolean isUser = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_USER
+        );
+        if (!isUser) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if (!Objects.equals(user.getId(), pilot.getUser().getId())) {
             boolean modOrAdmin = user.getRoles().stream().anyMatch((role) ->
                     role.getName() == ERole.ROLE_ADMIN || role.getName() == ERole.ROLE_MODERATOR
             );
 
             if (!modOrAdmin) {
-                throw new UserNotAuthorizedException(String.format("%s does not have permission to " +
-                        "update pilot %s", user.getUsername(), pilot.getId()));
+                throw new UserNotAuthorizedException(String.format(user.getUsername()));
             }
         }
 
@@ -117,7 +132,16 @@ public class PilotService {
                 }).orElseThrow(() -> new PilotNotFoundException(pilotID));
     }
 
-    public void deletePilot(Long id) {
+    public void deletePilot(Long id, Long userID) {
+        User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if(!pilotRepository.existsById(id))
             throw new PilotNotFoundException(id);
         pilotRepository.deleteById(id);

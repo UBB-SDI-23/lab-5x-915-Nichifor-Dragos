@@ -67,11 +67,9 @@ public class CarController {
     }
 
     @PostMapping("/pilot/{id}/car")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Car newCar(@Valid @RequestBody Car newCar,
                @PathVariable Long id,
-               HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+               @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -79,11 +77,9 @@ public class CarController {
     }
 
     @PostMapping("/pilot/{id}/cars")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     List<Car> newCars(@Valid @RequestBody List<Car> newCars,
                       @PathVariable Long id,
-                      HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                      @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -91,11 +87,9 @@ public class CarController {
     }
 
     @PutMapping("/car/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Car replaceCar(@Valid @RequestBody Car newCar,
                    @PathVariable Long id,
-                   HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                   @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -103,9 +97,12 @@ public class CarController {
     }
 
     @DeleteMapping("/car/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    void deleteCar(@PathVariable Long id) {
-        carService.deleteCar(id);
+    void deleteCar(@PathVariable Long id,
+                   @RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        carService.deleteCar(id,user.getId());
     }
 
     private CarDTO_All convertToCarDTO_All(Car car) {

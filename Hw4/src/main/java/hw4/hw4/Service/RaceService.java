@@ -81,6 +81,15 @@ public class RaceService {
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         newRace.setUser(user);
 
+        boolean userOrModOrAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+                        || role.getName() == ERole.ROLE_MODERATOR
+                        || role.getName() == ERole.ROLE_USER
+        );
+        if (!userOrModOrAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         return raceRepository.save(newRace);
     }
 
@@ -88,14 +97,20 @@ public class RaceService {
         Race race = this.raceRepository.findById(raceID).orElseThrow(() -> new RaceNotFoundException(raceID));
         User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
 
+        boolean isUser = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_USER
+        );
+        if (!isUser) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if (!Objects.equals(user.getId(), race.getUser().getId())) {
             boolean modOrAdmin = user.getRoles().stream().anyMatch((role) ->
                     role.getName() == ERole.ROLE_ADMIN || role.getName() == ERole.ROLE_MODERATOR
             );
 
             if (!modOrAdmin) {
-                throw new UserNotAuthorizedException(String.format("%s does not have permission to " +
-                        "update race %s", user.getUsername(), race.getId()));
+                throw new UserNotAuthorizedException(String.format(user.getUsername()));
             }
         }
 
@@ -110,7 +125,16 @@ public class RaceService {
                 }).orElseThrow(() -> new RaceNotFoundException(raceID));
     }
 
-    public void deleteRace(Long id) {
+    public void deleteRace(Long id, Long userID) {
+        User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if(!raceRepository.existsById(id))
             throw new RaceNotFoundException(id);
         raceRepository.deleteById(id);

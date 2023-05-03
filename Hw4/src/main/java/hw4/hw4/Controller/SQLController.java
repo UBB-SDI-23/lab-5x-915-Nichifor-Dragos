@@ -1,16 +1,18 @@
 package hw4.hw4.Controller;
 
 import hw4.hw4.DTO.SQL.SQLRunResponseDTO;
+import hw4.hw4.Entity.User.ERole;
+import hw4.hw4.Entity.User.User;
+import hw4.hw4.Exception.UserNotAuthorizedException;
+import hw4.hw4.Security.JWT.JwtUtils;
+import hw4.hw4.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,12 +27,30 @@ public class SQLController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private final JwtUtils jwtUtils;
+
+    private final UserService userService;
+
+    public SQLController(JwtUtils jwtUtils, UserService userService) {
+        this.jwtUtils = jwtUtils;
+        this.userService = userService;
+    }
+
     @PostMapping("/run-delete-cars-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> deleteAllCars() {
+    ResponseEntity<?> deleteAllCars(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\delete_books.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_cars.sql"));
             String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_cars.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
@@ -44,11 +64,20 @@ public class SQLController {
     }
 
     @PostMapping("/run-delete-pilots-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> deleteAllPilots() {
+    ResponseEntity<?> deleteAllPilots(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\delete_libraries.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_pilots.sql"));
             String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_pilots.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
@@ -62,11 +91,20 @@ public class SQLController {
     }
 
     @PostMapping("/run-delete-races-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> deleteAllRaces() {
+    ResponseEntity<?> deleteAllRaces(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\delete_memberships.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_races.sql"));
             String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_races.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
@@ -80,11 +118,20 @@ public class SQLController {
     }
 
     @PostMapping("/run-delete-participations-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> deleteAllParticipations() {
+    ResponseEntity<?> deleteAllParticipations(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\delete_readers.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_participations.sql"));
             String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_participations.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
@@ -98,11 +145,20 @@ public class SQLController {
     }
 
     @PostMapping("/run-insert-cars-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> insertAllCars() {
+    ResponseEntity<?> insertAllCars(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\insert_libraries.sql";
+//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_cars.sql";
             String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_cars.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
@@ -122,11 +178,20 @@ public class SQLController {
     }
 
     @PostMapping("/run-insert-pilots-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> insertAllPilots() {
+    ResponseEntity<?> insertAllPilots(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\insert_books.sql";
+//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_pilots.sql";
             String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_pilots.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
@@ -146,11 +211,20 @@ public class SQLController {
     }
 
     @PostMapping("/run-insert-races-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> insertAllRaces() {
+    ResponseEntity<?> insertAllRaces(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\insert_readers.sql";
+//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_races.sql";
             String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_races.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
@@ -170,11 +244,20 @@ public class SQLController {
     }
 
     @PostMapping("/run-insert-participations-script")
-    @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<?> insertAllParticipations() {
+    ResponseEntity<?> insertAllParticipations(@RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\com\\example\\restapi\\sql_scripts\\insert_memberships.sql";
+//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_participations.sql";
             String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_participations.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;

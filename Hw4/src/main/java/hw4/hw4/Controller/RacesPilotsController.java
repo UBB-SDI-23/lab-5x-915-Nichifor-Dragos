@@ -43,11 +43,9 @@ public class RacesPilotsController {
     }
 
     @PostMapping("/races/{idRace}/pilots/{idPilot}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     RacesPilots newRacesPilots(@RequestBody RacesPilots newRacesPilots,
                                @PathVariable Long idRace, @PathVariable Long idPilot,
-                               HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                               @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -55,12 +53,10 @@ public class RacesPilotsController {
     }
 
     @PutMapping("/races/{idRace}/pilots/{idPilot}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     RacesPilots replaceRacesPilots(@RequestBody RacesPilots newRacesPilots,
                                    @PathVariable Long idRace,
                                    @PathVariable Long idPilot,
-                                   HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                                   @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -68,10 +64,13 @@ public class RacesPilotsController {
     }
 
     @DeleteMapping("/races/{idRace}/pilots/{idPilot}")
-    @PreAuthorize("hasRole('ADMIN')")
     void deleteRacesPilots(@PathVariable Long idRace,
-                           @PathVariable Long idPilot) {
-        racesPilotsService.deleteRacesPilots(idRace, idPilot);
+                           @PathVariable Long idPilot,
+                           @RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        racesPilotsService.deleteRacesPilots(idRace, idPilot, user.getId());
     }
 
 }

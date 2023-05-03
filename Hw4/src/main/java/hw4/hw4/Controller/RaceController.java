@@ -76,10 +76,8 @@ public class RaceController {
     }
 
     @PostMapping("/race")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Race newRace(@Valid @RequestBody Race newRace,
-                 HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                 @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -87,11 +85,9 @@ public class RaceController {
     }
 
     @PutMapping("/race/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Race replaceRace(@Valid @RequestBody Race newRace,
                      @PathVariable Long id,
-                     HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                     @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -99,9 +95,12 @@ public class RaceController {
     }
 
     @DeleteMapping("/race/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    void deleteRace(@PathVariable Long id) {
-        raceService.deleteRace(id);
+    void deleteRace(@PathVariable Long id,
+                    @RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        raceService.deleteRace(id, user.getId());
     }
 
     private RaceDTO_One convertToRaceDTO_One(Race race) {

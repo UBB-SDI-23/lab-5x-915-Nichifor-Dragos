@@ -4,15 +4,14 @@ import hw4.hw4.Entity.User.ERole;
 import hw4.hw4.Entity.User.Role;
 import hw4.hw4.Entity.User.User;
 import hw4.hw4.Entity.User.UserProfile;
+import hw4.hw4.Exception.RoleNotFoundException;
+import hw4.hw4.Exception.UserNotAuthorizedException;
 import hw4.hw4.Exception.UserNotFoundException;
 import hw4.hw4.Exception.UserProfileNotFoundException;
 import hw4.hw4.Repository.*;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -54,21 +53,6 @@ public class UserService {
         return this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
-    public UserProfile updateUserProfile(UserProfile newUserProfile, Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
-        return userProfileRepository.findById(user.getUserProfile().getId())
-                .map(userProfile -> {
-                    userProfile.setBio(newUserProfile.getBio());
-                    userProfile.setLocation(newUserProfile.getLocation());
-                    userProfile.setGender(newUserProfile.getGender());
-                    userProfile.setMaritalStatus(newUserProfile.getMaritalStatus());
-                    userProfile.setBirthdate(newUserProfile.getBirthdate());
-                    return userProfileRepository.save(userProfile);
-                })
-                .orElseThrow(() -> new UserProfileNotFoundException(id));
-    }
-
     public Integer getUserNumberOfCarsById(Long id) {
         return carRepository.findByUserId(id).size();
     }
@@ -85,20 +69,50 @@ public class UserService {
         return this.userRepository.findTop20BySearchTerm(username);
     }
 
-    public User updateRolesUser(HashMap<String, Boolean> roles, Long id) {
+    public UserProfile updateUserProfile(UserProfile newUserProfile, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+
+        boolean isUser = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_USER
+        );
+        if (!isUser) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
+        return userProfileRepository.findById(user.getUserProfile().getId())
+                .map(userProfile -> {
+                    userProfile.setBio(newUserProfile.getBio());
+                    userProfile.setLocation(newUserProfile.getLocation());
+                    userProfile.setGender(newUserProfile.getGender());
+                    userProfile.setMaritalStatus(newUserProfile.getMaritalStatus());
+                    userProfile.setBirthdate(newUserProfile.getBirthdate());
+                    return userProfileRepository.save(userProfile);
+                })
+                .orElseThrow(() -> new UserProfileNotFoundException(id));
+    }
+
+    public User updateRolesUser(HashMap<String, Boolean> roles, Long id, Long userID) {
+        User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         Set<Role> roleSet = new HashSet<>();
         if (roles.get("isUser")) {
-            Role role = roleRepository.findByName(ERole.ROLE_USER).orElseThrow();//config role exp
+            Role role = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RoleNotFoundException(ERole.ROLE_USER));
             roleSet.add(role);
         }
         if (roles.get("isModerator")){
-            Role role = roleRepository.findByName(ERole.ROLE_MODERATOR).orElseThrow();//config role exp
+            Role role = roleRepository.findByName(ERole.ROLE_MODERATOR).orElseThrow(() -> new RoleNotFoundException(ERole.ROLE_MODERATOR));
             roleSet.add(role);
         }
         if (roles.get("isAdmin")){
-            Role role = roleRepository.findByName(ERole.ROLE_ADMIN).orElseThrow();//config role exp
+            Role role = roleRepository.findByName(ERole.ROLE_ADMIN).orElseThrow(() -> new RoleNotFoundException(ERole.ROLE_ADMIN));
             roleSet.add(role);
         }
         user.setRoles(roleSet);

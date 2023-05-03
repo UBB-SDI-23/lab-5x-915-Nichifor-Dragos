@@ -83,10 +83,8 @@ public class PilotController {
     }
 
     @PostMapping("/pilot")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Pilot newPilot(@Valid @RequestBody Pilot newPilot,
-                   HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                   @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -94,11 +92,9 @@ public class PilotController {
     }
 
     @PutMapping("/pilot/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     Pilot replacePilot(@Valid @RequestBody Pilot newPilot,
                        @PathVariable Long id,
-                       HttpServletRequest request) {
-        String token = this.jwtUtils.getJwtFromCookies(request);
+                       @RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
         User user = this.userService.getUserByUsername(username);
 
@@ -106,9 +102,12 @@ public class PilotController {
     }
 
     @DeleteMapping("/pilot/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    void deletePilot(@PathVariable Long id) {
-        pilotService.deletePilot(id);
+    void deletePilot(@PathVariable Long id,
+                    @RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        pilotService.deletePilot(id, user.getId());
     }
 
     private PilotDTO_One convertToPilotDTO_One(Pilot pilot) {

@@ -1,10 +1,9 @@
 package hw4.hw4.Controller;
 
-import hw4.hw4.Entity.Pilot;
 import hw4.hw4.Entity.User.User;
 import hw4.hw4.Entity.User.UserProfile;
+import hw4.hw4.Security.JWT.JwtUtils;
 import hw4.hw4.Service.UserService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -20,7 +19,11 @@ public class UserController {
 
     private final UserService userService;
 
-    UserController(UserService userService) {this.userService = userService;}
+    private final JwtUtils jwtUtils;
+
+    UserController(UserService userService, JwtUtils jwtUtils) {this.userService = userService;
+        this.jwtUtils = jwtUtils;
+    }
 
     @GetMapping("/user-profile-id/{id}")
     UserProfile getProfileById(@PathVariable Long id) {
@@ -57,16 +60,24 @@ public class UserController {
         return this.userService.searchUsersByUsername(username);
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @PutMapping("/user-profile/{id}")
-    UserProfile updateUser(@Valid @RequestBody UserProfile newUserProfile, @PathVariable Long id) {
+    UserProfile updateUser(@Valid @RequestBody UserProfile newUserProfile,
+                           @PathVariable Long id,
+                           @RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
         return userService.updateUserProfile(newUserProfile, id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/user-roles/{id}")
-    User updateUser(@Valid @RequestBody HashMap<String, Boolean> roles, @PathVariable Long id) {
-        return userService.updateRolesUser(roles, id);
+    User updateUser(@Valid @RequestBody HashMap<String, Boolean> roles,
+                    @PathVariable Long id,
+                    @RequestHeader("Authorization") String token) {
+        String username = this.jwtUtils.getUserNameFromJwtToken(token);
+        User user = this.userService.getUserByUsername(username);
+
+        return userService.updateRolesUser(roles, id, user.getId());
     }
 
 }

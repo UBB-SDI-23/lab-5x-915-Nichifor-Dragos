@@ -59,6 +59,16 @@ public class CarService {
         User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
         newCar.setUser(user);
 
+        boolean userOrModOrAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+                        || role.getName() == ERole.ROLE_MODERATOR
+                        || role.getName() == ERole.ROLE_USER
+        );
+        if (!userOrModOrAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
+
         return this.pilotRepository.findById(pilotID)
                 .map(pilot -> {
                     newCar.setPilot(pilot);
@@ -96,14 +106,20 @@ public class CarService {
         Car car = this.carRepository.findById(carID).orElseThrow(() -> new RaceNotFoundException(carID));
         User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
 
+        boolean isUser = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_USER
+        );
+        if (!isUser) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if (!Objects.equals(user.getId(), car.getUser().getId())) {
             boolean modOrAdmin = user.getRoles().stream().anyMatch((role) ->
                     role.getName() == ERole.ROLE_ADMIN || role.getName() == ERole.ROLE_MODERATOR
             );
 
             if (!modOrAdmin) {
-                throw new UserNotAuthorizedException(String.format("%s does not have permission to " +
-                        "update car %s", user.getUsername(), car.getId()));
+                throw new UserNotAuthorizedException(String.format(user.getUsername()));
             }
         }
 
@@ -119,7 +135,16 @@ public class CarService {
                 }).orElseThrow(() -> new CarNotFoundException(carID));
     }
 
-    public void deleteCar(Long carID) {
+    public void deleteCar(Long carID, Long userID) {
+        User user = this.userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException(userID));
+
+        boolean isAdmin = user.getRoles().stream().anyMatch((role) ->
+                role.getName() == ERole.ROLE_ADMIN
+        );
+        if (!isAdmin) {
+            throw new UserNotAuthorizedException(String.format(user.getUsername()));
+        }
+
         if(!carRepository.existsById(carID))
             throw new CarNotFoundException(carID);
         carRepository.deleteById(carID);
