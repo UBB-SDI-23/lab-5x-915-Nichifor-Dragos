@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200", "https://dynamic-parfait-71d8c1.netlify.app"})
 @RestController
 @RequestMapping("/api")
 public class UserController {
