@@ -19,12 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-<<<<<<< HEAD
 @CrossOrigin(origins = {"http://localhost:4200", "https://dynamic-parfait-71d8c1.netlify.app"}, allowCredentials = "true")
-=======
-@CrossOrigin(allowCredentials = "true", origins = "https://dynamic-parfait-71d8c1.netlify.app")
-//@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200", "https://dynamic-parfait-71d8c1.netlify.app"})
->>>>>>> 8518ceea0ae267cd03bcc441aff00cf6e68fb3bf
 @RestController
 @RequestMapping("/api")
 public class CarController {
