@@ -7,8 +7,9 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class SqlService {
-    // private baseUrl = "/api/";
-    private baseUrl = "http://localhost/api/";
+
+    // private baseUrl = "http://localhost/api/";
+    private baseUrl = "https://racemasters.strangled.net/api/";
 
     constructor(private httpClient: HttpClient) { }
 
