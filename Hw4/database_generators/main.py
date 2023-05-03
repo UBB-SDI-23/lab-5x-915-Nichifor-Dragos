@@ -57,7 +57,7 @@ def insert():
     # insert_races()
     # insert_pilots()
     insert_cars()
-    # insert_participation()
+    insert_participation()
     print("===== Insert script was successful! =====")
 
 

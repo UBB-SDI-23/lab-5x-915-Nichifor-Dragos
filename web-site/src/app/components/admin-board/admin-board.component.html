@@ -1,8 +1,9 @@
-<div class="container">
+<div class="container container-custom">
     <mat-tab-group>
         <mat-tab label="Users">
 
-            <div class="container">
+            <div class="container container-fluid mt-5 mb-5 container-custom">
+                <div class="row">
                 <div class="form-group">
                     <label class="centered-label p-4">
                         <h2 class="text-center">Search user by username</h2>
@@ -36,6 +37,7 @@
                     </mat-autocomplete>
                 </div>
             </div>
+            
 
             <div class="container p-5" *ngIf="showEdit">
 
@@ -50,6 +52,7 @@
 
             </div>
 
+        </div>
         </mat-tab>
 
         <mat-tab label="Entities"> 

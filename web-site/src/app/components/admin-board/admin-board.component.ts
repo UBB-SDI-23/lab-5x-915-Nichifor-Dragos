@@ -73,7 +73,6 @@ export class AdminBoardComponent implements OnInit{
         admin: this.selectedUser.roles.some((role: any) => role.name === "ROLE_ADMIN")
       });
     }
-    console.log(this.selectedUser)
   }
 
   search(term: string): void {
@@ -92,10 +91,20 @@ export class AdminBoardComponent implements OnInit{
 
     const roles = { isUser, isModerator, isAdmin }
 
-    console.log(roles)
     if (this.selectedUser) {
     this.userService.updateUserRoles(this.selectedUser.id, roles).subscribe(
-      (response) => { this.toastrService.success("User roles updated successfully", '', { progressBar: true });},
+      (response) => { 
+        this.toastrService.success("User roles updated successfully", '', { progressBar: true });
+        this.roles.setValue({
+          user: false,
+          moderator: false,
+          admin: false,
+        });
+        this.showEdit = false;
+        this.selectedOption = undefined;
+        this.selectedUser = undefined;
+        this.options = undefined;
+      },
       (error) => { this.toastrService.error("Could not update user roles", '', { progressBar: true }); });
     }
   }
