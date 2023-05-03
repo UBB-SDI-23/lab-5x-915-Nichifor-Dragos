@@ -6,8 +6,9 @@ import { ParticipationAdd, Race, RaceAddUpdate, RaceOne, RaceStatisticDTO, RaceA
 
 @Injectable()
 export class RaceService {
-    // private baseUrl = "/api/";
-    private baseUrl = "http://localhost/api/";
+
+    // private baseUrl = "http://localhost/api/";
+    private baseUrl = "https://racemasters.strangled.net/api/";
     
     constructor(private httpClient: HttpClient) { }
 
