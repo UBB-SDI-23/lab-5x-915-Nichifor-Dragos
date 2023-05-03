@@ -114,7 +114,7 @@ export class PilotComponent implements OnInit, OnDestroy {
 
   isUpdatable(username: string) {
     if (this.currentUser) {
-      if (this.currentUser.roles.includes("ROLE_ADMIN"))
+      if (this.currentUser.roles.includes("ROLE_ADMIN") || this.currentUser.roles.includes("ROLE_MODERATOR"))
         return true;
       if (this.isLoggedIn == true && username == this.currentUser.username)
         return true;
@@ -124,7 +124,7 @@ export class PilotComponent implements OnInit, OnDestroy {
 
   isDeletable() {
     if (this.currentUser) {
-      if (this.currentUser.roles.includes("ROLE_ADMIN") || this.currentUser.roles.includes("ROLE_MODERATOR"))
+      if (this.currentUser.roles.includes("ROLE_ADMIN"))
         return true;
     }
     return false;
