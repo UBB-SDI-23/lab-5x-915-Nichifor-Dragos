@@ -55,6 +55,7 @@ export class NavbarComponent {
     this.authService.logout().subscribe({
       next: res => {
         this.storageService.clean();
+        this.isLoggedIn = false;
         // window.location.reload();
       },
       error: err => {
