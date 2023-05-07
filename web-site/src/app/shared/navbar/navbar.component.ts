@@ -56,6 +56,7 @@ export class NavbarComponent {
       next: res => {
         this.storageService.clean();
         this.isLoggedIn = false;
+        this.showAdminBoard = false;
         // window.location.reload();
       },
       error: err => {
