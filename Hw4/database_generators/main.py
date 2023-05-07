@@ -56,8 +56,8 @@ def insert():
     # insert_user_roles()
     # insert_races()
     # insert_pilots()
-    insert_cars()
-    insert_participation()
+    # insert_cars()
+    # insert_participation()
     print("===== Insert script was successful! =====")
 
 
