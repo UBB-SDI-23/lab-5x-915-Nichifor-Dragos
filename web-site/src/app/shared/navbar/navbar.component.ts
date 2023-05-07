@@ -55,7 +55,7 @@ export class NavbarComponent {
     this.authService.logout().subscribe({
       next: res => {
         this.storageService.clean();
-        window.location.reload();
+        // window.location.reload();
       },
       error: err => {
         this.toastrService.error("Could not log out", '', { progressBar: true })
