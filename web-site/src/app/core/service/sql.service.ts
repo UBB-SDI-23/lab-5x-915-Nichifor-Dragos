@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 export class SqlService {
 
     // private baseUrl = "http://localhost/api/";
-    private baseUrl = "https://racemasters.twilightparadox.com/api/";
+    private baseUrl = "https://racemasters.jumpingcrab.com/api/";
 
     constructor(private httpClient: HttpClient) { }
 

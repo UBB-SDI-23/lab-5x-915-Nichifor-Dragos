@@ -8,7 +8,7 @@ import { ParticipationAdd, Race, RaceAddUpdate, RaceOne, RaceStatisticDTO, RaceA
 export class RaceService {
 
     // private baseUrl = "http://localhost:8080/api/";
-    private baseUrl = "https://racemasters.twilightparadox.com/api/";
+    private baseUrl = "https://racemasters.jumpingcrab.com/api/";
     
     constructor(private httpClient: HttpClient) { }
 
