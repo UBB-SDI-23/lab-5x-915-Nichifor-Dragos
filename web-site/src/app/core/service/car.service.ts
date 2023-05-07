@@ -8,8 +8,8 @@ import { Pilot } from "../model/pilot.model";
 @Injectable()
 export class CarService {
 
-    private baseUrl = "http://localhost:8080/api/";
-    // private baseUrl = "https://racemasters.strangled.net/api/";
+    // private baseUrl = "http://localhost:8080/api/";
+    private baseUrl = "https://racemasters.strangled.net/api/";
     
     constructor(private httpClient: HttpClient) { }
 

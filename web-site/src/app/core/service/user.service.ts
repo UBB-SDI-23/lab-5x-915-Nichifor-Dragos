@@ -9,8 +9,8 @@ import { Observable } from "rxjs";
 @Injectable()
 export class UserService {
 
-    private baseUrl = "http://localhost:8080/api/";
-    // private baseUrl = "https://racemasters.strangled.net/api/";
+    // private baseUrl = "http://localhost:8080/api/";
+    private baseUrl = "https://racemasters.strangled.net/api/";
 
     constructor(private httpClient: HttpClient) { }
 
