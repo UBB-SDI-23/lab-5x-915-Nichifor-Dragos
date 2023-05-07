@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/service/authentication.service';
+import { NavbarService } from 'src/app/core/service/navbar.service';
 import { StorageService } from 'src/app/core/service/storage.service';
 
 @Component({
@@ -24,7 +26,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService, 
-    private storageService: StorageService
+    private storageService: StorageService,
+    private navbarService: NavbarService,
+    private router: Router
     ) {}
 
   ngOnInit(): void {
@@ -47,11 +51,15 @@ export class LoginComponent implements OnInit {
       },
       error: err => {
         this.isLoginFailed = true;
+      },
+      complete: () => {
+        this.navbarService.login();
+        this.router.navigateByUrl("/");
       }
     });
   }
 
   reloadPage(): void {
-    window.location.reload();
+    // window.location.reload();
   }
 }

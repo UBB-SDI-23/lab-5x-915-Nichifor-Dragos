@@ -50,8 +50,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_cars.sql"));
-            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_cars.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_cars.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_cars.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -77,8 +77,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_pilots.sql"));
-            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_pilots.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_pilots.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_pilots.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -104,8 +104,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_races.sql"));
-            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_races.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_races.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_races.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -131,8 +131,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_participations.sql"));
-            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_participations.sql"));
+            String sql = Files.readString(Paths.get(currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\delete_participations.sql"));
+//            String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/delete_participations.sql"));
             jdbcTemplate.update(sql);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -158,8 +158,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_cars.sql";
-            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_cars.sql";
+            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_cars.sql";
+//            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_cars.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -191,8 +191,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_pilots.sql";
-            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_pilots.sql";
+            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_pilots.sql";
+//            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_pilots.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -224,8 +224,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_races.sql";
-            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_races.sql";
+            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_races.sql";
+//            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_races.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -257,8 +257,8 @@ public class SQLController {
         }
         try {
             String currentDir = System.getProperty("user.dir");
-//            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_participations.sql";
-            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_participations.sql";
+            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_participations.sql";
+//            String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_participations.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
             while ((line = reader.readLine()) != null) {

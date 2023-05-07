@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/service/storage.service';
 import { AuthService } from 'src/app/core/service/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { NavbarService } from 'src/app/core/service/navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,8 @@ export class NavbarComponent {
       private router: Router,
       private storageService: StorageService,
       private authService: AuthService,
-      private toastrService: ToastrService
+      private toastrService: ToastrService,
+      private navbarService: NavbarService
   ) {}
 
   private roles: string[] = [];
@@ -25,6 +27,20 @@ export class NavbarComponent {
 
 
   ngOnInit(): void {
+    this.initialiseNavbar();
+
+    this.navbarService.getLoginObservable().subscribe(() => {
+      this.isLoggedIn = true;
+      this.initialiseNavbar();
+    });
+
+    this.navbarService.getLogoutObservable().subscribe(() => {
+      this.isLoggedIn = false;
+      this.initialiseNavbar();
+    });
+  }
+
+  initialiseNavbar(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
 
     if (this.isLoggedIn) {
@@ -32,7 +48,7 @@ export class NavbarComponent {
       this.roles = user.roles;
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.username = user.username;
-    }
+    } 
   }
 
   logout(): void {
@@ -43,6 +59,9 @@ export class NavbarComponent {
       },
       error: err => {
         this.toastrService.error("Could not log out", '', { progressBar: true })
+      },
+      complete: () => {
+        this.navbarService.logout();
       }
     });
   }
