@@ -244,19 +244,6 @@ public class SQLController {
         }
     }
 
-    void drop_cars_indexes() throws IOException {
-        String currentDir = System.getProperty("user.dir");
-        String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/cars_indexes/cars_indexes_drop.sql"));
-        jdbcTemplate.update(sql);
-    }
-
-    void create_cars_indexes() throws IOException {
-        String currentDir = System.getProperty("user.dir");
-        String sql = Files.readString(Paths.get(currentDir + "/src/main/java/hw4/hw4/SQLScripts/cars_indexes/cars_indexes_create.sql"));
-        jdbcTemplate.update(sql);
-    }
-
-
     @PostMapping("/run-insert-participations-script")
     ResponseEntity<?> insertAllParticipations(@RequestHeader("Authorization") String token) {
         String username = this.jwtUtils.getUserNameFromJwtToken(token);
@@ -272,7 +259,6 @@ public class SQLController {
         try {
             String currentDir = System.getProperty("user.dir");
 //            String fullPath = currentDir + "\\src\\main\\java\\hw4\\hw4\\SQLScripts\\insert_participations.sql";
-            drop_cars_indexes();
             String fullPath = currentDir + "/src/main/java/hw4/hw4/SQLScripts/insert_participations.sql";
             BufferedReader reader = new BufferedReader(new FileReader(fullPath));
             String line;
@@ -281,7 +267,6 @@ public class SQLController {
                 jdbcTemplate.update(line);
             }
             reader.close();
-            create_cars_indexes();
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new SQLRunResponseDTO("Successfully inserted all participations"));
