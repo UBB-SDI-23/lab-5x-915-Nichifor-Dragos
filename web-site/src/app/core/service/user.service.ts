@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 export class UserService {
 
     // private baseUrl = "http://localhost:8080/api/";
-    private baseUrl = "https://racemasters.jumpingcrab.com/api/";
+    private baseUrl = "https://racemasters.minecraftnoob.com/api/";
 
     constructor(private httpClient: HttpClient) { }
 
