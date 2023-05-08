@@ -9,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { User } from 'src/app/core/model/user.model';
 import { StorageService } from 'src/app/core/service/storage.service';
+import { UserService } from 'src/app/core/service/user.service';
 
 @Component({
   selector: 'app-pilot',
@@ -21,7 +22,8 @@ export class PilotComponent implements OnInit, OnDestroy {
   currentUser?: User
 
   pageNumber: number = 0;
-  pageSize: number = 25; 
+  pageSize: number = 25;
+  defaultPageSize: number = 20;
   noPages: number = 0;
   goToPageNumber: number = 0;
 
@@ -33,7 +35,8 @@ export class PilotComponent implements OnInit, OnDestroy {
     private router: Router,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
   ) {}
 
   isPc = true;
@@ -61,12 +64,18 @@ export class PilotComponent implements OnInit, OnDestroy {
   listPilots() : void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.pageNumber = Number(params['pageNo']) || 0;
-      this.pageSize = Number(params['pageSize']) || 50;
-    });
-    this.pilotService.listPagePilots(this.pageNumber, this.pageSize).subscribe(
-      (response) => { this.pilots = response },
-      (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }))
-    this.isUserLoggedIn()
+      this.userService.getEntitiesPerPage().subscribe({
+        next:(result: number) => {
+        this.pageSize = result;
+      },
+        complete: () => {
+          this.pilotService.listPagePilots(this.pageNumber, this.pageSize).subscribe(
+            (response) => { this.pilots = response },
+            (error) => { this.toastrService.error("Something went wrong", '', { progressBar: true })})
+          this.isUserLoggedIn();
+          }
+      });
+    })
   }
 
   onDeletePilot(id: string) {

@@ -109,6 +109,26 @@ export class AdminBoardComponent implements OnInit{
     }
   }
 
+  entitiesNumber: number = 25;
+
+  onChangeEntitiesPerPage() {
+    console.log(this.entitiesNumber)
+    this.userService.changeEntitiesPerPage(this.entitiesNumber).subscribe(
+      (response) => { 
+        this.toastrService.success("Page size updated successfully", '', { progressBar: true });
+        this.roles.setValue({
+          user: false,
+          moderator: false,
+          admin: false,
+        });
+        this.showEdit = false;
+        this.selectedOption = undefined;
+        this.selectedUser = undefined;
+        this.options = undefined;
+      },
+      (error) => { this.toastrService.error("Could not update page size", '', { progressBar: true }); });
+  }
+
   // ====================================================== DASHBOARD ======================================================
 
   messages: string[] = [];

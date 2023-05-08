@@ -9,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { StorageService } from 'src/app/core/service/storage.service';
 
 import { User } from 'src/app/core/model/user.model';
+import { UserService } from 'src/app/core/service/user.service';
 
 @Component({
   selector: 'app-race',
@@ -32,7 +33,8 @@ export class RaceComponent implements OnInit, OnDestroy{
     private router: Router,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
     ) {}
 
     isLoggedIn = false;
@@ -47,13 +49,15 @@ export class RaceComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.onResize()
+    this.userService.getEntitiesPerPage().subscribe((result: number) => {
+      this.pageSize = result;
+    });
     this.raceService.countRaces().subscribe((result: Number) => {
       this.noPages = Math.floor(result.valueOf() / this.pageSize);
       if (result.valueOf() % this.pageSize > 0) {
         this.noPages++;
       }
     });
-
     this.listRaces();
   }
 
@@ -63,15 +67,22 @@ export class RaceComponent implements OnInit, OnDestroy{
 
   listRaces(): void {
     this.sortedByName = false;
+
     this.activatedRoute.queryParams.subscribe(params => {
       this.pageNumber = Number(params['pageNo']) || 0;
-      this.pageSize = Number(params['pageSize']) || 50;
-    });
-    this.raceService.listPageRaces(this.pageNumber, this.pageSize).subscribe(
-      (response) => { this.races = response },
-      (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }))
-    this.isUserLoggedIn();
-    }
+      this.userService.getEntitiesPerPage().subscribe({
+        next:(result: number) => {
+        this.pageSize = result;
+      },
+        complete: () => {
+          this.raceService.listPageRaces(this.pageNumber, this.pageSize).subscribe(
+            (response) => { this.races = response },
+            (error) => { this.toastrService.error("Something went wrong", '', { progressBar: true })})
+          this.isUserLoggedIn();
+          }
+      });
+    })
+  }
 
   onDeleteRace(id: string) {
     this.raceService.deleteRace(id).subscribe(

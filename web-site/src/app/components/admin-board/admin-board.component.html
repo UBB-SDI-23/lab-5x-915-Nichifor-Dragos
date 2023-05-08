@@ -3,6 +3,19 @@
         <mat-tab label="Users">
 
             <div class="container container-fluid mt-5 mb-5 container-custom">
+
+                <label class="centered-label p-4">
+                    <h2 class="text-center">Entities per page</h2>
+                </label>
+                <input 
+                    type="number" 
+                    name="entriesPerPage" 
+                    placeholder="Type a number" 
+                    matInput 
+                    [(ngModel)]="entitiesNumber"
+                    style="display: block;">
+                <button type="button" class="btn btn-secondary mt-3" (click)="onChangeEntitiesPerPage()">Change page number</button>
+
                 <div class="row">
                 <div class="form-group">
                     <label class="centered-label p-4">

@@ -9,8 +9,8 @@ import { Observable } from "rxjs";
 @Injectable()
 export class UserService {
 
-    // private baseUrl = "http://localhost:8080/api/";
-    private baseUrl = "https://racemasters.minecraftnoob.com/api/";
+    private baseUrl = "http://localhost:8080/api/";
+    // private baseUrl = "https://racemasters.minecraftnoob.com/api/";
 
     constructor(private httpClient: HttpClient) { }
 
@@ -48,6 +48,14 @@ export class UserService {
 
     updateUserRoles(id: string, roles: any) {
       return this.httpClient.put(this.baseUrl + "user-roles/" + id, roles)
+    }
+
+    changeEntitiesPerPage(entitiesPerPage: number): Observable<number> {
+      return this.httpClient.post(this.baseUrl + "modify-entities-per-page", {"entitiesPerPage": entitiesPerPage}) as Observable<number>;
+    }
+
+    getEntitiesPerPage(): Observable<number> {
+      return this.httpClient.get(this.baseUrl + "get-entities-per-page") as Observable<number>;
     }
 
 }

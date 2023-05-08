@@ -9,6 +9,7 @@ import { User } from 'src/app/core/model/user.model';
 import { ToastrService } from 'ngx-toastr';
 import { CarService } from 'src/app/core/service/car.service';
 import { StorageService } from 'src/app/core/service/storage.service';
+import { UserService } from 'src/app/core/service/user.service';
 
 @Component({
   selector: 'app-car',
@@ -35,7 +36,8 @@ export class CarComponent {
     private router: Router,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
     ) {}
 
   isPc = true;
@@ -47,6 +49,9 @@ export class CarComponent {
 
   ngOnInit() {
     this.onResize();
+    this.userService.getEntitiesPerPage().subscribe((result: number) => {
+      this.pageSize = result;
+    });
     this.carService.countCars().subscribe((result: Number) => {
       this.noPages = Math.floor(result.valueOf() / this.pageSize);
       if (result.valueOf() % this.pageSize > 0) {
@@ -62,13 +67,21 @@ export class CarComponent {
 }
 
 listCars() {
+
   this.activatedRoute.queryParams.subscribe(params => {
     this.pageNumber = Number(params['pageNo']) || 0;
-    this.pageSize = Number(params['pageSize']) || 50;
-  });
-  this.carService.listPageCars(this.pageNumber, this.pageSize, this.searchTerm).subscribe(
-    (response) => { this.cars = response },
-    (error) => this.toastrService.error("Something went wrong", '', { progressBar: true }))
+    this.userService.getEntitiesPerPage().subscribe({
+      next:(result: number) => {
+      this.pageSize = result;
+    },
+      complete: () => {
+        this.carService.listPageCars(this.pageNumber, this.pageSize).subscribe(
+          (response) => { this.cars = response },
+          (error) => { this.toastrService.error("Something went wrong", '', { progressBar: true })})
+        this.isUserLoggedIn();
+        }
+    });
+  })
 }
 
   onDeleteCar(id: string) {

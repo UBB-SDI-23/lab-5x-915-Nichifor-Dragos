@@ -1,9 +1,15 @@
 package hw4.hw4.Controller;
 
+import hw4.hw4.DTO.SQL.SQLRunResponseDTO;
+import hw4.hw4.Entity.Config.WebsiteSettings;
 import hw4.hw4.Entity.User.User;
 import hw4.hw4.Entity.User.UserProfile;
+import hw4.hw4.Exception.RaceNotFoundException;
+import hw4.hw4.Repository.WebsiteSettingsRepository;
 import hw4.hw4.Security.JWT.JwtUtils;
 import hw4.hw4.Service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -21,8 +27,12 @@ public class UserController {
 
     private final JwtUtils jwtUtils;
 
-    UserController(UserService userService, JwtUtils jwtUtils) {this.userService = userService;
+    private final WebsiteSettingsRepository websiteSettingsRepository;
+
+    UserController(UserService userService, JwtUtils jwtUtils, WebsiteSettingsRepository websiteSettingsRepository) {
+        this.userService = userService;
         this.jwtUtils = jwtUtils;
+        this.websiteSettingsRepository = websiteSettingsRepository;
     }
 
     @GetMapping("/user-profile-id/{id}")
@@ -75,6 +85,21 @@ public class UserController {
         User user = this.userService.getUserByUsername(username);
 
         return userService.updateRolesUser(roles, id, user.getId());
+    }
+
+    @GetMapping("get-entities-per-page")
+    Integer getPageSize() {
+        return this.websiteSettingsRepository.getById(1L).getEntitiesPerPage();
+    }
+
+    @PostMapping("/modify-entities-per-page")
+    ResponseEntity<?> setElementsPerPage(@RequestBody WebsiteSettings settings) {
+        WebsiteSettings userSettings = this.websiteSettingsRepository.getById(1L);
+        userSettings.setEntitiesPerPage(settings.getEntitiesPerPage());
+        this.websiteSettingsRepository.save(userSettings);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new SQLRunResponseDTO("Successfully updated the number of elements per page"));
     }
 
 }
